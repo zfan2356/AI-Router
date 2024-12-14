@@ -83,7 +83,12 @@ b = torch.zeros(1, requires_grad=True)
 接下来我们定义出常用的函数：
 - 计算$y$的函数$h(x)$，称之为线性回归模型`linreg`，我们需要这个值来估计损失
 - 损失函数，其实就是上文提到的$J(\theta_0, \theta_1)$, 这里变成了`squared_loss()`, 没有除以样本，因为同时不除的话效果等价
-- 梯度下降计算函数`sgd`, 
+- 梯度下降计算函数`sgd`, `with torch.no_grad():`是 PyTorch 中的一个上下文管理器，用于在其代码块内关闭梯度计算, 在这个上下文中，代码执行的操作不会被记录在计算图中，这些操作不会影响模型的梯度和参数更新，这样做可以有效地避免不必要的内存开销和计算，提高效率
+
+如果对于PyTorch的梯度计算有疑问可以看我的另外一篇文章：
+
+[pytorch中的梯度](pytorch/gradient.md)
+
 ```python
 def linreg(X, w, b):
     """
@@ -101,7 +106,7 @@ def squared_loss(y_hat, y):
 
 def sgd(params, lr, batch_size):
     """
-    小批量随机梯度下降
+    小批量随机梯度下降，lr为步长, 因为反向传播计算的是总损失，所以要除以batch_size来获得平均损失
     """
     with torch.no_grad():
         for param in params:
@@ -110,3 +115,67 @@ def sgd(params, lr, batch_size):
 
 ```
 
+接下来开始正式训练模型，进行三轮迭代，每次随机分别取出小批次数据，计算损失函数`l`, 然后反向传播计算梯度，
+
+```python
+lr = 0.03
+num_epochs = 3
+net = linreg
+loss = squared_loss
+
+for epoch in range(num_epochs):
+    for X, y in data_iter(batch_size, features, labels):
+        l = loss(net(X, w, b), y)
+        l.sum().backward()
+        sgd([w, b], lr, batch_size)
+    with torch.no_grad():
+        train_l = loss(net(features, w, b), labels)
+        print(f'epoch: {epoch + 1}, train loss: {float(train_l.mean()):f}')
+```
+
+当然，这是一个从0开始实现的例子，我们使用库的话，可以得到更简洁的实现
+```python
+import numpy as np
+import torch
+from torch.utils import data
+from d2l import torch as d2l
+from torch import nn
+
+true_w = torch.tensor([2, -3.4])
+true_b = 1.2
+# 生成数据
+features, labels = d2l.synthetic_data(true_w, true_b)
+
+def load_array(data_arrays, batch_size, is_train=True):
+    """
+    构造一个PyTorch数据迭代器
+    """
+    dataset = data.TensorDataset(*data_arrays)
+    return data.DataLoader(dataset, batch_size, shuffle=is_train)
+
+batch_size = 10
+data_iter = load_array((features, labels), batch_size)
+
+# 定义一个层，进入的维度为2，出来的维度为1
+net = nn.Sequential(nn.Linear(2, 1))
+
+# 初始参数
+net[0].weight.data.normal_(mean=0.0, std=0.01)
+net[1].bias.data.fill_(0)
+
+# 均方误差
+loss = nn.MSELoss()
+# 随机梯度下降
+trainer = torch.optim.SGD(net.parameters(), lr = 0.03)
+
+num_epochs = 5
+for epoch in range(num_epochs):
+    for X, y in data_iter:
+        l = loss(net(X), y)
+        trainer.zero_grad()
+        l.backward()
+        trainer.step()
+    l = loss(net(features), labels)
+    print(f'epoch {epoch + 1}, loss: {l:f}')
+
+```
