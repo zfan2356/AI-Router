@@ -5,7 +5,7 @@
 首先定义一个函数$f(x) = 2x^Tx$, 其中$x$ 为一个长度为4的一维张量$[x_0, x_1, x_2, x_3]$，对于这个函数来说，其实就是相当于计算$2(x_0^{2}+x_1^{2}+x_2^{2}+x_3^{2})$
 
 我们首先创建一个一维张量$x_0$作为初始值, 其中包含了从0.0 ~ 3.0四个浮点数，在数学中可以表示为一个向量
-```math
+$$
 x_0 = 
 \begin{bmatrix}
 0.0 \\
@@ -13,7 +13,7 @@ x_0 =
 2.0 \\
 3.0
 \end{bmatrix}
-```
+$$
 ```python
 import torch
 
@@ -28,9 +28,9 @@ print(x0.grad)
 
 
 接下来便是重头戏，`y.backward()`, 这就是PyTorch的自动微分机制，也就是反向传播，计算$y$ 关于 $x$ 在$x_0$点的梯度，并将这个梯度存储在`x0.grad`之中，在这个具体的例子中
-```math
+$$
 \frac{d}{dx}f(x) = [4x_0, 4x_1, 4x_2, 4x_3]
-```
+$$
 所以我们输出`x0.grad`就会等于`[0, 4, 8, 12]`
 ```python
 y = 2 * torch.dot(x0, x0)
@@ -57,22 +57,22 @@ print(x0.grad)
 2. `y.backward(torch.ones(len(x)))`: 这里直接对 $y$ 调用`backward()`, 但是提供了一个与 $y$ 同形状的全1张量作为梯度权重，这意味着每个元素的梯度权重都是1
 
 其实两种方法都等价于计算 $y$ 中每个元素相对于 $x$ 的偏导数，并将这些偏导数加和，在数学上，这可以表示为
-```math
+$$
 \frac{\partial}{\partial x_i} \sum_{j=1}^n y_j\ \ \ \ AND \ \ \ \ \sum_{j=1}^{n}\frac{\partial y_j}{\partial x_i}
-```
+$$
 前者是第一种，后者是第二种，由于求导的线性特性，我们不难得出两者相等
 
 
 我们再解释一下第二种计算方式`y.backward(torch.ones(len(x)))`, 设 $y = [y_1, y_2, y_3, y_4]$, 其中每个 $y_i = 2x_i^2$, 并且`gradient = [1, 1, 1, 1]`, 那么对于`y.backward(gradient)`, 实际进行的计算为：
-```math
+$$
 \sum_{j=1}^{n}gradient_j * \frac{\partial y_j}{\partial x_i} 
 = \sum_{j=1}^{n}\frac{\partial y_j}{\partial x_i}
 = 4x_i
-```
+$$
 我们代入具体的 $x_0 = [0, 1, 2, 3]$ 来计算，结果为
-```math
+$$
 x.grad = 4 * [0, 1, 2, 3] = [0, 4, 8, 12]
-```
+$$
 ---
 总结：
 
