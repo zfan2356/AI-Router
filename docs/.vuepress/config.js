@@ -64,37 +64,36 @@ module.exports = {
             },
 
             // python
-            {
-                title: "Python篇",
-                path: "/notes/python",
-                collapsable: true,
-                children: [
-                    // { title: "基础知识", path: "/notes/python/basic.md" },
-                    // { title: "梯度计算", path: "/notes/python/gradient.md" },
-                ]
-            },
+            // {
+            //     title: "Python篇",
+            //     path: "/notes/python",
+            //     collapsable: true,
+            //     children: [
+            //         { title: "基础知识", path: "/notes/pytorch/basic.md" },
+            //     ]
+            // },
 
-            // cuda
-            {
-                title: "CUDA篇",
-                path: "/notes/cuda",
-                collapsable: true,
-                children: [
-                    // { title: "基础知识", path: "/notes/python/basic.md" },
-                    // { title: "梯度计算", path: "/notes/python/gradient.md" },
-                ]
-            },
+            // // cuda
+            // {
+            //     title: "CUDA篇",
+            //     path: "/notes/cuda",
+            //     collapsable: true,
+            //     children: [
+            //         // { title: "基础知识", path: "/notes/python/basic.md" },
+            //         // { title: "梯度计算", path: "/notes/python/gradient.md" },
+            //     ]
+            // },
 
-            // paper
-            {
-                title: "经典论文篇",
-                path: "/notes/papers",
-                collapsable: true,
-                children: [
-                    // { title: "基础知识", path: "/notes/python/basic.md" },
-                    // { title: "梯度计算", path: "/notes/python/gradient.md" },
-                ]
-            }
+            // // paper
+            // {
+            //     title: "经典论文篇",
+            //     path: "/notes/papers",
+            //     collapsable: true,
+            //     children: [
+            //         // { title: "基础知识", path: "/notes/python/basic.md" },
+            //         // { title: "梯度计算", path: "/notes/python/gradient.md" },
+            //     ]
+            // },
         ]
     },
 
