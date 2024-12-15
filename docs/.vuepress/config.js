@@ -1,3 +1,5 @@
+const texmath = require("markdown-it-texmath");
+
 module.exports = {
     title: '星宫六喰的博客',
     description: '一个追追番, 写写算法题的无害死宅',
@@ -17,18 +19,80 @@ module.exports = {
 
         sidebar: [
             {
-                title: "欢迎学习",
+                title: "网站导言",
                 path: "/",
                 collapsable: false,  // 是否折叠
-                children: [{ title: "博客简介", path: "/" }],
+                children: [{ title: "简介", path: "/" }],
             },
+            // 算法
             {
                 title: "算法篇",
                 path: "/notes/algorithm",
                 collapsable: true,
                 children: [
-                    { title: "第一篇", path: "/notes/algorithm/machine_learning/softmax.md" },
-                    { title: "第二篇", path: "/notes/algorithm/machine_learning/linear_regression.md" },
+                    {
+                        title: "机器学习",
+                        path: "/notes/algorithm/machine_learning",
+                        collapsable: true,
+                        children: [
+                            { title: "线性回归", path: "/notes/algorithm/machine_learning/linear_regression.md" },
+                            { title: "Softmax", path: "/notes/algorithm/machine_learning/softmax.md" },
+                        ]
+                    }
+                ]
+            },
+
+            // C++
+            {
+                title: "C++篇",
+                path: "/notes/cpp",
+                collapsable: true,
+                children: [
+                    { title: "const", path: "/notes/cpp/const.md" },
+                ]
+            },
+
+            // pytorch
+            {
+                title: "PyTorch篇",
+                path: "/notes/pytorch",
+                collapsable: true,
+                children: [
+                    { title: "基础知识", path: "/notes/pytorch/basic.md" },
+                    { title: "梯度计算", path: "/notes/pytorch/gradient.md" },
+                ]
+            },
+
+            // python
+            {
+                title: "Python篇",
+                path: "/notes/python",
+                collapsable: true,
+                children: [
+                    // { title: "基础知识", path: "/notes/python/basic.md" },
+                    // { title: "梯度计算", path: "/notes/python/gradient.md" },
+                ]
+            },
+
+            // cuda
+            {
+                title: "CUDA篇",
+                path: "/notes/cuda",
+                collapsable: true,
+                children: [
+                    // { title: "基础知识", path: "/notes/python/basic.md" },
+                    // { title: "梯度计算", path: "/notes/python/gradient.md" },
+                ]
+            },
+
+            // paper
+            {
+                title: "经典论文篇",
+                path: "/notes/papers",
+                collapsable: true,
+                children: [
+                    // { title: "基础知识", path: "/notes/python/basic.md" },
+                    // { title: "梯度计算", path: "/notes/python/gradient.md" },
                 ]
             }
         ]
