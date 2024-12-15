@@ -1,5 +1,7 @@
-# PyTorch常用函数以及方法
-
+---
+title: PyTorch常用函数以及方法
+author: zfan
+---
 ## 一. torch.tensor
 ### 1. 基础操作
 意为一个张量，可以理解为多维数组，可以进行一系列操作

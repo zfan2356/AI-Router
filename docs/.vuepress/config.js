@@ -9,7 +9,7 @@ module.exports = {
         nav: [
             { text: "首页", link: "/" },
             {
-                text: "星宫六喰的博客",
+                text: "星宫六喰",
                 items: [
                     { text: "知乎", link: "https://www.zhihu.com/people/1106zf" },
                     { text: "Github", link: "https://github.com/zfan2356/AI-Router" }
@@ -59,9 +59,9 @@ module.exports = {
                 collapsable: true,
                 children: [
                     { title: "基础知识", path: "/notes/pytorch/basic.md" },
-                    { title: "梯度计算", path: "/notes/pytorch/gradient.md" },
+                    { title: "梯度计算", path: "/notes/pytorch/gradient.md" }
                 ]
-            },
+            }
 
             // python
             // {
