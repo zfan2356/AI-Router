@@ -24,6 +24,7 @@
   "description": "",
   "devDependencies": {
     "vuepress": "^1.9.10",
+    "vuepress-plugin-mathjax": "^1.2.8",
     "vuepress-theme-reco": "^1.6.17"
   },
   "dependencies": {

@@ -34,11 +34,12 @@ module.exports = {
         ]
     },
 
-    head: [
-        ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css' }],
-        ['link', { rel: 'stylesheet', href: 'https://gitcdn.xyz/cdn/goessner/markdown-it-texmath/master/texmath.css' }],
-        ['script', { src: 'https://github.com/markdown-it/markdown-it/blob/master/bin/markdown-it.js' }],
-        ['script', { src: 'https://gitcdn.xyz/cdn/goessner/markdown-it-texmath/master/texmath.js' }],
-        ['script', { src: 'https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js' }],
-    ]
+    plugins: [
+        ['vuepress-plugin-mathjax', {
+          target: 'svg',
+          macros: {
+            '*': '\\times',
+          },
+        }],
+      ],
 }
