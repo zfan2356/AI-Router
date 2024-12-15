@@ -7,20 +7,14 @@ module.exports = {
         nav: [
             { text: "首页", link: "/" },
             {
-                text: "zfan2356 的博客",
+                text: "星宫六喰的博客",
                 items: [
                     { text: "知乎", link: "https://www.zhihu.com/people/1106zf" },
                     { text: "Github", link: "https://github.com/zfan2356/AI-Router" }
                 ]
             }
         ],
-        head: [
-            ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css' }],
-            ['link', { rel: 'stylesheet', href: 'https://gitcdn.xyz/cdn/goessner/markdown-it-texmath/master/texmath.css' }],
-            ['script', { src: 'https://github.com/markdown-it/markdown-it/blob/master/bin/markdown-it.js' }],
-            ['script', { src: 'https://gitcdn.xyz/cdn/goessner/markdown-it-texmath/master/texmath.js' }],
-            ['script', { src: 'https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js' }],
-        ],
+
         sidebar: [
             {
                 title: "欢迎学习",
@@ -38,5 +32,13 @@ module.exports = {
                 ]
             }
         ]
-    }
+    },
+
+    head: [
+        ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css' }],
+        ['link', { rel: 'stylesheet', href: 'https://gitcdn.xyz/cdn/goessner/markdown-it-texmath/master/texmath.css' }],
+        ['script', { src: 'https://github.com/markdown-it/markdown-it/blob/master/bin/markdown-it.js' }],
+        ['script', { src: 'https://gitcdn.xyz/cdn/goessner/markdown-it-texmath/master/texmath.js' }],
+        ['script', { src: 'https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js' }],
+    ]
 }
