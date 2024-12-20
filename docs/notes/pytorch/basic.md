@@ -5,6 +5,18 @@ author: zfan
 ## 一. torch.tensor
 ### 1. 基础操作
 意为一个张量，可以理解为多维数组，可以进行一系列操作
+#### 创建操作
+```python
+# 可以直接使用数组方式创建
+x = torch.tensor([1, 2, 3])
+# 使用其他创建
+x = torch.zeros((1, 2)) #传入的是维度，可以创建一个1*2的全零矩阵
+x = torch.normal(0, 1, (2, 2)) # 以0为基准，偏差+-1, 维度为2*2的矩阵
+x = torch.rand((2, 2)) # 2*2，值随机的矩阵
+```
+
+
+#### 计算操作
 ```python
 x = torch.tensor()
 # 所有元素求和
@@ -18,6 +30,10 @@ x.mean()
 # 数值操作，可以视为对每个元素操作
 y = x * 2  # tensor([[2, 4], [6, 8]])
 z = x / 2  # tensor([[0.5, 1.0], [1.5, 2.0]])
+# 普通乘法
+a = torch.randn(2, 2)
+b = torch.randn(2, 2)
+c = a * b # 逐元素相乘，相当于torch.mul(a, b), 如果维度不同则广播机制，如果不满足广播机制就报错
 # 返回元素个数
 x.numel()
 ```
@@ -63,9 +79,9 @@ x[:, 1] = torch.tensor([20, 50])
 
 ### 5. 线性代数
 ```python
+# 矩阵乘法
 a = torch.randn(2, 3)
 b = torch.randn(3, 4)
-# 矩阵乘法
-c = torch.matmul(a, b)  # 结果为 (2, 4) 形状的张量
+c = torch.matmul(a, b)  # 结果为 (2, 4) 形状的张量, 也可以写为torch.mm(a, b)
 
 ```

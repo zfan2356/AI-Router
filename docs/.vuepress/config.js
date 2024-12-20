@@ -30,15 +30,10 @@ module.exports = {
                 path: "/notes/algorithm",
                 collapsable: true,
                 children: [
-                    {
-                        title: "机器学习",
-                        path: "/notes/algorithm/machine_learning",
-                        collapsable: true,
-                        children: [
-                            { title: "线性回归", path: "/notes/algorithm/machine_learning/linear_regression.md" },
-                            { title: "Softmax", path: "/notes/algorithm/machine_learning/softmax.md" },
-                        ]
-                    }
+                    { title: "线性回归", path: "/notes/algorithm/linear_regression.md" },
+                    { title: "Softmax", path: "/notes/algorithm/softmax.md" },
+                    { title: "多层感知机MLP", path: "/notes/algorithm/multilayer_perceptron.md" },
+                    { title: "卷积神经网络CNN", path: "/notes/algorithm/cnn.md" },
                 ]
             },
 
