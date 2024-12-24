@@ -34,6 +34,8 @@ module.exports = {
                     { title: "Softmax", path: "/notes/algorithm/softmax.md" },
                     { title: "多层感知机MLP", path: "/notes/algorithm/multilayer_perceptron.md" },
                     { title: "卷积神经网络CNN", path: "/notes/algorithm/cnn.md" },
+                    { title: "现代卷积神经网络", path: "/notes/algorithm/modern_cnn.md" },
+                    { title: "循环神经网络RNN", path: "/notes/algorithm/rnn.md" },
                 ]
             },
 
