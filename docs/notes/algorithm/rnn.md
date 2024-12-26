@@ -3,6 +3,50 @@ title: 循环神经网络RNN
 author: zfan
 ---
 
+
+## 一. RNN引入
+### 1. 简介
+RNN的引入是为了解决序列信息引入的模型架构。在上文中，对于表格数据我们可以使用全连接层来拟合，对于图像数据，我们使用卷积神经网络来提取图像的空间特征，但是对于表格和图像数据，其实他们的样本之间都遵循着某种分布，且相互独立。
+
+然而，大多数的数据并非如此。 例如，文章中的单词是按顺序写的，如果顺序被随机地重排，就很难理解文章原始的意思。 同样，视频中的图像帧、对话中的音频信号以及网站上的浏览行为都是有顺序的。 因此，针对此类数据而设计特定模型，可能效果会更好。
+
+### 2. 马尔科夫模型
+想象一下，我们现在有一连串随时间变化的股票数据：
+
+![示例图片](./picture/image9.png)
+
+其中，用 $x_t$ 表示第 $t$ 天的价格，作为一个股票预测员，想要预测股票所能依靠的信息只有 $x_{1} - x_{t-1}$ 的数据, 也就是说，可以通过以下途径来预测：
+$$
+x_t \sim P(x_t \mid x_{t-1}, \ldots, x_1).
+$$
+我们预测的其实是一个概率！
+
+这里如果尝试使用全连接来拟合数据，会发现我们的输入其实是在不断变大的，输入不固定的情况下我们可以有以下两种策略：
+
+- 我们只需要观测从 $t$ 开始向前 $\tau$ 个时间点跨度，之外的时间点我们认为其实是没有很大必要的，这样的话我们可以固定训练的参数数量，这叫 **自回归模型**
+- 设 $h_{t}$ 是从 $1 \sim t$ 的数据中保留的特征，那么我们每次预测 $x_t$ 只需要依赖于 $h_t$, 对于$h_t$ 的更新我们可以递推地使用 $h_t = g(h_{t-1}, x_{t-1})$ , 由于 $h$ 自始至终没有出现过，类似于隐藏层，所以这被称为 **隐变量自回归模型**
+
+我们现在解决了如何预测的问题，现在有一个常见的假设：假定序列的动力学不变，也就是序列其实总是满足某个潜在的规律，那么这样的话整个序列的估计值都将通过以下的方式获得：
+$$
+P(x_1, x_2, \ldots x_t) = \prod_{t = 1}^{T}{P(x_t \mid x_{t-1}, \ldots, x_1)}
+$$
+我们找到了生成一串序列的方法
+
+接下来我们正式介绍一下马尔科夫条件：在自回归模型中，只要我们能够找到一个时间跨度 $\tau$ 使得其近似正确，那么我们就称这个序列满足马尔科夫条件，称之为 $\tau$ 阶马尔科夫模型，特殊的，一阶马尔科夫模型如下：
+$$
+P(x_1, \ldots, x_T) = \prod_{t=1}^T P(x_t \mid x_{t-1}) \ \
+\text{when } P(x_1 \mid x_0) = P(x_1).
+$$
+当 $x_t$ 是离散值时，我们可以使用动态规划来精确地计算结果，例如 $P(x_{t+1} \mid x_{t-1})$:
+$$
+P(x_{t+1} \mid x_{t-1}) = \frac{\sum_{x_t} P(x_{t+1}, x_t, x_{t-1})}{P(x_{t-1})}
+= \frac{\sum_{x_t} P(x_{t+1} \mid x_t, x_{t-1}) P(x_t, x_{t-1})}{P(x_{t-1})}
+= \sum_{x_t} P(x_{t+1} \mid x_t) P(x_t \mid x_{t-1})
+$$
+
+假如说一个序列满足一阶马尔科夫模型，那么我们就可以观察很短的一个历史，就可以计算下去，这是一种很好的性质。
+
+接下来我们实践一下
 ```python
 # 生成时间序列数据，采用的是正弦波+一个随机噪声
 T = 1000
@@ -53,8 +97,24 @@ net = get_net()
 train(net, train_iter, loss, 5, 0.01)
 
 ```
+我们可以发现，单步预测效果不错，但是如果我们持续预测下去，就会发现我们需要使用自己预测出来的数据来预测，这样就会使得偏差越来越大。所以全连接层这种模型可能不符合我们的预期，我们需要更好的模型
 
 
+### 3. 文本预处理
+
+对于训练来说，最重要的一步就是准备数据，我们这里探讨一下如何处理序列数据，以便我们更好的训练模型。这里我们处理数据简单分为以下步骤：
+
+- 将文本作为字符串加载到内存中。
+
+- 将字符串拆分为词元（如单词和字符）。
+
+- 建立一个词表，将拆分的词元映射到数字索引。
+
+- 将文本转换为数字索引序列，方便模型操作。
+
+这就是我们熟知的分词操作：（tokenizer）
+
+首先我们读取数据集，这里仍然使用d2l的库
 
 ```python
 from random import random
@@ -82,7 +142,11 @@ def read_time_machine():
 
 lines = read_time_machine()
 
+```
 
+接下来是进行词元分割，也就是将一段段话分割为更小的单元，这个单元可以是字符单元，也可以是单词单元，这里只实现这两种简单的词元分割。
+
+```python
 def tokenize(lines, token='word'):
     if token == 'word':
         return [line.split() for line in lines]
@@ -96,7 +160,11 @@ def tokenize(lines, token='word'):
 # for i in range(11):
 #     print(tokens[i])
 #
+```
 
+词元的本质就是一个个字符 or 字符串，而模型需要的输入是数字，因此这种类型不方便模型使用，这里我们可以构建一个词表，将词元映射为数字，我们首先可以统计不同的词元数目，然后对每个单词按照出现频率排序，之后逐一分配下标，我们还可以分配一些索引给未知或者已删除的词元。
+
+```python
 class Vocab:  #@save
     """文本词表"""
 
@@ -150,7 +218,11 @@ def count_corpus(tokens):  #@save
         tokens = [token for line in tokens for token in line]
     return collections.Counter(tokens)
 
+```
 
+接下来我们整合所有的功能为一个函数，这个函数会返回词元索引列表，以及词表，这里首先为了简化之后的训练，我们选择字符词元化
+
+```python
 def load_corpus_time_machine(max_tokens=-1):
     lines = read_time_machine()
     tokens = tokenize(lines, 'char')
@@ -161,9 +233,42 @@ def load_corpus_time_machine(max_tokens=-1):
         corpus = corpus[:max_tokens]
     return corpus, vocab
 
+```
+### 4. 语言模型
 
-# --------------
+我们现在有了数据，接下来我们开始对其进行建模。首先，回到我们一开始提到的生成序列的方法：
+$$
+P(x_1, x_2, \ldots x_t) = \prod_{t = 1}^{T}{P(x_t \mid x_{t-1}, \ldots, x_1)}
+$$
+举一个例子，如果我们想生成: `deep learning is fun`, 那么我们就需要不断地计算这样的概率：
+$$
+P(deep, learning, is, fun) = P(deep)P(learning | deep)P(is | deep, learning)P(fun | deep, learning, is).
+$$
 
+为了训练语言模型，我们需要计算单词的概率，以及给定前面几个单词后，出现某个单词的条件概率，这些概率本质上就是语言模型的参数。
+
+该如何计算概率呢？首先我们的第一想法就是直接计算词元在语料库中出现的频率，但是这样其实忽略了单词本来的意义，以及一些可以出现的短语，所以我们需要更有效的模型。
+
+#### 齐普夫定律
+
+我们引入一个关于词频的定律：齐普夫定律。也就是在自然语言中，第 $i$ 个最常用单词的频率 $n_i$ 为：
+$$
+n_i \propto \frac{1}{i^\alpha}
+$$
+这个公式有一个前提，我们先将前面的常用词作为例外消除之后，剩余所有的单词大致遵循双对数坐标图上的一条直线。
+$$
+\log n_i = -\alpha \log i + c,
+$$
+
+这是一个单词维度统计的频率，也被成为一元语法（一阶马尔科夫模型），但是通过实验发现，多元语法也同样满足齐普夫定律。
+
+### 5. 数据集随机采样
+
+由于序列数据本质上是连续的，因此我们在处理数据时需要解决这个问题，那就是序列往往很长，我们需要对其进行分割。这里介绍两种对序列进行分割的方法：
+
+#### 随机采样
+
+```python
 def seq_data_iter_random(
         corpus: List[int],
         batch_size: int,
@@ -192,7 +297,11 @@ def seq_data_iter_random(
         Y = [data(j + 1) for j in initial_indices_per_batch]
         yield torch.tensor(X), torch.tensor(Y)
 
+```
 
+#### 顺序分区
+
+```python
 def seq_data_iter_sequential(
         corpus: List[int],
         batch_size: int,
@@ -211,7 +320,10 @@ def seq_data_iter_sequential(
         Y = Ys[:, i: i + num_steps]
         yield X, Y
 
+```
+通过以上两种方式，我们写出一个加载序列数据的迭代器，用来不断地返回训练数据
 
+```python
 class SeqDataLoader:
     """加载序列数据的迭代器"""
 
@@ -226,13 +338,96 @@ class SeqDataLoader:
     def __iter__(self):
         return self.data_iter_fn(self.corpus, self.batch_size, self.num_steps)
 
+```
 
-# ----------------
+## 二. RNN介绍
 
+### 1. 原理
+
+回顾一下我们引入过程中的马尔科夫模型，$n$ 阶马尔科夫模型又被称为 $n$ 元语法模型，也就是我们第 $x_t$ 在时间步 $t$ 的条件概率仅取决于前面 $n - 1$ 个单词，对于再往前的单词如果我们还想统计它们的影响的话，就得扩大 $n$ 来扩大语法模型，但是模型的参数会指数增长，所以我们不妨使用隐变量模型
+$$
+P(x_t \mid x_{t-1}, \dots, x_1) \approx P(x_t \mid h_{t-1}),
+$$
+这里 $h_{t-1}$ 存储了从起始状态到 $t - 1$ 步的所有序列信息，这样我们就可以顾及到前面所有的单词。隐变量一般使用递推式更新
+$$
+h_t = f(x_t, h_{t-1})
+$$
+
+#### 有隐状态的循环神经网络
+这里首先定义输入小批量样本 $X \in R^{n \cdot d}$, 其中批量大小为 $n$ , 输入维度为 $d$ , 隐藏层的输出为 $H \in R^{n \cdot h}$
+
+我们首先看无隐状态的神经网络，那么我们一般这样计算
+$$
+H = \phi(XW_{xh} + b_h)
+$$
+其中 $W_{xh}$ 为隐藏层权重参数。然后再将隐藏层权重用为输出
+$$
+O = HW_{hq} + b_q
+$$
+其中，$q$ 为输出维度，$W_{hq}$ 为输出层的权重参数
+
+
+那么我们增加了隐藏层状态该如何理解呢？这里我认为可以将二维的神经网络堆叠成三维，第三维就是时间，我们沿着时间维度进行传播，每一维都是一个带有隐藏层的神经网络，而每一维的隐藏层权重都需要上一维来更新
+
+![示例图片](./picture/image11.png)
+
+那么我们需要每一次保存前一个时间步的隐藏变量 $H_{t-1}$ , 并且引入一个新的权重 $W_{hh}$ 用来表示上一层到这一层的变化（如图中橙色映射关系），那么我们可以得到计算公式 
+
+$$
+H_{t} = \phi(X_tW_{xh} + H_{t-1}W_{hh} + b_h)
+$$
+
+我们可以看出，隐藏变量捕获并保留了序列直到当前时间步的历史信息，就如同当前时间步下神经网络的状态和记忆一样，这种就被称之为隐状态（hidden state），这种计算就像不断循环一样，所以被命名为循环神经网络。那么我们可以得知，对于时间步 $t$ 输出层的数据可以写为
+$$
+O_t = H_tW_{hq} + b_q
+$$
+
+
+![示例图片](./picture/image10.png)
+
+
+#### 设计字符级RNN模型
+
+接下来我们设计一个语言模型，首先我们设定输入和输出，因为我们的目标是根据过去和当前的词元预测下一个词元，那么我们的输出其实就是输入往后移一位，然后在训练过程中，我们对每个时间步的输出层的输出进行softmax操作，然后利用交叉熵损失计算模型输出和标签之间的误差，进而更新各个权重参数，就这样我们完成了权重的更新
+
+#### 模型困惑度
+我们需要一个手段来评估我们的模型生成的语言的质量，这里我们可以使用信息论，因为这是一个很好的衡量“惊异度”的工具，因为我们模型生成的语言需要是更为符合语义，符合认知的语言，所以一个更好的语言模型应该可以让我们更准确的预测下一个词元，因此，它应该允许我们在压缩序列时花费更少的比特。 所以我们可以通过一个序列中所有的 $n$ 个词元的交叉熵损失的平均值来衡量：
+$$
+\frac{1}{n} \sum_{t=1}^n -\log P\left(x_t \mid x_{t-1}, \ldots, x_1\right)
+$$
+
+其中 $P$ 由语言模型给出，$x_t$ 是时间步 $t$ 内观察到的实际词元
+
+由于历史原因，这里我们其实有一个名为困惑度的量，是上述式子的指数形式
+$$
+\exp\left(-\frac{1}{n} \sum_{t=1}^n \log P\left(x_t \mid x_{t-1}, \ldots, x_1\right)\right).
+$$
+我们看一些边界情况来更好的理解上述式子
+
+- 在最好的情况下，模型总是完美地估计标签词元的概率为1。 在这种情况下，模型的困惑度为1。
+
+- 在最坏的情况下，模型总是预测标签词元的概率为0。 在这种情况下，困惑度是正无穷大。
+
+- 在基线上，该模型的预测是词表的所有可用词元上的均匀分布。 在这种情况下，困惑度等于词表中唯一词元的数量。 事实上，如果我们在没有任何压缩的情况下存储序列， 这将是我们能做的最好的编码方式。 因此，这种方式提供了一个重要的上限， 而任何实际模型都必须超越这个上限。
+
+### 2. 实现
+
+首先准备数据, 这里我本人是使用mac本地训练，所以会尝试mps加速
+
+```python
 batch_size, num_steps = 32, 35
-train_iter, vocab = d2l.load_data_time_machine(batch_size, num_steps)
+sq = SeqDataLoader(batch_size, num_steps, True, -1)
+train_iter = sq.corpus
+vocab = sq.vocab
 
+def try_mps():
+    device = 'mps' if torch.backends.mps.is_available() else 'cpu'
+    return device
+```
 
+然后设置RNN中的各种权重
+
+```python
 def get_params(vocab_size: int, num_hiddens: int, device: str):
     num_inputs = num_outputs = vocab_size
 
@@ -254,7 +449,11 @@ def get_params(vocab_size: int, num_hiddens: int, device: str):
         param.requires_grad_(True)
     return params
 
+```
 
+接下来我们初始化RNN状态，也就是$H_0$, 这里我们初始化为全0张量
+
+```python
 def init_rnn_state(
         batch_size: int,
         num_hiddens: int,
@@ -262,12 +461,23 @@ def init_rnn_state(
 ) -> Tuple[torch.Tensor]:
     """返回rnn的初始隐状态"""
     return (torch.zeros((batch_size, num_hiddens), device=device),)
+```
 
+定义RNN计算层，传入当前时间步的输入 $X_t$, 传入上一个隐状态 $H_{t-1}$ , 传入权重和偏置参数 params
+然后进行计算
 
+这里需要重点讲解一下为什么会有一个for循环
+
+回想一下，在`train_iter`中，每个词元其实都表示为一个数字索引，将这些索引直接输入神经网络会导致没什么意义，结合我们的概率输出和softmax，我们可以想到独热编码，简而言之，我们会将每个索引映射为互不相同的单位向量，假设词表的大小为 $N$ , 那么如果某个词元为 $i$ , 我们将创建一个长度为 $N$ 的全0向量，并将第 $i$ 处元素置为1。
+
+接下来，由于我们每次采样的小批量数据形状为二维张量：（批量大小，时间步数）。onehot会将这个二维张量转化为三维张量，张量最后一个维度为词表大小 $N$ , 但是为了处理方便，我们经常转换输入的维度，变为（时间步数，批量大小，词表大小），这样我们可以方便的迭代外围时间步数，然后一步一步更新小批量数据的隐状态。
+
+```python
 def rnn(inputs, state, params):
     W_xh, W_hh, b_h, W_hq, b_q = params
     H, = state
     outputs = []
+    // 迭代时间步数 t
     for X in inputs:
         # 计算H_t，这里使用tanh作为激活函数
         H = torch.tanh(torch.mm(X, W_xh) + torch.mm(H, W_hh) + b_h)
@@ -276,8 +486,11 @@ def rnn(inputs, state, params):
         outputs.append(Y)
 
     return torch.cat(outputs, dim=0), (H,)
+```
 
+最后我们组合在一起
 
+```python
 class RNNModelScratch:  #@save
     """从零开始实现的循环神经网络模型"""
 
@@ -294,6 +507,7 @@ class RNNModelScratch:  #@save
         self.params = get_params(vocab_size, num_hiddens, device)
         self.init_state, self.forward_fn = init_state, forward_fn
 
+    # 这里的目的就是转换输出形态，并且编为onehot
     def __call__(self, X, state):
         X = F.one_hot(X.T, self.vocab_size).type(torch.float32)
         return self.forward_fn(X, state, self.params)
@@ -301,21 +515,32 @@ class RNNModelScratch:  #@save
     def begin_state(self, batch_size, device):
         return self.init_state(batch_size, self.num_hiddens, device)
 
+
 num_hiddens = 512
 net = RNNModelScratch(
     vocab_size=len(vocab),
     num_hiddens=num_hiddens,
-    device=d2l.try_gpu(),
+    device=try_mps(),
     get_params=get_params,
     init_state=init_rnn_state,
     forward_fn=rnn
 )
 
 X = torch.arange(10).reshape((2, 5))
-state = net.begin_state(X.shape[0], d2l.try_gpu())
-Y, new_state = net(X.to(d2l.try_gpu()), state)
+state = net.begin_state(X.shape[0], try_mps())
+Y, new_state = net(X.to(try_mps()), state)
+
+print(Y.shape)
+```
+
+我们可以看到输出的维度为: (时间步数 * 批量大小，词表大小)，而隐状态形态保持不变，为（批量大小，隐藏单元数）
 
 
+#### 预测
+
+让我们首先定义预测函数来生成`prefix`之后的新字符, 其中 `prefix` 是用户提供的一个包含多个字符的字符串，在循环遍历`prefix`中的开始字符时，我们会不断地将隐状态传递到下一个时间步，但是不生成任何输出，这被称为预热期(warm-up), 因为在此期间模型会自我更新，但是不会进行预测，预热期结束之后，隐状态的值会更加适合预测。
+
+```python
 def predict_ch8(prefix, num_preds, net, vocab, device):  #@save
     """在prefix后面生成新字符"""
     state = net.begin_state(batch_size=1, device=device)
@@ -328,4 +553,101 @@ def predict_ch8(prefix, num_preds, net, vocab, device):  #@save
         y, state = net(get_input(), state)
         outputs.append(int(y.argmax(dim=1).reshape(1)))
     return ''.join([vocab.idx_to_token[i] for i in outputs])
+
+print(predict_ch8('time traveller ', 10, net, vocab, try_mps()))
+```
+
+发现预测出来了奇怪的东西，这是因为我们的模型还没训练！
+
+### 3. 梯度裁剪
+TODO：这里不大懂，先照抄下来
+
+不难发现，RNN在时间步过长的时候，仍然会出现梯度消失 or 梯度爆炸的现象，具体如下：
+
+我们首先回顾多层感知机的梯度消失是如何产生的，考虑一个具有 $n$ 个隐藏层的DNN，前向传播的时候第 $i$ 个隐藏层的输出作为第 $i+1$ 个隐藏层的输入。
+$$
+H_n = \phi(W_nH_{n-1} + b_n) \\
+O = W_{n+1}H_{n} + b_{n+1} \\
+Loss = l(O, Y)
+$$
+
+反向传播的时候根据链式法则，可以发现会出现多个参数矩阵连乘的现象，这样的话就会出现梯度爆炸或者梯度消失现象。这个时候我们就需要梯度裁剪来稳定地训练
+$$
+\mathbf{g} \leftarrow \min \left( 1, \frac{\theta}{\|\mathbf{g}\|} \right) \mathbf{g}.
+$$
+
+```python
+def grad_clipping(net, theta):  #@save
+    """裁剪梯度"""
+    if isinstance(net, nn.Module):
+        params = [p for p in net.parameters() if p.requires_grad]
+    else:
+        params = net.params
+    norm = torch.sqrt(sum(torch.sum((p.grad ** 2)) for p in params))
+    if norm > theta:
+        for param in params:
+            param.grad[:] *= theta / norm
+```
+
+### 4. 训练
+
+也没认真看，TODO
+
+```python
+def train_epoch_ch8(net, train_iter, loss, updater, device, use_random_iter):
+    """训练网络一个迭代周期"""
+    state, timer = None, d2l.Timer()
+    metric = d2l.Accumulator(2)  # 训练损失之和,词元数量
+    for X, Y in train_iter:
+        if state is None or use_random_iter:
+            # 在第一次迭代或使用随机抽样时初始化state
+            state = net.begin_state(batch_size=X.shape[0], device=device)
+        else:
+            if isinstance(net, nn.Module) and not isinstance(state, tuple):
+                # state对于nn.GRU是个张量
+                state.detach_()
+            else:
+                # state对于nn.LSTM或对于我们从零开始实现的模型是个张量
+                for s in state:
+                    s.detach_()
+        y = Y.T.reshape(-1)
+        X, y = X.to(device), y.to(device)
+        y_hat, state = net(X, state)
+        l = loss(y_hat, y.long()).mean()
+        if isinstance(updater, torch.optim.Optimizer):
+            updater.zero_grad()
+            l.backward()
+            grad_clipping(net, 1)
+            updater.step()
+        else:
+            l.backward()
+            grad_clipping(net, 1)
+            # 因为已经调用了mean函数
+            updater(batch_size=1)
+        metric.add(l * y.numel(), y.numel())
+    return math.exp(metric[0] / metric[1]), metric[1] / timer.stop()
+
+#@save
+def train_ch8(net, train_iter, vocab, lr, num_epochs, device,
+              use_random_iter=False):
+    """训练模型"""
+    loss = nn.CrossEntropyLoss()
+    animator = d2l.Animator(xlabel='epoch', ylabel='perplexity',
+                            legend=['train'], xlim=[10, num_epochs])
+    # 初始化
+    if isinstance(net, nn.Module):
+        updater = torch.optim.SGD(net.parameters(), lr)
+    else:
+        updater = lambda batch_size: d2l.sgd(net.params, lr, batch_size)
+    predict = lambda prefix: predict_ch8(prefix, 50, net, vocab, device)
+    # 训练和预测
+    for epoch in range(num_epochs):
+        ppl, speed = train_epoch_ch8(
+            net, train_iter, loss, updater, device, use_random_iter)
+        if (epoch + 1) % 10 == 0:
+            print(predict('time traveller'))
+            animator.add(epoch + 1, [ppl])
+    print(f'困惑度 {ppl:.1f}, {speed:.1f} 词元/秒 {str(device)}')
+    print(predict('time traveller'))
+    print(predict('traveller'))
 ```
