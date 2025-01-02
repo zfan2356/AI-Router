@@ -60,7 +60,7 @@ module.exports = {
                     { title: "基础知识", path: "/notes/pytorch/basic.md" },
                     { title: "梯度计算", path: "/notes/pytorch/gradient.md" }
                 ]
-            }
+            },
 
             // python
             // {
@@ -83,16 +83,37 @@ module.exports = {
             //     ]
             // },
 
-            // // paper
-            // {
-            //     title: "经典论文篇",
-            //     path: "/notes/papers",
-            //     collapsable: true,
-            //     children: [
-            //         // { title: "基础知识", path: "/notes/python/basic.md" },
-            //         // { title: "梯度计算", path: "/notes/python/gradient.md" },
-            //     ]
-            // },
+            // paper
+            {
+                title: "经典论文篇",
+                path: "/notes/papers",
+                collapsable: true,
+                children: [
+                    { title: "transformer", path: "/notes/papers/transformer.md" },
+                    // { title: "梯度计算", path: "/notes/python/gradient.md" },
+                ]
+            },
+
+            // system
+            {
+                title: "MLSYS篇",
+                path: "/notes/system",
+                collapsable: true,
+                children: [
+                    {
+                        title: "MLSYS篇",
+                        path: "/notes/system/inference",
+                        collapsable: true,
+                        children: [
+                            { title: "KV Cache", path: "/notes/system/inference/kvcache.md" },
+                            // { title: "梯度计算", path: "/notes/python/gradient.md" },
+                        ]
+                    },
+
+                    // { title: "梯度计算", path: "/notes/python/gradient.md" },
+                ]
+            },
+
         ]
     },
 
