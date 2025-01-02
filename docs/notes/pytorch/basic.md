@@ -67,6 +67,9 @@ c = torch.stack((a, b), dim=0) # tensor([[1, 2], [3, 4]])
 x = torch.arange(10)
 splits = torch.split(x, 3)
 # (tensor([0, 1, 2]), tensor([3, 4, 5]), tensor([6, 7, 8]), tensor([9]))
+# 重新排列, 第1维变成第0维，这样重新排列一下
+x = x.permute(1, 0, 2)
+
 ```
 
 ### 4. 切片操作

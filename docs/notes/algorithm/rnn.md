@@ -358,9 +358,9 @@ $$
 
 我们首先看无隐状态的神经网络，那么我们一般这样计算
 $$
-H = \phi(XW_{xh} + b_h)
+H = \phi(XW_{dh} + b_h)
 $$
-其中 $W_{xh}$ 为隐藏层权重参数。然后再将隐藏层权重用为输出
+其中 $W_{dh}$ 为隐藏层权重参数。然后再将隐藏层权重用为输出
 $$
 O = HW_{hq} + b_q
 $$
@@ -374,7 +374,7 @@ $$
 那么我们需要每一次保存前一个时间步的隐藏变量 $H_{t-1}$ , 并且引入一个新的权重 $W_{hh}$ 用来表示上一层到这一层的变化（如图中橙色映射关系），那么我们可以得到计算公式 
 
 $$
-H_{t} = \phi(X_tW_{xh} + H_{t-1}W_{hh} + b_h)
+H_{t} = \phi(X_tW_{dh} + H_{t-1}W_{hh} + b_h)
 $$
 
 我们可以看出，隐藏变量捕获并保留了序列直到当前时间步的历史信息，就如同当前时间步下神经网络的状态和记忆一样，这种就被称之为隐状态（hidden state），这种计算就像不断循环一样，所以被命名为循环神经网络。那么我们可以得知，对于时间步 $t$ 输出层的数据可以写为
@@ -591,7 +591,17 @@ def grad_clipping(net, theta):  #@save
 
 ### 4. 训练
 
-也没认真看，TODO
+这里简单追踪一下张量shape的变化便于理解
+
+- 首先输入的X和目标Y，shape均为`(batch_size, num_steps)`
+
+- 对于Y进行reshape操作，转置为 `(num_steps, batch_size)` 后展平，shape为`(num_steps * batch_size)`
+
+- 进入rnn网络计算，输出的y_hat的shape为`(num_steps * batch_size, vocab_size)`
+
+- 计算loss，对于输入的y_hat和y，计算交叉熵损失，然后再求平均值
+
+- 反向传播，更新结果
 
 ```python
 def train_epoch_ch8(net, train_iter, loss, updater, device, use_random_iter):
@@ -627,7 +637,7 @@ def train_epoch_ch8(net, train_iter, loss, updater, device, use_random_iter):
         metric.add(l * y.numel(), y.numel())
     return math.exp(metric[0] / metric[1]), metric[1] / timer.stop()
 
-#@save
+
 def train_ch8(net, train_iter, vocab, lr, num_epochs, device,
               use_random_iter=False):
     """训练模型"""
@@ -651,3 +661,244 @@ def train_ch8(net, train_iter, vocab, lr, num_epochs, device,
     print(predict('time traveller'))
     print(predict('traveller'))
 ```
+
+## 三. 现代RNN
+
+
+### 1. 基本结构
+```python
+class RNNModel(nn.Module):
+    """循环神经网络模型"""
+    def __init__(self, rnn_layer, vocab_size, **kwargs):
+        super(RNNModel, self).__init__(**kwargs)
+        self.rnn = rnn_layer
+        self.vocab_size = vocab_size
+        self.num_hiddens = self.rnn.hidden_size
+        # 如果RNN是双向的（之后将介绍），num_directions应该是2，否则应该是1
+        if not self.rnn.bidirectional:
+            self.num_directions = 1
+            self.linear = nn.Linear(self.num_hiddens, self.vocab_size)
+        else:
+            self.num_directions = 2
+            self.linear = nn.Linear(self.num_hiddens * 2, self.vocab_size)
+
+    def forward(self, inputs, state):
+        X = F.one_hot(inputs.T.long(), self.vocab_size)
+        X = X.to(torch.float32)
+        Y, state = self.rnn(X, state)
+        # 首先将Y的形状改为(时间步数*批量大小,隐藏单元数)
+        # 全连接层输出形状是(时间步数*批量大小,词表大小)。
+        output = self.linear(Y.reshape((-1, Y.shape[-1])))
+        return output, state
+
+    def begin_state(self, device, batch_size=1):
+        if not isinstance(self.rnn, nn.LSTM):
+            # nn.GRU以张量作为隐状态
+            return torch.zeros((self.num_directions * self.rnn.num_layers,
+                                 batch_size, self.num_hiddens),
+                                device=device)
+        else:
+            # nn.LSTM以元组作为隐状态
+            return (torch.zeros((
+                self.num_directions * self.rnn.num_layers,
+                batch_size, self.num_hiddens), device=device),
+                    torch.zeros((
+                        self.num_directions * self.rnn.num_layers,
+                        batch_size, self.num_hiddens), device=device))
+
+
+```
+
+### 2. encoder-decoder
+
+
+指定一个长度可变的输入 $X$ 
+```python
+class Encoder(nn.Module):
+    """编码器-解码器架构的基本编码器接口"""
+    def __init__(self, **kwargs):
+        super(Encoder, self).__init__(**kwargs)
+
+    def forward(self, X, *args):
+        
+        raise NotImplementedError
+```
+
+```python
+class Decoder(nn.Module):
+    """编码器-解码器架构的基本解码器接口"""
+    def __init__(self, **kwargs):
+        super(Decoder, self).__init__(**kwargs)
+
+    def init_state(self, enc_outputs, *args):
+        raise NotImplementedError
+
+    def forward(self, X, state):
+        raise NotImplementedError
+```
+
+```python
+class EncoderDecoder(nn.Module):
+    """编码器-解码器架构的基类"""
+    def __init__(self, encoder, decoder, **kwargs):
+        super(EncoderDecoder, self).__init__(**kwargs)
+        self.encoder = encoder
+        self.decoder = decoder
+
+    def forward(self, enc_X, dec_X, *args):
+        enc_outputs = self.encoder(enc_X, *args)
+        dec_state = self.decoder.init_state(enc_outputs, *args)
+        return self.decoder(dec_X, dec_state)
+```
+
+### 3. seq2seq
+
+上面我们介绍了encoder-decoder架构，用来解决变长输入输出问题，这里我们介绍一种encoder-decoder的具体实现，那就是seq2seq模型，一句话简单概括，就是用encoder和decoder都使用rnn来实现。
+
+思路其实就是对于encoder，rnn的作用是根据输入来计算出隐状态，这个隐状态就是encoder出来的固定状态。对于decoder来说，我们会将这个固定状态拿去投入另外一个rnn，作为另外一个rnn的初始隐状态，接着将输入序列放入decoder中，借助初始的隐状态，不断地生成答案。
+
+具体来说，我们假如输入的 $X \in R^{n * d}$ , 代表`(batch_size, time_steps)`，那么
+
+- 首先会进入`embedding`, 转化为`(batch_size, time_steps, embed_size)`, 我们按照惯例将其permute一下，转化为`(time_steps, batch_size, embed_size)`
+
+- 进入encoder rnn网络，获得一个输出output, 为`(time_steps, batch_size, num_hiddens)`, 再获得一个隐变量state，为`(num_layers, batch_size, num_hiddens)`
+
+- 进入decoder rnn网络，初始状态选择的是encoder输出的state，shape为 `(num_layers, batch_size, num_hiddens)`，然后我们有个输入 $X'$, shape为`(batch_size, num_steps)`, 我们照例embedding一下并且permute一下，变为 `(time_steps, batch_size, embed_size)`，对于encoder传入的state，我们只取最后一层，shape为`(batch_size, num_hiddens)`, 然后广播一下，变为 `(time_steps, batch_size, num_hiddens)`，对其 $X$ 的shape，新的state记为state_new
+
+- 我们将state_new和 $X$ 按照第二维拼接，变为新的X_new, shape为`(time_steps, batch_size, embed_size+num_hiddens)`, 这个时候传入decoder的rnn网络，输出照例为一个output和一个state，output的shape为 `(batch_size, time_steps, vocab_size)`, 输出的state的shape为 `(num_layers, batch_size, num_hiddens)`
+
+- 这个时候output就是我们要的答案结果
+
+```python
+class Seq2SeqEncoder(Encoder):
+    """用于序列到序列学习的循环神经网络编码器"""
+    def __init__(self, vocab_size, embed_size, num_hiddens, num_layers,
+                 dropout=0, **kwargs):
+        super(Seq2SeqEncoder, self).__init__(**kwargs)
+        # 嵌入层, 用来获得输入序列中每个词元的特征向量，比onehot更加精准
+        self.embedding = nn.Embedding(vocab_size, embed_size)
+        self.rnn = nn.GRU(embed_size, num_hiddens, num_layers,
+                          dropout=dropout)
+
+    def forward(self, X, *args):
+        # 输出'X'的形状：(batch_size,num_steps,embed_size)
+        X = self.embedding(X)
+        # 在循环神经网络模型中，第一个轴对应于时间步
+        X = X.permute(1, 0, 2)
+        # 如果未提及状态，则默认为0
+        output, state = self.rnn(X)
+        # output的形状:(num_steps,batch_size,num_hiddens)
+        # state的形状:(num_layers,batch_size,num_hiddens)
+        return output, state
+
+encoder = Seq2SeqEncoder(vocab_size=10, embed_size=8, num_hiddens=16,
+                         num_layers=2)
+# 以评估模式运行
+encoder.eval()
+X = torch.zeros((4, 7), dtype=torch.long)
+output, state = encoder(X)
+print(output.shape)
+
+class Seq2SeqDecoder(Decoder):
+    """用于序列到序列学习的循环神经网络解码器"""
+    def __init__(self, vocab_size, embed_size, num_hiddens, num_layers,
+                 dropout=0, **kwargs):
+        super(Seq2SeqDecoder, self).__init__(**kwargs)
+        self.embedding = nn.Embedding(vocab_size, embed_size)
+        self.rnn = nn.GRU(embed_size + num_hiddens, num_hiddens, num_layers,
+                          dropout=dropout)
+        self.dense = nn.Linear(num_hiddens, vocab_size)
+
+    def init_state(self, enc_outputs, *args):
+        return enc_outputs[1]
+
+    def forward(self, X, state):
+        # 输出'X'的形状：(batch_size,num_steps,embed_size), permute之后会将step提到前面
+        X = self.embedding(X).permute(1, 0, 2)
+        # 广播context，使其具有与X相同的num_steps
+        context = state[-1].repeat(X.shape[0], 1, 1)
+        X_and_context = torch.cat((X, context), 2)
+        output, state = self.rnn(X_and_context, state)
+        output = self.dense(output).permute(1, 0, 2)
+        # output的形状:(batch_size, num_steps, vocab_size)
+        # state的形状:(num_layers, batch_size, num_hiddens)
+        return output, state
+
+decoder = Seq2SeqDecoder(vocab_size=10, embed_size=8, num_hiddens=16,
+                         num_layers=2)
+decoder.eval()
+state = decoder.init_state(encoder(X))
+output, state = decoder(X, state)
+print(output.shape, state.shape)
+
+```
+
+#### 训练
+
+对于训练的损失函数，还是使用交叉熵，但是我们需要做一些改进，
+
+```python
+def sequence_mask(X, valid_len, value=0):
+    """在序列中屏蔽不相关的项"""
+    maxlen = X.size(1) # 相当于X.shape[1]
+    # 这里shape 从(maxlen) -> (1, maxlen), valid_len从(len) -> (len, 1)
+    mask = torch.arange((maxlen), dtype=torch.float32,
+                        device=X.device)[None, :] < valid_len[:, None]
+    X[~mask] = value
+    return X
+
+class MaskedSoftmaxCELoss(nn.CrossEntropyLoss):
+    """带遮蔽的softmax交叉熵损失函数"""
+    # pred的形状：(batch_size,num_steps,vocab_size)
+    # label的形状：(batch_size,num_steps)
+    # valid_len的形状：(batch_size,)
+    def forward(self, pred, label, valid_len):
+        weights = torch.ones_like(label)
+        weights = sequence_mask(weights, valid_len)
+        self.reduction='none'
+        unweighted_loss = super(MaskedSoftmaxCELoss, self).forward(
+            pred.permute(0, 2, 1), label)
+        weighted_loss = (unweighted_loss * weights).mean(dim=1)
+        return weighted_loss
+
+def train_seq2seq(net, data_iter, lr, num_epochs, tgt_vocab, device):
+    """训练序列到序列模型"""
+    def xavier_init_weights(m):
+        if type(m) == nn.Linear:
+            nn.init.xavier_uniform_(m.weight)
+        if type(m) == nn.GRU:
+            for param in m._flat_weights_names:
+                if "weight" in param:
+                    nn.init.xavier_uniform_(m._parameters[param])
+
+    net.apply(xavier_init_weights)
+    net.to(device)
+    optimizer = torch.optim.Adam(net.parameters(), lr=lr)
+    loss = MaskedSoftmaxCELoss()
+    net.train()
+    animator = d2l.Animator(xlabel='epoch', ylabel='loss',
+                     xlim=[10, num_epochs])
+    for epoch in range(num_epochs):
+        timer = d2l.Timer()
+        metric = d2l.Accumulator(2)  # 训练损失总和，词元数量
+        for batch in data_iter:
+            optimizer.zero_grad()
+            X, X_valid_len, Y, Y_valid_len = [x.to(device) for x in batch]
+            bos = torch.tensor([tgt_vocab['<bos>']] * Y.shape[0],
+                          device=device).reshape(-1, 1)
+            dec_input = torch.cat([bos, Y[:, :-1]], 1)  # 强制教学
+            Y_hat, _ = net(X, dec_input, X_valid_len)
+            l = loss(Y_hat, Y, Y_valid_len)
+            l.sum().backward()      # 损失函数的标量进行“反向传播”
+            d2l.grad_clipping(net, 1)
+            num_tokens = Y_valid_len.sum()
+            optimizer.step()
+            with torch.no_grad():
+                metric.add(l.sum(), num_tokens)
+        if (epoch + 1) % 10 == 0:
+            animator.add(epoch + 1, (metric[0] / metric[1],))
+    print(f'loss {metric[0] / metric[1]:.3f}, {metric[1] / timer.stop():.1f} '
+        f'tokens/sec on {str(device)}'
+```
+
+有一个问题：pred permute之后shape是(batch_size, vocab_size, num_steps) , label的shape是(batch_size, num_steps) 这俩真可以算loss吗
