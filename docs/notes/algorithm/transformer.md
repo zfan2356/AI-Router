@@ -91,7 +91,7 @@ class MultiHeadAttention(nn.Module):
         atten_output = self.scaled_dot_product_attention(Q, K, V, mask)
 
         # Combine heads and apply output transformation
-        output = self.W_q(self.combine_heads(atten_output))
+        output = self.W_o(self.combine_heads(atten_output))
         return output
 
 ```
@@ -394,7 +394,7 @@ class MultiHeadAttention(nn.Module):
         atten_output = self.scaled_dot_product_attention(Q, K, V, mask)
 
         # Combine heads and apply output transformation
-        output = self.W_q(self.combine_heads(atten_output))
+        output = self.W_o(self.combine_heads(atten_output))
         return output
 
 
