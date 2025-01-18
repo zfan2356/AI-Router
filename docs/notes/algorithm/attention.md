@@ -3,13 +3,17 @@ title: 注意力机制
 author: zfan
 ---
 ## 一. 注意力机制简介
+
 ![示例图片](./picture/image12.png)
 
 ### 1. 引入
+
 注意力分为自主性和非自主性的提示，在深度学习中，自主性被称为查询(query), 给定任何查询，注意力机制通过注意力汇聚，将选择引导至感官输入，而非自主性提示被称之为键(key)，所以注意力其实是query与key的交互汇聚过程
 
 ### 2. 非参数注意力汇聚
+
 这里介绍一种比较简单的例子：Nadaraya-Waston核回归，我们先生成一下训练和测试样本
+
 ```python
 # 训练样本数
 n_train = 50
@@ -56,13 +60,14 @@ $$
 Nadaraya-Watson核回归是一个非参数模型，所以上述的注意力汇聚其实是非参数注意力汇聚模型。
 
 ### 3. 带参数注意力汇聚
+
 从上述例子可以看出，非参数的模型收敛其实取决于key的数目，对于其的改进其实就是将可学习的参数集成到注意力汇聚中：
 $$
-f(x) = \sum_{i=1}^{n} \alpha(x, x_i) y_i 
+f(x) = \sum_{i=1}^{n} \alpha(x, x_i) y_i
 $$
 
 $$
-     = \sum_{i=1}^{n} \frac{\exp\left(-\frac{1}{2}((x - x_i)w)^2\right)}{\sum_{j=1}^{n} \exp\left(-\frac{1}{2}((x - x_j)w)^2\right)} y_i 
+     = \sum_{i=1}^{n} \frac{\exp\left(-\frac{1}{2}((x - x_i)w)^2\right)}{\sum_{j=1}^{n} \exp\left(-\frac{1}{2}((x - x_j)w)^2\right)} y_i
 $$
 
 $$
@@ -70,16 +75,18 @@ $$
 $$
 
 这里首先引入一个torch的简便操作：批量矩阵乘法
+
 ```python
 weights = torch.ones((2, 10)) * 0.1
 values = torch.arange(20.0).reshape((2, 10))
 # unsqueeze 用于在指定的维度上插入一维，比如unsqueeze(1)就会使得weight变为(2, 1, 10)
 torch.bmm(weights.unsqueeze(1), values.unsqueeze(-1))
 ```
-可以看出，weight * values = (2, 1, 10) * (2, 10, 1) = (2, 1, 1), 其实这里批量就是2，然后对于第一维中的每个矩阵，执行对应矩阵相乘
 
+可以看出，weight *values = (2, 1, 10)* (2, 10, 1) = (2, 1, 1), 其实这里批量就是2，然后对于第一维中的每个矩阵，执行对应矩阵相乘
 
 集中看一下模型的定义以及训练
+
 ```python
 class NWKernelRegression(nn.Module):
     def __init__(self, **kwargs):
@@ -147,7 +154,6 @@ $$
 \alpha(\mathbf{q}, \mathbf{k}_i) = \text{softmax}(a(\mathbf{q}, \mathbf{k}_i)) = \frac{\exp(a(\mathbf{q}, \mathbf{k}_i))}{\sum_{j=1}^m \exp(a(\mathbf{q}, \mathbf{k}_j))} \in \mathbb{R}.
 $$
 
-
 接下来我们介绍一下其他的一些注意力评分函数，首先引入掩蔽softmax操作，其实是为了去忽略一些值，类似于rnn中将一些特殊词元忽略掉
 
 ```python
@@ -170,6 +176,7 @@ def masked_softmax(X, valid_lens):
 ```
 
 #### 加性注意力
+
 一般来说，当查询和键是不同长度的向量时，可以使用加性注意力作为评分函数，给定查询 $\mathbf{q} \in \mathbb{R}^q$, 以及键 $\mathbf{k} \in \mathbb{R}^k$:
 
 $$
@@ -222,6 +229,7 @@ print(attention(queries, keys, values, valid_lens).shape)
 ```
 
 #### 缩放点积注意力
+
 使用点积可以得到计算效率更高的评分函数， 但是点积操作要求查询和键具有相同的长度 $d$ 。 假设查询和键的所有元素都是独立的随机变量， 并且都满足零均值和单位方差， 那么两个向量的点积的均值为0，方差为 $d$ 。 为确保无论向量长度如何， 点积的方差在不考虑向量长度的情况下仍然是1， 我们再将点积除以 $\sqrt{d}$ ， 则缩放点积注意力（scaled dot-product attention）评分函数为：
 $$
 a(\mathbf{q}, \mathbf{k}) = \frac{\mathbf{q}^\top \mathbf{k}}{\sqrt{d}}.
@@ -269,6 +277,7 @@ $$
 其中时间步 $t' - 1$ 时的解码器隐状态为 $s_{t'-1}$ ，作为查询。编码器隐状态 $h_t$ 既是键，也是值。注意力权重函数 $\alpha$ 使用了加性注意力打分函数
 
 接下来我们实现一下注意力优化的encoder-decoder
+
 ```python
 class AttentionDecoder(d2l.Decoder):
     """带有注意力机制解码器的基本接口"""
@@ -337,17 +346,17 @@ class Seq2SeqAttentionDecoder(AttentionDecoder):
 举一个例子：
 对于输入序列"介绍一下西安"，假设模型的任务是翻译为英语，encoder和decoder的运行步骤如下：
 
-#### Encoder步骤：
+#### Encoder步骤
 
 - 输入嵌入：将输入序列"介绍一下西安"转化为嵌入向量再惯例permute一下，形状为`(num_steps, batch_size, embed_size)`。
 
 - 编码处理：通过一个RNN逐步处理嵌入，得到encoder的隐状态序列(hidden states)，形状为`(num_steps, batch_size, hidden_size)`，这表示源句子的编码表示。
 
-#### Decoder与Attention机制步骤：
+#### Decoder与Attention机制步骤
 
 - 初始化：用encoder的最终隐状态初始化decoder的隐状态。
 
-- 目标嵌入：对于目标序列（例："Introduce Xi'an"，解码过程中逐词生成），将其输入（例如<START>标记或之前生成的词）转化为嵌入向量。
+- 目标嵌入：对于目标序列（例："Introduce Xi'an"，解码过程中逐词生成），将其输入（例如\<START>标记或之前生成的词）转化为嵌入向量。
 
 - Attention计算：
   - 结合当前decoder隐状态和encoder的隐状态序列，计算注意力权重 α。
@@ -358,7 +367,7 @@ class Seq2SeqAttentionDecoder(AttentionDecoder):
 利用decoder的隐状态生成当前时间步的输出单词（概率分布），并用argmax或采样选择下一个单词。
 
 - 迭代输出：
-上一个时间步生成的单词作为下一时间步的输入，重复步骤3-4，直到生成<END>标记或达到最大长度。
+上一个时间步生成的单词作为下一时间步的输入，重复步骤3-4，直到生成\<END>标记或达到最大长度。
 
 模型通过这种方式逐步生成目标语句"Introduce Xi'an"的英文翻译。
 
@@ -367,7 +376,6 @@ class Seq2SeqAttentionDecoder(AttentionDecoder):
 在实践中，当给定相同的查询、键和值的集合时， 我们希望模型可以基于相同的注意力机制学习到不同的行为， 然后将不同的行为作为知识组合起来， 捕获序列内各种范围的依赖关系 （例如，短距离依赖和长距离依赖关系）。 因此，允许注意力机制组合使用查询、键和值的不同 子空间表示（representation subspaces）可能是有益的。
 
 为此，与其只使用单独一个注意力汇聚， 我们可以用独立学习得到的 $h$ 组不同的 线性投影（linear projections）来变换查询、键和值。 然后，这 $h$ 组变换后的查询、键和值将并行地送到注意力汇聚中。 最后，将这 $h$ 个注意力汇聚的输出拼接在一起， 并且通过另一个可以学习的线性投影进行变换， 以产生最终输出。 这种设计被称为多头注意力（multihead attention）。 对于 $h$ 个注意力汇聚输出，每一个注意力汇聚都被称作一个头（head）。 下图展示了使用全连接层来实现可学习的线性变换的多头注意力
-
 
 ![示例图片](./picture/image15.png)
 
@@ -379,7 +387,7 @@ $$
 
 其中可学习的参数为 $\mathbf{W}_i^{(q)} \in \mathbb{R}^{p_q * d_q}$, $\mathbf{W}_i^{(k)} \in \mathbb{R}^{p_k * d_k}$, $\mathbf{W}_i^{(v)} \in \mathbb{R}^{p_v * d_v}$ , 以及代表注意力汇聚的函数 $f$ , 多头注意力的输出需要经过另一个线性变换，它对应着 $h$ 个头连结后的结果，因此其可学习的参数 $W_o \in \mathbb{R}^{p_o * hp_v}$
 
-$$ \mathbf{W}_o 
+$$ \mathbf{W}_o
 \begin{bmatrix}
 \mathbf{h}_1 \\
 \vdots \\
@@ -440,7 +448,6 @@ def transpose_qkv(X, num_heads):
     # 最终输出的形状:(batch_size*num_heads,查询或者“键－值”对的个数,num_hiddens/num_heads)
     return X.reshape(-1, X.shape[2], X.shape[3])
 
-
 def transpose_output(X, num_heads):
     """逆转transpose_qkv函数的操作"""
     X = X.reshape(-1, num_heads, X.shape[1], X.shape[2])
@@ -476,10 +483,9 @@ $$
 
 ![示例图片](./picture/image16.png)
 
-
 位置编码是为了让self-attention使用序列的顺序信息而设计的，我们可以在输入表示中添加位置编码来注入绝对的或者相对的位置信息。
 
-假设输入 $\mathbf{X} \in \mathbb{R}^{n * d}$ 包含一个序列中 $n$ 个词元的 $d$ 维embedding向量，位置编码使用相同形状的位置嵌入矩阵 $\mathbf{P} \in \mathbb{R}^{n * d}$ , 这样的话每次输出 $\mathbf{X} + \mathbf{P}$ 
+假设输入 $\mathbf{X} \in \mathbb{R}^{n * d}$ 包含一个序列中 $n$ 个词元的 $d$ 维embedding向量，位置编码使用相同形状的位置嵌入矩阵 $\mathbf{P} \in \mathbb{R}^{n * d}$ , 这样的话每次输出 $\mathbf{X} + \mathbf{P}$
 
 $$
 p_{i,2j} = \sin\left(\frac{i}{10000^{\frac{2j}{d}}}\right),
@@ -489,9 +495,8 @@ $$
 p_{i,2j+1} = \cos\left(\frac{i}{10000^{\frac{2j}{d}}}\right).
 $$
 
-
 ```python
-#@save
+# @save
 class PositionalEncoding(nn.Module):
     """位置编码"""
     def __init__(self, num_hiddens, dropout, max_len=1000):

@@ -7,7 +7,6 @@ author: zfan
 
 ## 一. AlexNet
 
-
 ## 二. VGG
 
 ```python
@@ -95,7 +94,6 @@ net = nn.Sequential(
 ```
 
 ## 四. GoogLeNet
-
 
 ![示例图片](./picture/image8.png)
 
@@ -230,4 +228,3 @@ class BatchNorm(nn.Module):
 ```
 
 ## 六. ResNet
-

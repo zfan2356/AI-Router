@@ -96,7 +96,6 @@ class MultiHeadAttention(nn.Module):
 
 ```
 
-
 ### 2. Position-wise Feed-Forward Networks
 
 在基于位置的前馈网络中，我们会对multi-head attention的输出应用一层mlp
@@ -118,7 +117,6 @@ class PositionWiseFeedForward(nn.Module):
     def forward(self, x):
         return self.fc2(self.relu(self.fc1(x)))
 ```
-
 
 ### 3. Positional Encoding
 
@@ -144,7 +142,6 @@ class PositionalEncoding(nn.Module):
     def forward(self, x):
         return x + self.pe[:, :x.size(1)]
 ```
-
 
 ### 4. Encoder Layer
 
@@ -218,7 +215,7 @@ class DecoderLayer(nn.Module):
 
 ```
 
-### transformer 
+### transformer
 
 ```python
 class Transformer(nn.Module):
@@ -315,8 +312,6 @@ def train_model():
 if __name__ == '__main__':
     train_model()
 ```
-
-
 
 ## 三. 完整代码
 

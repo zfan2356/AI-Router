@@ -188,7 +188,7 @@ $$
 
 首先设第 $i$ 个transformer层的权重矩阵为 $W_{Q}^{(i)}$, $W_{K}^{(i)}$ , $W_{V}^{(i)}$ , $W_{1}^{(i)}$ , $W_{2}^{(i)}$ , 这里1和2是ffn层的全连接层，然后第 $i$ 层的输入为 $x^{(i)}$ , key, value, query, output 表示为 $x_{K}^{(i)}$ , $x_{V}^{(i)}$ , $x_{Q}^{(i)}$ , $x_{O}^{(i)}$
 
-- 预填充阶段
+- Prefill阶段 (预填充)
 
 key cache和value cache的计算过程为：
 $$
@@ -214,7 +214,7 @@ $$
 x^{(i+1)} = f_{gelu}(x^{(i)}_{out} \cdot W_1) \cdot W_2 + x^{(i)}_{out}
 $$
 
-- 解码阶段
+- decode 阶段 (解码)
 
 给定当前生成词在第 $i$ 个transformer层的向量表示为 $t^i \in R^{b \times 1 \times h}$ 
 
@@ -245,6 +245,11 @@ $$
 
 ### 1. Batch Prompting
 
+![示例图片](./picture/image2.png)
+
+这种优化针对的是system prompt的场景，即不同的句子有相同的system prompt，这样我们可以采用batch prompting的技术，减少prefill的计算。
+
+### 2. RalyAttention
 
 
 

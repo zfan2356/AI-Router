@@ -4,7 +4,9 @@ author: zfan
 ---
 
 ## 一. 什么是Softmax
+
 ### 1. 引入
+
 ![示例图片](./picture/image.png)
 
 我们首先要对分类问题有基本的认知，首先假设现在有三个类别，鸡鸭鹅，我们需要将若干禽类数据划分到三种类别下，这个时候我们通常使用”软性”类别，即得到属于每个类别的概率
@@ -23,24 +25,26 @@ $$
 可以看出，最后一步，如果我们想获得软性类别，就需要构建概率的分布，具体来说，就是将一个 $n$ 维的张量，转换维一个 $n$ 元的离散型概率分布。$softmax$ 就是一种通用的解决方案
 
 ### 2. 介绍
+
 引入一个 $n$ 维的张量 $\mathbf{x} = [x_1, x_2, ... x_n] \in \mathbb{R}^n$ , 它的元素可正可负，没有限定上下界，$softmax$ 函数的基本定义如下：
 $$
 p_i = softmax(\mathbf{x})_i = \frac{e^{x_i}}{\sum_{j=1}^{n}{e^{x_j}}}
 $$
 其实从式子中，我们可以看出两点性质：
 
-- 单调性：$p_i > p_j \Longleftrightarrow x_i > x_j$ , $<$ 同理 
+- 单调性：$p_i > p_j \Longleftrightarrow x_i > x_j$ , $<$ 同理
 - 不变性：$softmax(\mathbf{x}) = softmax(\mathbf{x} + c)\ \ \  \forall c \in \mathbb{R}$
 
 可以看出，$softmax$ 将某层的输出，映射为 $(0, 1)$ 的值，这些值累加为1，满足概率的性质，这样便构建了概率分布，可以解决单标签多分类问题。
 
-
 ### 3. 梯度计算
+
 在深度学习中，了解一个函数的性质最重要的方式之一就是了解它的梯度，对于 $softmax$ , 我们可以计算一下它的梯度，首先它的输入是一个 $n$ 维张量 $\mathbf{x}$, 输出也是一个 $n$ 维张量 $softmax(\mathbf{x})$ , 那么我们求梯度的过程其实是对其求偏导，这样最后梯度的形态应该是一个 $Jacobian$ 矩阵的形式。
 
 我们首先进行推导：
 
 - 对于 $i = j$ , 即对角线的情况：
+
 $$
 \begin{aligned}
 &\frac{\partial p_i}{\partial x_j} \\
@@ -52,6 +56,7 @@ $$
 $$
 
 - 对于 $i \neq j$:
+
 $$
 \begin{aligned}
 &\frac{\partial p_i}{\partial x_j} \\
@@ -64,10 +69,10 @@ $$
 
 总结来说，$softmax$ 的梯度为：
 $$
-\frac{\partial p_i}{\partial x_j} = p_i \delta_{i,j} - p_i p_j = 
-\begin{cases} 
-p_i - p_i^2, & i = j \\ 
--p_i p_j, & i \neq j 
+\frac{\partial p_i}{\partial x_j} = p_i \delta_{i,j} - p_i p_j =
+\begin{cases}
+p_i - p_i^2, & i = j \\
+-p_i p_j, & i \neq j
 \end{cases}
 $$
 它的 $L1$ 范数有一个简单的形式
@@ -77,8 +82,8 @@ $$
 $$
 这说明如果 $\mathbf{p}$ 接近 one hot 分布的时候，梯度消失现象会很严重
 
-
 ### 4. 损失函数
+
 $softmax$ 为模型函数，一般作为神经网络的一层，将输出映射为概率分布，用来构建单标签多分类任务的输出，即假设有一个 $n$ 分类任务，$\mathbf{x}$ 为模型的输入，那么我们希望通过 $\mathbf{p} = softmax(\mathbf{x})$ 来预测每个类的概率。
 
 对于模型的训练，我们需要一个损失函数 $loss$, 来使用梯度下降方法训练模型？
@@ -91,10 +96,10 @@ $$
 如果我们目标类别是 $t$, 我们可以将 $y_t$ 置为1，其他全部置为0, 这样 $loss$ 函数变为:
 $$
 Loss(\mathbf{x}) = -lnp_t
-$$ 
+$$
 我们可以求得它的梯度：
 $$
--\frac{\partial ln p_t}{\partial x_j} = p_j - \delta_{t, j} = 
+-\frac{\partial ln p_t}{\partial x_j} = p_j - \delta_{t, j} =
 \begin{cases}
 p_j - 1\ \ \ j = t \\
 p_j\ \ \ \ \ \ \ \ \ \ j \neq t
@@ -102,7 +107,7 @@ p_j\ \ \ \ \ \ \ \ \ \ j \neq t
 $$
 这里可以发现，$\delta_{t, j}$ 其实实际上表达的就是 onehot 分布，所以上式又可以表达为
 $$
-\frac{\partial Loss(\mathbf{x})}{\partial \mathbf{x}} = \mathbf{p} - onehot(t) 
+\frac{\partial Loss(\mathbf{x})}{\partial \mathbf{x}} = \mathbf{p} - onehot(t)
 $$
 也就是说，它的梯度正好是目标分布与预测分布之差，只要两者不相等，那么梯度会一直存在，而我们梯度下降的方式也很简单：目标类别 $p_t$ 减一，其余不变
 
@@ -113,6 +118,7 @@ $$
 仍然使用小批次训练的方式，这里`num_outputs=10`, 代表一次训练十张图片。另外图片是一个二维像素点矩阵，我们输入需要为一个向量，所以为了简单，这里直接将图片展平，长度为784
 
 回到我们一开始的模型公式，可以知道$\mathbf{W} \in \mathbb{R}^{784 * 10}$, 10为类别数目，$\mathbf{b} \in \mathbb{R}^{10 * 10}$
+
 ```python
 num_inputs = 784
 num_outputs = 10
@@ -124,16 +130,19 @@ b = torch.zeros(num_outputs, requires_grad=True)
 2. 实现softmax操作：
 
 利用torch的按维度求和（因为一次训练多条数据），以及广播机制，我们可以实现如下softmax函数
+
 ```python
 def softmax(X):
     X_exp = torch.exp(X)
     return X_exp / X_exp.sum(dim=1, keepdim=True)
 ```
+
 按行求和，然后每行都除以它对应行的和
 
 3. 定义模型以及损失函数：
 
 模型其实就是开头的公式，损失函数这里采取上文所述的交叉熵
+
 ```python
 # 模型代码，先将输入的参数reshape一下
 def net(X):
@@ -142,11 +151,13 @@ def net(X):
 def cross_entropy(y_hat, y):
     return -torch.log(y_hat[range(len(y_hat)), y])
 ```
+
 这里的`y_hat` 其实是模型的输出，对于每行数据都是采用onehot编码的结果，而`y`是标准答案，对于每个数据，只有唯一的标签，这样我们就可以将所有的答案输出概率select出来
 
 4. 分类精度
 
 TODO: 有时间再完善实现的笔记，代码目前如下
+
 ```python
 from IPython import display
 import torch
