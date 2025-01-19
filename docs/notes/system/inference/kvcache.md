@@ -188,7 +188,7 @@ $$
 
 首先设第 $i$ 个transformer层的权重矩阵为 $W_{Q}^{(i)}$, $W_{K}^{(i)}$ , $W_{V}^{(i)}$ , $W_{1}^{(i)}$ , $W_{2}^{(i)}$ , 这里1和2是ffn层的全连接层，然后第 $i$ 层的输入为 $x^{(i)}$ , key, value, query, output 表示为 $x_{K}^{(i)}$ , $x_{V}^{(i)}$ , $x_{Q}^{(i)}$ , $x_{O}^{(i)}$
 
-- Prefill阶段 (预填充)
+- Prefill阶段 (预填充) TODO: 这里写的有点问题，特别是x_out部分，最好以单个token维度展现求和
 
 key cache和value cache的计算过程为：
 $$

@@ -1,0 +1,8 @@
+// 使用思源宋体或其他衬线体作为普通文本字体
+$vp-font: 'JetBrains Mono', 'Noto Serif SC', 'Georgia', -apple-system, "Nimbus Roman No9 L", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "WenQuanYi Micro Hei", "ST Heiti", serif;
+
+// 如果需要，也可以修改标题字体
+$vp-font-heading: 'JetBrains Mono', 'Noto Serif SC', 'Georgia', -apple-system, "Nimbus Roman No9 L", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "WenQuanYi Micro Hei", "ST Heiti", serif;
+
+// 保持代码字体不变，或根据需要调整
+$vp-font-mono: 'JetBrains Mono', monospace;
