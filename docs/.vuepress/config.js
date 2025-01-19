@@ -5,9 +5,6 @@ module.exports = {
     description: '一个追追番, 写写算法题的无害死宅',
     theme: 'reco',
     base: '/AI-Router/',
-    styles: [
-        '/styles/index.styl' // 确保路径正确
-    ],
     themeConfig: {
         nav: [
             { text: "首页", link: "/" },
