@@ -13,6 +13,8 @@ git init
 git add -A
 git commit -m 'deploy'
 
+git config --global init.defaultBranch main
+
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 git push -f git@github.com:zfan2356/AI-Router.git main:gh-pages
 
