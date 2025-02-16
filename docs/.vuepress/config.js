@@ -108,7 +108,7 @@ module.exports = {
                 collapsable: true,
                 children: [
                     {
-                        title: "MLSYS篇",
+                        title: "推理篇",
                         path: "/notes/system/inference",
                         collapsable: true,
                         children: [
