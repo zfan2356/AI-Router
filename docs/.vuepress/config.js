@@ -113,7 +113,7 @@ module.exports = {
                         collapsable: true,
                         children: [
                             { title: "KV Cache", path: "/notes/system/inference/kvcache.md" },
-                            { titie: "MQA-GQA", path: "/notes/system/inference/mqa_gqa.md"},
+                            { title: "MQA-GQA", path: "/notes/system/inference/mqa_gqa.md"},
                             { title: "Flash Attention", path: "/notes/system/inference/flash_attention.md" },
                             { title: "Multi-Linear-Attention", path: "/notes/system/inference/mla.md"},
                             { title: "Multi-Token-Predict", path: "/notes/system/inference/mtp.md"},
