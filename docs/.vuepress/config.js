@@ -39,6 +39,8 @@ module.exports = {
                     { title: "注意力机制", path: "/notes/algorithm/attention.md" },
                     { title: "Transformer", path: "/notes/algorithm/transformer.md" },
                     { title: "Q&A", path: "/notes/algorithm/Q&A.md" },
+                    { title: "MoE", path: "/notes/algorithm/moe.md"},
+
                 ]
             },
 
@@ -49,6 +51,9 @@ module.exports = {
                 collapsable: true,
                 children: [
                     { title: "const", path: "/notes/cpp/const.md" },
+                    { title: "move", path: "/notes/cpp/move.md"},
+                    { title: "类型推导", path: "/notes/cpp/type_inference.md"},
+                    { title: "Modern CPP", path: "/notes/cpp/modern_cpp_features.md"},
                 ]
             },
 
@@ -73,16 +78,17 @@ module.exports = {
             //     ]
             // },
 
-            // // cuda
-            // {
-            //     title: "CUDA篇",
-            //     path: "/notes/cuda",
-            //     collapsable: true,
-            //     children: [
-            //         // { title: "基础知识", path: "/notes/python/basic.md" },
-            //         // { title: "梯度计算", path: "/notes/python/gradient.md" },
-            //     ]
-            // },
+            // cuda
+            {
+                title: "CUDA篇",
+                path: "/notes/cuda",
+                collapsable: true,
+                children: [
+                    { title: "GPU", path: "/notes/cuda/hardware.md" },
+                    { title: "内存模型", path: "/notes/cuda/memory.md" },
+                    { title: "ThunderKittens", path: "/notes/cuda/thunderkittens.md" },
+                ]
+            },
 
             // paper
             {
@@ -91,7 +97,7 @@ module.exports = {
                 collapsable: true,
                 children: [
                     { title: "transformer", path: "/notes/papers/transformer.md" },
-                    // { title: "梯度计算", path: "/notes/python/gradient.md" },
+                    { title: "杂文记录", path: "/notes/papers/summary_record.md" },
                 ]
             },
 
@@ -107,11 +113,32 @@ module.exports = {
                         collapsable: true,
                         children: [
                             { title: "KV Cache", path: "/notes/system/inference/kvcache.md" },
-                            // { title: "梯度计算", path: "/notes/python/gradient.md" },
+                            { titie: "MQA-GQA", path: "/notes/system/inference/mqa_gqa.md"},
+                            { title: "Flash Attention", path: "/notes/system/inference/flash_attention.md" },
+                            { title: "Multi-Linear-Attention", path: "/notes/system/inference/mla.md"},
+                            { title: "Multi-Token-Predict", path: "/notes/system/inference/mtp.md"},
+                            { title: "Page Attention", path: "/notes/system/inference/page_attention.md"},
+                        ]
+                    },
+                    {
+                        title: "Quant篇",
+                        path: "/notes/system/quant",
+                        collapsable: true,
+                        children: [
+                            { title: "简介", path: "/notes/system/quant/introduce.md" },
+                            { titie: "pytorch quant", path: "/notes/system/quant/pytorch_quant.md"},
+                        ]
+                    },
+                    {
+                        title: "RL篇",
+                        path: "/notes/system/rl",
+                        collapsable: true,
+                        children: [
+                            { title: "简介", path: "/notes/system/rl/introduce.md" },
+
                         ]
                     },
 
-                    // { title: "梯度计算", path: "/notes/python/gradient.md" },
                 ]
             },
 
