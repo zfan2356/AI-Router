@@ -126,7 +126,7 @@ module.exports = {
                         collapsable: true,
                         children: [
                             { title: "简介", path: "/notes/system/quant/introduce.md" },
-                            { titie: "pytorch quant", path: "/notes/system/quant/pytorch_quant.md"},
+                            { title: "pytorch quant", path: "/notes/system/quant/pytorch_quant.md"},
                         ]
                     },
                     {
