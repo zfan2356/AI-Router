@@ -1,1 +1,239 @@
 [blog](https://hazyresearch.stanford.edu/blog/2024-05-12-tk)
+
+## 一. 浅谈一些封装的PTX
+
+PTX内联的形式：asm volatile("指令" : 输出操作数约束 : 输入操作数约束 : Clobber列表);
+
+常用约束符:
+
+- `r`: 通用寄存器
+- `l`: 64位寄存器
+- `h`: 寄存器的高16位
+- `m`: 内存操作数
+- `g`: 允许寄存器或内存
+- `i`: 立即数
+- `=`: 表示操作数在ptx中是output, 且只写
+
+---
+`file: include/ops/warp/memory/util/util.cuh`
+
+`move<T>`
+
+里面大多封装了关于`ld / st / ldmatrix` 的PTX指令，是关于数据搬运的 
+
+`ld`: Load a register variable from an addressable state space variable
+```
+ld{.weak}{.ss}{.cop}{.level::cache_hint}{.level::prefetch_size}{.vec}.type d, [a]{.unified}{, cache-policy};
+```
+`st`: Store data to an addressable state space variable.
+```
+st{.weak}{.ss}{.cop}{.level::cache_hint}{.vec}.type [a], b{, cache-policy};
+```
+```c
+template<typename T> struct move {
+    __device__ static inline void lds(T& dst, uint32_t src);
+    __device__ static inline void sts(uint32_t dst, const T& src);
+    __device__ static inline void ldg(T& dst, T* src);
+    __device__ static inline void stg(T* dst, const T& src);
+};
+```
+
+举一个bf16的特化模板例子：
+```c
+// unpacked types
+template<> struct move<bf16> {
+    __device__ static inline void lds(bf16& dst, uint32_t src) {
+        asm volatile("ld.shared.b16 %0, [%1];\n" : "=h"(*(uint16_t*)&dst) : "r"(src));
+    }
+    __device__ static inline void sts(uint32_t dst, const bf16& src) {
+        asm volatile("st.shared.b16 [%1], %0;\n" : : "h"(*(uint16_t*)&src), "r"(dst));
+    }
+    __device__ static inline void ldg(bf16& dst, bf16* src) {
+        asm volatile("ld.global.b16 %0, [%1];\n" : "=h"(*(uint16_t*)&dst) : "l"(src));
+    }
+    __device__ static inline void stg(bf16* dst, const bf16& src) {
+        asm volatile("st.global.b16 [%1], %0;\n" : : "h"(*(uint16_t*)&src), "l"(dst));
+    }
+};
+```
+`ld.shared.b16 %0, [%1]`: 从smem1中加载16Bit的数据存入reg0
+
+`st.shared.b16 [%1], %0`: 将reg0中16Bit数据存入smem1
+
+当然也可以向量化ld/st
+```c
+asm volatile("ld.shared.v4.b32 {%0, %1, %2, %3}, [%4];"
+                 : "=r"(dst[0]), "=r"(dst[1]), "=r"(dst[2]), "=r"(dst[3])
+                 : "r"(shm_ptr));
+```
+
+`ldmatrix`: Collectively load one or more matrices from shared memory for `mma` instruction
+```
+ldmatrix.sync.aligned.shape.num{.trans}{.ss}.type r, [p];
+```
+
+```cpp
+template<> struct move<fp8e4m3_4> {
+    __device__ static inline void ldsm4(fp8e4m3_4& dst1, fp8e4m3_4& dst2, fp8e4m3_4& dst3, fp8e4m3_4& dst4, uint32_t src) {
+        asm volatile("ldmatrix.sync.aligned.m8n8.x4.shared::cta.b16 {%0, %1, %2, %3}, [%4];\n" :
+                     "=r"(*(uint32_t*)&dst1),  "=r"(*(uint32_t*)&dst2), "=r"(*(uint32_t*)&dst3), "=r"(*(uint32_t*)&dst4) : "r"(src));
+    }
+    __device__ static inline void stsm4(uint32_t dst, fp8e4m3_4& src1, fp8e4m3_4& src2, fp8e4m3_4& src3, fp8e4m3_4& src4) {
+        asm volatile("stmatrix.sync.aligned.m8n8.x4.shared::cta.b16 [%4], {%0, %1, %2, %3};\n" ::
+                     "r"(*(uint32_t*)&src1), "r"(*(uint32_t*)&src2), "r"(*(uint32_t*)&src3), "r"(*(uint32_t*)&src4), "r"(dst));
+    }
+};
+```
+`m8n8`意思是8x8的matrix, b16意思是每次load/store 16bit, 可以看出这个`fp8e4m3_4`有四个元素，每行两个，也就是8x8
+
+---
+
+`semaphore`: 里面主要是对`mbarrier`的封装
+
+`mbarrier`: mbarrier is a barrier created in shared memory that supports: Synchronizing any subset of threads within a CTA，and  Waiting for completion of asynchronous memory operations initiated by a thread and making them visible to other threads.
+
+可以得知，`mbarrier`对象是不透明的，且有固定的类型和位置(64bit, 在smem中)
+
+这里需要区分`bar/barrier`
+
+```cpp
+struct semaphore {
+private:
+    uint64_t value;
+}; // note that this is an opaque type, so the value should not be accessed directly.
+template<int num_warps> struct barrier {
+    int barrier_id;
+    __device__ __forceinline__ barrier(int _id) : barrier_id(_id) {}
+    __device__ __forceinline__ barrier operator[](int i) {
+        return barrier(barrier_id + i);
+    }
+};
+```
+- `mbarrier.init`
+```c
+asm volatile (
+    "mbarrier.init.shared::cta.b64 [%0], %1;\n"
+    :: "r"(bar_ptr), "r"(thread_count+transaction_count)
+);
+```
+- `mbarrier.invalidate`
+```c
+asm volatile (
+    "mbarrier.inval.shared::cta.b64 [%0];\n"
+    :: "r"(bar_ptr)
+);
+```
+- `mbarrier.arrive`: 在sm_90+会有 asynchronous memory operation
+```cpp
+asm volatile (
+    "mbarrier.arrive.release.cta.shared::cta.b64 _, [%0];\n"
+    :
+    : "r"(mbar_ptr)
+    : "memory"
+);
+
+// hopper
+asm volatile (
+    "mbarrier.arrive.release.cta.shared::cta.b64 _, [%0], %1;\n"
+    :
+    : "r"(mbar_ptr), "r"(count)
+    : "memory"
+);
+```
+- `mbarrier.wait`
+```cpp
+asm volatile (
+    "{\n"
+    ".reg .pred                P1;\n"
+    "LAB_WAIT:\n"
+    "mbarrier.try_wait.parity.shared::cta.b64 P1, [%0], %1;\n"
+    "@P1                       bra.uni DONE;\n"
+    "bra.uni                   LAB_WAIT;\n"
+    "DONE:\n"
+    "}\n"
+    :: "r"(mbar_ptr),
+    "r"(kPhaseBit)
+);
+```
+这里需要注意`kPhaseBit`, try_wait/test_wait其实就是check当前这个Phase是否结束，所以我们每个Phase需要传入一个kPhaseBit来表示当前的阶段，为了和其他阶段区分，在具体应用的时候，可以直接使用01交替，因为只需要区分上一个phase
+
+- `mbarrier.expect_tx`
+```cpp
+asm volatile ("mbarrier.arrive.expect_tx.shared::cta.b64 _, [%0], %1;\n"
+            :: "r"(bar_ptr), "r"(bytes));
+```
+可以设置tma想要load的bytes, 等到达之后tx_count会自动减少
+
+总结来说，因为`mbarrier`可以同时用来同步threads/warp/warpgroup, 以及同步aync memory load/store, 所以在init的时候会设置thread_count+transaction_count, 对于到达的thread_count, 需要显式arrive一下，对于async memory transaction, 可以设置expect_tx, 如果设置的bytes数量到达，就自动减一
+
+--- 
+
+`cp.async.bulk` 与 `tma`
+
+`file: include/ops/warp/memory/util/tma.cuh`
+
+`cp.async.bulk`: Initiates an asynchronous copy operation from one state space to another. 意思是启动一个异步拷贝.
+```
+cp.async.bulk.dst.src.completion_mechanism{.level::cache_hint} [dstMem], [srcMem], size, [mbar] {, cache-policy}
+```
+其中`.completion_mechanism = { .mbarrier::complete_tx::bytes }`, 进一步印证了“对于async memory transaction, 可以设置expect_tx, 如果设置的bytes数量到达，就自动减一”, 所以我们使用`cp.async.bulk`的时候，需要传入`mbarrier`
+
+不过在kittens中，一般使用的是`cp.async.bulk.tensor`, 这里其实就是使用的tma load，需要传入tensor map
+
+`cp.async.bulk.tensor`: Initiates an asynchronous copy operation on the tensor data from one state space to another.
+
+例如在kittens中`load_async`的实现中：
+```cpp
+asm volatile(
+    "cp.async.bulk.tensor.5d.shared::cluster.global.tile.mbarrier::complete_tx::bytes"
+    " [%0], [%1, {%3, %4, %5, %6, %7}], [%2];"
+    :
+    : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr),
+    "n"(0), "r"(tma_coords.x), "r"(tma_coords.y), "r"(tma_coords.z), "r"(tma_coords.w)
+    : "memory"
+);
+```
+
+总结：所以我们在进行async load/store的时候，使用kittens就有了一个范式
+
+```cpp
+kittens::init_semaphore(input_arrived[num_warpgroup], 2);
+kittens::init_semaphore(output_ready[num_warpgroup], 4);
+
+for loop in coord:
+    // async load...
+    if (warpgroup::warpid() == 1) {
+        // tx count--
+        // use one warp, use tma to load, global memory -> shared memory
+        tma::expect_bytes(input_arrived[warpgroup_id], bytes)
+        tma::load_async(shared_memory[warpgroup_id], global_memory[warpgroup_id], coord, input_arrived[warpgroup_id])
+    } else if (warpgroup::laneid() == 0) {
+        // tx count --
+        // wait prev tma store
+        arrive(input_arrived[warpgroup_id])
+    }
+    // wait tx count == 0
+    kittens::wait(input_arrived[warpgroup_id], phase)
+
+    // warp level compute...
+
+    // warp level async store...
+    // reg -> shared memory
+    store(shared_memory[warpgroup_id], res)
+    if (laneid() == 0) {
+        // wait four warp in warpgourp complete
+        // tx count -= 4
+        kittens::arrive_and_wait(output_ready[warpgroup_id], phase);
+    }
+    phase ^= 1
+
+    // shared memory -> global memory
+    if (warpgroup::warpid() == 0) {
+        //single warp to store async use tma
+        tma::store_async(global_memory[warpgroup_id], shared_memory[warpgroup_id], coord)
+        // Waits for previous committed TMA store groups to finish reading from shared memory.
+        tma::store_async_read_wait()
+    }
+```
+
+这个范式trick了一下，将第一个warp的sync放到下一次循环的开头，其实更加native的写法，是在每次循环的最后，再次`kittens::wait(output_ready[warpgroup_id], phase)`
