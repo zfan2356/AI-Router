@@ -1,5 +1,5 @@
 ---
-title: hardware paper 
+title: hardware paper
 author: zfan
 ---
 

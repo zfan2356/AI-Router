@@ -5,7 +5,8 @@ author: zfan
 
 ## Megatron-LM: Training Multi-Billion Parameter Language Models
 
-作为model parallel的基石，如果你已经掌握了单机单卡简单使用pytorch训练model之后，建议来细读这一篇Megatron-LM的paper。
+作为model parallel的基石，如果你已经掌握了单机单卡简单使用pytorch训练model之后，
+建议来细读这一篇Megatron-LM的paper。
 
 [Megatron-LM paper](https://arxiv.org/pdf/1909.08053)
 
@@ -33,11 +34,11 @@ $$
 [Y_1, Y_2] = [GeLU(XA_1), GeLU(XA_2)]
 $$
 
-可以看出这种方式，计算的 $Y$ 仍然保持分割状态，但是无需做一次sync，只需要分治做GeLU即可
+可以看出这种方式，计算的 $Y$ 仍然保持分割状态，但是无需做一次sync，只需要分治做
+GeLU即可
 
 ## Megatron-LM2: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM
 
 [Megatron-LM2 paper](https://arxiv.org/pdf/2104.04473)
 
-interleaved schedule, mix parallel. 
-
+interleaved schedule, mix parallel.

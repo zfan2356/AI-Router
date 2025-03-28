@@ -1,11 +1,12 @@
 ---
-title: MoE架构 
+title: MoE架构
 author: zfan
 ---
 
 ## 一. Basic MoE
 
-较为简单，input流向所有的expert，所有的expert给出自己的答案，然后通过gateway决定每个expert的权重，之后加权求和之后得到输出
+较为简单，input流向所有的expert，所有的expert给出自己的答案，然后通过gateway决定
+每个expert的权重，之后加权求和之后得到输出
 
 ![示例图片](./picture/image19.png)
 
@@ -34,7 +35,7 @@ class BaseMoE(nn.Module):
         super().__init__()
         self.experts = nn.ModuleList(
             BasicExpert(
-                feature_in, 
+                feature_in,
                 feature_out
             ) for _ in range(expert_number)
         )

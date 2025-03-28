@@ -86,14 +86,14 @@ module.exports = {
                 children: [
                     { title: "GPU", path: "/notes/cuda/hardware.md" },
                     { title: "内存模型", path: "/notes/cuda/memory.md" },
-                    { 
+                    {
                         title: "ThunderKittens",
                         path: "/notes/cuda/kittens",
                         collapsable: true,
                         children: [
                             { title: "PTX内联", path: "/notes/cuda/kittens/ptx_inline.md" },
                             { title: "load/store", path: "/notes/cuda/kittens/load_store.md" },
-                        ] 
+                        ]
                     },
                 ]
             },
@@ -158,7 +158,7 @@ module.exports = {
         md.use(require("markdown-it-katex"));
     },
     head: [
-        
+
         ['link', { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css' }],
         ['link', { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" }],
 

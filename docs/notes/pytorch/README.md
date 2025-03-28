@@ -1,5 +1,5 @@
 ---
-title: PyTorch篇 
+title: PyTorch篇
 author: zfan
 ---
 
