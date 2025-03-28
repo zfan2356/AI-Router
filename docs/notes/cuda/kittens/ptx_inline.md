@@ -2,7 +2,7 @@
 
 ## 一. 浅谈一些封装的PTX
 
-PTX内联的形式：asm volatile("指令" : 输出操作数约束 : 输入操作数约束 : Clobber列表);
+PTX内联的形式：`asm volatile("指令" : 输出操作数约束 : 输入操作数约束 : Clobber列表);`
 
 常用约束符:
 

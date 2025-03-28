@@ -86,7 +86,15 @@ module.exports = {
                 children: [
                     { title: "GPU", path: "/notes/cuda/hardware.md" },
                     { title: "内存模型", path: "/notes/cuda/memory.md" },
-                    { title: "ThunderKittens", path: "/notes/cuda/thunderkittens.md" },
+                    { 
+                        title: "ThunderKittens",
+                        path: "/notes/cuda/kittens",
+                        collapsable: true,
+                        children: [
+                            { title: "PTX内联", path: "/notes/cuda/kittens/ptx_inline.md" },
+                            { title: "load/store", path: "/notes/cuda/kittens/load_store.md" },
+                        ] 
+                    },
                 ]
             },
 
