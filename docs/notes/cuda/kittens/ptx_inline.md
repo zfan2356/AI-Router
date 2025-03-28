@@ -213,12 +213,16 @@ expect_tx, 如果设置的bytes数量到达，就自动减一
 
 ---
 
-### `cp.async.bulk` 与 `tma`
+### `cp.async`
 
 `file: include/ops/warp/memory/util/tma.cuh`
 
 `cp.async.bulk`: Initiates an asynchronous copy operation from one state space
 to another. 意思是启动一个异步拷贝.
+
+`cp.async.bulk.tensor`: Initiates an asynchronous copy operation on the tensor
+data from one state space to another. 相当于针对tensor的异步拷贝，需要创建tensor
+map, 然后启动`tma`(这个很重要，是新的组件)
 
 ```
 cp.async.bulk.dst.src.completion_mechanism{.level::cache_hint} [dstMem], [srcMem], size, [mbar] {, cache-policy}
@@ -228,26 +232,119 @@ cp.async.bulk.dst.src.completion_mechanism{.level::cache_hint} [dstMem], [srcMem
 于async memory transaction, 可以设置expect_tx, 如果设置的bytes数量到达，就自动减
 一”, 所以我们使用`cp.async.bulk`的时候，需要传入`mbarrier`
 
-不过在kittens中，一般使用的是`cp.async.bulk.tensor`, 这里其实就是使用的tma
-load，需要传入tensor map
+`cp.async`广泛用于global memory <-> shared memory 之间, 首先来看最基础的async
+load/store两个方法
 
-`cp.async.bulk.tensor`: Initiates an asynchronous copy operation on the tensor
-data from one state space to another.
+#### `load_async`
 
-例如在kittens中`load_async`的实现中：
+首先是`with-tma`的版本, 这里使用了`cp.async.bulk.tensor.5d`, 需要使用tma，先load
+tensor map
 
 ```cpp
-asm volatile(
-    "cp.async.bulk.tensor.5d.shared::cluster.global.tile.mbarrier::complete_tx:"
-    ":bytes"
-    " [%0], [%1, {%3, %4, %5, %6, %7}], [%2];"
-    :
-    : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr), "n"(0), "r"(tma_coords.x),
-      "r"(tma_coords.y), "r"(tma_coords.z), "r"(tma_coords.w)
-    : "memory");
+template <int axis, cache_policy policy, ducks::st::all ST, ducks::gl::all GL,
+          ducks::coord::tile COORD = coord<ST>>
+__device__ static inline void load_async(ST &dst, const GL &src,
+                                         const COORD &idx, semaphore &bar) {
+  if (::kittens::laneid() == 0) {
+    uint64_t tma_ptr =
+        reinterpret_cast<uint64_t>(src.template get_tma<ST, axis>());
+    uint32_t mbar_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&bar));
+    uint32_t dst_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(&dst));
+    coord<ducks::default_type> unit_coord =
+        idx.template unit_coord<axis, 3>();  // convert to unit coordinates
+    int4 tma_coords = detail::tma_coords<ST, axis>(unit_coord);
+
+    if constexpr (policy == cache_policy::NORMAL) {
+      asm volatile(
+          "cp.async.bulk.tensor.5d.shared::cluster.global.tile.mbarrier::"
+          "complete_tx::bytes"
+          " [%0], [%1, {%3, %4, %5, %6, %7}], [%2];"
+          :
+          : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr), "n"(0),
+            "r"(tma_coords.x), "r"(tma_coords.y), "r"(tma_coords.z),
+            "r"(tma_coords.w)
+          : "memory");
+    } else {
+      asm volatile(
+          "cp.async.bulk.tensor.5d.shared::cluster.global.tile.mbarrier::"
+          "complete_tx::bytes.L2::cache_hint"
+          " [%0], [%1, {%3, %4, %5, %6, %7}], [%2], %8;"
+          :
+          : "r"(dst_ptr), "l"(tma_ptr), "r"(mbar_ptr), "n"(0),
+            "r"(tma_coords.x), "r"(tma_coords.y), "r"(tma_coords.z),
+            "r"(tma_coords.w), "l"(make_cache_policy<policy>())
+          : "memory");
+    }
+  }
+}
+```
+
+我们可以对比一下`non-tma`的版本，`non-tma`的版本下，可以合理利用所有的`thread`,
+然后使用`cp.async`来异步搬运数据
+
+```cpp
+template <int axis, bool assume_aligned, ducks::st::all ST, ducks::gl::all GL,
+          ducks::coord::tile COORD = coord<ST>, int N_THREADS = WARP_THREADS>
+__device__ static inline void load_async(ST &dst, const GL &src,
+                                         const COORD &idx) {
+  using T = typename ST::dtype;
+  const int row_stride = src.template stride<axis>();
+  // we can handle this many rows each time we run a memcpy_async
+  constexpr int elem_per_memcpy = sizeof(float4) / sizeof(typename ST::dtype);
+  constexpr int memcpy_per_row = dst.cols / elem_per_memcpy;
+  constexpr int total_calls =
+      (dst.height * dst.width * kittens::TILE_ROW_DIM<T> *
+           kittens::TILE_COL_DIM<T> +
+       N_THREADS * elem_per_memcpy - 1) /
+      (N_THREADS * elem_per_memcpy);  // round up
+
+  coord<> unit_coord = idx.template unit_coord<axis, 3>();
+  typename GL::dtype *src_ptr = (typename GL::dtype *)&src[unit_coord];
+  uint32_t dst_ptr =
+      static_cast<uint32_t>(__cvta_generic_to_shared(&dst.data[0]));
+  int laneid = threadIdx.x % N_THREADS;
+
+#pragma unroll
+  for (int i = 0; i < total_calls; i++) {
+    int load_idx = i * N_THREADS + laneid;
+
+    int row = load_idx / memcpy_per_row;
+    int col = (load_idx * elem_per_memcpy) % dst.cols;
+
+    if constexpr (assume_aligned) {
+      asm volatile("cp.async.cg.shared.global.L2::128B [%0], [%1], 16;\n" ::"r"(
+                       dst.idx(dst_ptr, {row, col})),
+                   "l"(&src_ptr[row * row_stride + col])
+                   : "memory");
+    } else {
+      if (row + unit_coord.template dim<axis>() < src.template shape<axis>()) {
+        asm volatile(
+            "cp.async.cg.shared.global.L2::128B [%0], [%1], 16;\n" ::"r"(
+                dst.idx(dst_ptr, {row, col})),
+            "l"(&src_ptr[row * row_stride + col])
+            : "memory");
+      } else {
+        // printf("thread %d skipping async load on row %d, col %d\n",
+        // threadIdx.x, row + unit_coord.template dim<axis>(), col);
+        float4 zeros = {0.f, 0.f, 0.f, 0.f};
+        move<float4>::sts(dst.idx(dst_ptr, {row, col}),
+                          zeros);  // use the default value
+      }
+    }
+  }
+  asm volatile("cp.async.commit_group;\n" ::: "memory");
+}
+template <ducks::st::all ST, ducks::gl::all GL,
+          ducks::coord::tile COORD = coord<ST>>
+__device__ static inline void load_async(ST &dst, const GL &src,
+                                         const COORD &idx) {
+  load_async<2, false, ST, GL, COORD, WARP_THREADS>(dst, src, idx);
+}
 ```
 
 #### `store_async`
+
+这个是`with-tma`的版本，貌似`non-tma`无法做到async store?
 
 ```cpp
 template <int axis, cache_policy policy, ducks::st::all ST, ducks::gl::all GL,
@@ -287,7 +384,64 @@ __device__ static inline void store_async(const GL &dst, const ST &src,
 }
 ```
 
+既然不能使用`cp.async`实现async store, 这里就放一个sync版本的store，其实就是使用
+的上文中提到的`move`中的`st`指令
+
+```cpp
+template <int axis, bool assume_aligned, ducks::st::all ST, ducks::gl::all GL,
+          ducks::coord::tile COORD = coord<ST>, int N_THREADS = WARP_THREADS>
+__device__ static inline void store(const GL &dst, const ST &src,
+                                    const COORD &idx) {
+  using T = typename ST::dtype;
+  const int row_stride = dst.template stride<axis>();
+  // we can handle this many rows each time we run a memcpy_async
+  constexpr int elem_per_memcpy = sizeof(float4) / sizeof(typename ST::dtype);
+  constexpr int memcpy_per_row = src.cols / elem_per_memcpy;
+  constexpr int total_calls =
+      (src.height * src.width * kittens::TILE_ROW_DIM<T> *
+           kittens::TILE_COL_DIM<T> +
+       N_THREADS * elem_per_memcpy - 1) /
+      (N_THREADS * elem_per_memcpy);  // round up
+
+  coord<> unit_coord = idx.template unit_coord<axis, 3>();
+  typename GL::dtype *dst_ptr = (typename GL::dtype *)&dst[unit_coord];
+  uint32_t src_ptr =
+      static_cast<uint32_t>(__cvta_generic_to_shared(&src.data[0]));
+  int laneid = threadIdx.x % N_THREADS;
+
+#pragma unroll
+  for (int i = 0; i < total_calls; i++) {
+    int load_idx = i * N_THREADS + laneid;
+
+    int row = load_idx / memcpy_per_row;
+    int col = (load_idx * elem_per_memcpy) % src.cols;
+
+    if constexpr (assume_aligned) {
+      float4 tmp;
+      move<float4>::lds(tmp, src.idx(src_ptr, {row, col}));
+      move<float4>::stg((float4 *)&dst_ptr[row * row_stride + col], tmp);
+    } else {
+      if (row + unit_coord.template dim<axis>() < dst.template shape<axis>()) {
+        float4 tmp;
+        move<float4>::lds(tmp, src.idx(src_ptr, {row, col}));
+        move<float4>::stg((float4 *)&dst_ptr[row * row_stride + col], tmp);
+      }
+    }
+  }
+}
+```
+
+总结：warp level中，对于global <-> share 之间的传输，提供了最基础的load/store
+(使用st/ld/ldmatrix/stmatrix) 的基础指令，同时也提供了aync方法, load async,
+store async，这里需要区分是否使用tma，如果使用tma的话，就使用的
+是`cp.async.bulk.tensor`来load/store, 如果没有使用tma，load_async的实现是使用的
+`cp.async`
+
+#### 同步机制
+
 对于tma的async操作，需要有一套sync机制保证
+
+##### With-TMA：
 
 - `store_async_wait()`: 使用一个thread去wait之前的`cp.async`操作
 
@@ -311,47 +465,68 @@ __device__ static inline void store_async_read_wait() {
 }
 ```
 
+- `load_async_wait()`: 注意这里不需要，仔细阅读上文中`with-tma`的`load_aync`, 会
+  发现需要传入一个`mbarrier`, 这个bar会帮我们做好同步的事情
+
+##### Non-TMA
+
+- `store_async_wait()`: 上文中说到，non-tma无法做到async store，故忽略
+
+- `load_async_wait()` 这个kittens中放到了warpgroup下，其实也就是使
+  用`cp.async.wait_group`来等待
+
+```cpp
+template <int N = 0>
+__device__ static inline void load_async_wait(
+    int bar_id) {  // for completing (non-TMA) async loads
+  asm volatile("cp.async.wait_group %0;\n" : : "n"(N) : "memory");
+  sync(bar_id);
+}
+```
+
 总结：所以我们在进行async load/store的时候，使用kittens就有了一个范式
 
 ```cpp
 kittens::init_semaphore(input_arrived[num_warpgroup], 2);
 kittens::init_semaphore(output_ready[num_warpgroup], 4);
 
-for
-  loop in coord :
-      // async load...
-      if (warpgroup::warpid() == 1) {
+for (coord = {0, 0}; coord < UPPER; coord = next(coord)) {
+  // async load...
+  if (warpgroup::warpid() == 1) {
     // tx count--
     // use one warp, use tma to load, global memory -> shared memory
-    tma::expect_bytes(input_arrived[warpgroup_id], bytes) tma::load_async(
-        shared_memory[warpgroup_id], global_memory[warpgroup_id], coord,
-        input_arrived[warpgroup_id])
+    tma::expect_bytes(input_arrived[warpgroup_id], bytes);
+    tma::load_async(shared_memory[warpgroup_id], global_memory[warpgroup_id],
+                    coord, input_arrived[warpgroup_id]);
+  } else if (warpgroup::laneid() == 0) {
+    // tx count --
+    // wait prev tma store
+    arrive(input_arrived[warpgroup_id]);
   }
-else if (warpgroup::laneid() == 0){// tx count --
-                                   // wait prev tma store
-                                   arrive(input_arrived[warpgroup_id])}
-// wait tx count == 0
-kittens::wait(input_arrived[warpgroup_id], phase)
+  // wait tx count == 0
+  kittens::wait(input_arrived[warpgroup_id], phase);
 
-    // warp level compute...
+  // warp level compute...
 
-    // warp level async store...
-    // reg -> shared memory
-    store(shared_memory[warpgroup_id], res) if (laneid() == 0) {
-  // wait four warp in warpgourp complete
-  // tx count -= 4
-  kittens::arrive_and_wait(output_ready[warpgroup_id], phase);
-}
-phase ^= 1
+  // warp level async store...
+  // reg -> shared memory
+  store(shared_memory[warpgroup_id], res);
+  if (laneid() == 0) {
+    // wait four warp in warpgourp complete
+    // tx count -= 4
+    kittens::arrive_and_wait(output_ready[warpgroup_id], phase);
+  }
+  phase ^= 1;
 
-    // shared memory -> global memory
-    if (warpgroup::warpid() == 0) {
-  // single warp to store async use tma
-  tma::store_async(global_memory[warpgroup_id], shared_memory[warpgroup_id],
-                   coord)
-      // Waits for previous committed TMA store groups to finish reading from
-      // shared memory.
-      tma::store_async_read_wait()
+  // shared memory -> global memory
+  if (warpgroup::warpid() == 0) {
+    // single warp to store async use tma
+    tma::store_async(global_memory[warpgroup_id], shared_memory[warpgroup_id],
+                     coord);
+    // Waits for previous committed TMA store groups to finish reading from
+    // shared memory.
+    tma::store_async_read_wait();
+  }
 }
 ```
 
