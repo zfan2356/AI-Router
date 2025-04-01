@@ -30,13 +30,13 @@ module.exports = {
                 path: "/notes/algorithm",
                 collapsable: true,
                 children: [
-                    { title: "线性回归", path: "/notes/algorithm/linear_regression.md" },
+                    { title: "Linear Regression", path: "/notes/algorithm/linear_regression.md" },
                     { title: "Softmax", path: "/notes/algorithm/softmax.md" },
-                    { title: "多层感知机MLP", path: "/notes/algorithm/multilayer_perceptron.md" },
-                    { title: "卷积神经网络CNN", path: "/notes/algorithm/cnn.md" },
-                    { title: "现代卷积神经网络", path: "/notes/algorithm/modern_cnn.md" },
-                    { title: "循环神经网络RNN", path: "/notes/algorithm/rnn.md" },
-                    { title: "注意力机制", path: "/notes/algorithm/attention.md" },
+                    { title: "Multilayer Perceptron", path: "/notes/algorithm/multilayer_perceptron.md" },
+                    { title: "Convolutional Neural Network", path: "/notes/algorithm/cnn.md" },
+                    { title: "Modern Convolutional Neural Network", path: "/notes/algorithm/modern_cnn.md" },
+                    { title: "Recurrent Neural Network", path: "/notes/algorithm/rnn.md" },
+                    { title: "Attention Mechanism", path: "/notes/algorithm/attention.md" },
                     { title: "Transformer", path: "/notes/algorithm/transformer.md" },
                     { title: "Q&A", path: "/notes/algorithm/Q&A.md" },
                     { title: "MoE", path: "/notes/algorithm/moe.md"},
@@ -50,10 +50,10 @@ module.exports = {
                 path: "/notes/cpp",
                 collapsable: true,
                 children: [
-                    { title: "const", path: "/notes/cpp/const.md" },
-                    { title: "move", path: "/notes/cpp/move.md"},
-                    { title: "类型推导", path: "/notes/cpp/type_inference.md"},
-                    { title: "Modern CPP", path: "/notes/cpp/modern_cpp_features.md"},
+                    { title: "Const", path: "/notes/cpp/const.md" },
+                    { title: "Move", path: "/notes/cpp/move.md"},
+                    { title: "Type Inference", path: "/notes/cpp/type_inference.md"},
+                    { title: "Modern C++ Features", path: "/notes/cpp/modern_cpp_features.md"},
                 ]
             },
 
@@ -63,8 +63,8 @@ module.exports = {
                 path: "/notes/pytorch",
                 collapsable: true,
                 children: [
-                    { title: "基础知识", path: "/notes/pytorch/basic.md" },
-                    { title: "梯度计算", path: "/notes/pytorch/gradient.md" }
+                    { title: "Basic Knowledge", path: "/notes/pytorch/basic.md" },
+                    { title: "Gradient Calculation", path: "/notes/pytorch/gradient.md" }
                 ]
             },
 
@@ -85,14 +85,14 @@ module.exports = {
                 collapsable: true,
                 children: [
                     { title: "GPU", path: "/notes/cuda/hardware.md" },
-                    { title: "内存模型", path: "/notes/cuda/memory.md" },
+                    { title: "Memory Model", path: "/notes/cuda/memory.md" },
+                    { title: "GEMM", path: "/notes/cuda/gemm.md" },
                     {
                         title: "ThunderKittens",
                         path: "/notes/cuda/kittens",
                         collapsable: true,
                         children: [
-                            { title: "PTX内联", path: "/notes/cuda/kittens/ptx_inline.md" },
-                            { title: "load/store", path: "/notes/cuda/kittens/load_store.md" },
+                            { title: "PTX inline", path: "/notes/cuda/kittens/ptx_inline.md" },
                         ]
                     },
                 ]
@@ -104,8 +104,8 @@ module.exports = {
                 path: "/notes/papers",
                 collapsable: true,
                 children: [
-                    { title: "transformer", path: "/notes/papers/transformer.md" },
-                    { title: "杂文记录", path: "/notes/papers/summary_record.md" },
+                    { title: "Transformer", path: "/notes/papers/transformer.md" },
+                    { title: "Summary Record", path: "/notes/papers/summary_record.md" },
                 ]
             },
 
@@ -133,8 +133,8 @@ module.exports = {
                         path: "/notes/system/quant",
                         collapsable: true,
                         children: [
-                            { title: "简介", path: "/notes/system/quant/introduce.md" },
-                            { title: "pytorch quant", path: "/notes/system/quant/pytorch_quant.md"},
+                            { title: "Introduction", path: "/notes/system/quant/introduce.md" },
+                            { title: "PyTorch Quant", path: "/notes/system/quant/pytorch_quant.md"},
                         ]
                     },
                     {
@@ -142,7 +142,7 @@ module.exports = {
                         path: "/notes/system/rl",
                         collapsable: true,
                         children: [
-                            { title: "简介", path: "/notes/system/rl/introduce.md" },
+                            { title: "Introduction", path: "/notes/system/rl/introduce.md" },
 
                         ]
                     },

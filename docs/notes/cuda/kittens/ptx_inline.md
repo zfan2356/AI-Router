@@ -215,25 +215,59 @@ expect_tx, 如果设置的bytes数量到达，就自动减一
 
 ### `cp.async`
 
+![示例图片](../picture/image.png)
+
 `file: include/ops/warp/memory/util/tma.cuh`
 
-`cp.async.bulk`: Initiates an asynchronous copy operation from one state space
-to another. 意思是启动一个异步拷贝.
+1. `cp.async`: Initiates an asynchronous copy operation from one state space to
+   another. 启动一个异步数据拷贝，貌似只能从global->shared
+
+```cpp
+cp.async.ca.shared.global xxx;
+cp.async.cg.shared.global xxx;
+```
+
+每次启动一个异步拷贝之后记得 `cp.async.commit_group`，标记一个async操作
+
+然后使用 `cp.async.wait_group` 来等待异步操作完成
+
+2. `cp.async.bulk`: Initiates an asynchronous copy operation from one state
+   space to another. 意思是启动一个批量异步拷贝. 使用tma
+
+```cpp
+// global -> shared (load)
+cp.async.bulk.shared::cta.global.mbarrier::complete_tx::bytes[dstMem], [srcMem],
+    size, [mbar];
+
+// shared -> global (store)
+cp.async.bulk.global.shared::cta.bulk_group[dstMem], [srcMem], size;
+```
+
+也会有`cp.async.prefetch` 来预取，`cp.reduce.async.bulk` 来做reduce
+
+和`cp.async`一样，也有`cp.async.bulk.commit_group`, 以
+及`cp.async.bulk.wait_group`
 
 `cp.async.bulk.tensor`: Initiates an asynchronous copy operation on the tensor
-data from one state space to another. 相当于针对tensor的异步拷贝，需要创建tensor
-map, 然后启动`tma`(这个很重要，是新的组件)
+data from one state space to another. 相当于针对tensor的批量异步拷贝，需要创建
+tensor map, 然后启动`tma`
 
-```
-cp.async.bulk.dst.src.completion_mechanism{.level::cache_hint} [dstMem], [srcMem], size, [mbar] {, cache-policy}
+```cpp
+// global -> shared
+cp.async.bulk.tensor.1d.shared ::cta.global.mbarrier::complete_tx::bytes
+    .tile[sMem0],
+    ,→ [tensorMap0, {tc0}], [mbar0];
+
+// global -> shared
+cp.async.bulk.tensor.1d.global.shared ::cta.bulk_group[tensorMap3, {tc0}],
+    ,→[sMem3];
 ```
 
 其中`.completion_mechanism = { .mbarrier::complete_tx::bytes }`, 进一步印证了“对
 于async memory transaction, 可以设置expect_tx, 如果设置的bytes数量到达，就自动减
 一”, 所以我们使用`cp.async.bulk`的时候，需要传入`mbarrier`
 
-`cp.async`广泛用于global memory <-> shared memory 之间, 首先来看最基础的async
-load/store两个方法
+首先来看kittens中实现的最基础的async load/store两个方法
 
 #### `load_async`
 
@@ -443,7 +477,23 @@ store async，这里需要区分是否使用tma，如果使用tma的话，就使
 
 ##### With-TMA：
 
-- `store_async_wait()`: 使用一个thread去wait之前的`cp.async`操作
+- `store_commit_group()`:
+
+```cpp
+// Commits previous asynchronous TMA stores to a group and performs them.
+__device__ static inline void store_commit_group() {
+  if (::kittens::laneid() == 0) {
+    asm volatile("cp.async.bulk.commit_group;");
+  }
+  __syncwarp();
+}
+```
+
+- `asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");`
+
+在`store_async`之前一般加上这么一句，
+
+- `store_async_wait()`: 使用一个thread去wait之前的`cp.async.bulk`操作
 
 ```cpp
 // N The maximum number of remaining TMA store groups. Defaults to 0.
@@ -467,6 +517,24 @@ __device__ static inline void store_async_read_wait() {
 
 - `load_async_wait()`: 注意这里不需要，仔细阅读上文中`with-tma`的`load_aync`, 会
   发现需要传入一个`mbarrier`, 这个bar会帮我们做好同步的事情
+
+- `expected_bytes()`:
+
+这个函数比较关键，一般和tma的`load_async`一起使用
+
+```cpp
+__device__ static inline void expect_bytes(semaphore& bar, uint32_t bytes) {
+  if (::kittens::laneid() == 0) {
+    void const* const ptr = &bar;
+    uint32_t bar_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(ptr));
+
+    asm volatile(
+        "mbarrier.arrive.expect_tx.shared::cta.b64 _, [%0], %1;\n" ::"r"(
+            bar_ptr),
+        "r"(bytes));
+  }
+}
+```
 
 ##### Non-TMA
 
