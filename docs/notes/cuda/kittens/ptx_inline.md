@@ -378,7 +378,7 @@ __device__ static inline void load_async(ST &dst, const GL &src,
 
 #### `store_async`
 
-这个是`with-tma`的版本，貌似`non-tma`无法做到async store?
+使用`cp.async.bulk.tensor`的async store
 
 ```cpp
 template <int axis, cache_policy policy, ducks::st::all ST, ducks::gl::all GL,
@@ -418,8 +418,53 @@ __device__ static inline void store_async(const GL &dst, const ST &src,
 }
 ```
 
-既然不能使用`cp.async`实现async store, 这里就放一个sync版本的store，其实就是使用
-的上文中提到的`move`中的`st`指令
+在代码中找到了一个`shared::cluster -> shared::cta` 的 async store，不知道是什么
+用途
+
+```cpp
+// Generic transfer
+__device__ static inline void store_async(void* dst, void* src, int dst_cta,
+                                          uint32_t size_bytes, semaphore& bar) {
+  if (laneid() == 0) {
+    void const* const ptr = &bar;
+    uint32_t mbarrier_ptr =
+        static_cast<uint32_t>(__cvta_generic_to_shared(ptr));
+
+    // **************************************************
+    // load from src to dst in different threadblocks
+    uint32_t src_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(src));
+    uint32_t dst_ptr = static_cast<uint32_t>(__cvta_generic_to_shared(dst));
+
+    // mapa instr =
+    // https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#data-movement-and-conversion-instructions-mapa
+    // find dst addr in neighbor's cta
+    uint32_t neighbor_addr_dst;
+    asm volatile("mapa.shared::cluster.u32  %0, %1, %2;\n"
+                 : "=r"(neighbor_addr_dst)
+                 : "r"(dst_ptr), "r"(dst_cta));
+
+    uint32_t neighbor_addr_mbarrier = mbarrier_ptr;
+    asm volatile("mapa.shared::cluster.u32  %0, %1, %2;\n"
+                 : "=r"(neighbor_addr_mbarrier)
+                 : "r"(mbarrier_ptr), "r"(dst_cta));
+
+    // cp.async instr =
+    // https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#data-movement-and-conversion-instructions-cp-async-bulk
+    // copy src into dst in neighbor's cta
+    asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+    asm volatile(
+        "cp.async.bulk.shared::cluster.shared::cta.mbarrier::complete_tx::"
+        "bytes [%0], [%1], %2, [%3];\n"
+        :
+        : "r"(neighbor_addr_dst), "r"(src_ptr), "r"(size_bytes),
+          "r"(neighbor_addr_mbarrier)
+        : "memory");
+  }
+}
+```
+
+`cp.async`貌似只能用来load， 这里放一个sync版本的store，其实就是使用的上文中提到
+的`move`中的`st`指令
 
 ```cpp
 template <int axis, bool assume_aligned, ducks::st::all ST, ducks::gl::all GL,
