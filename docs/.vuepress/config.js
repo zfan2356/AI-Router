@@ -116,6 +116,16 @@ module.exports = {
                 collapsable: true,
                 children: [
                     {
+                        title: "Pre-train篇",
+                        path: "/notes/system/pre-train",
+                        collapsable: true,
+                        children: [
+                            // { title: "Introduction", path: "/notes/system/pre-train/introduce.md" },
+                            { title: "Model Parallel", path: "/notes/system/pre-train/model_parallel.md"},
+                            // { title: "Dualpipe", path: "/notes/system/pre-train/dualpipe.md"},
+                        ]
+                    },
+                    {
                         title: "推理篇",
                         path: "/notes/system/inference",
                         collapsable: true,
