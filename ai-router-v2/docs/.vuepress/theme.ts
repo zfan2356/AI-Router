@@ -51,19 +51,20 @@ export const theme: Theme = plumeTheme({
     },
   },
 
-  comment: {
-    provider: 'Giscus',
-    comment: true,
-    repo: 'pengzhanbo/vuepress-theme-plume',
-    repoId: 'R_kgDOG_ebNA',
-    category: 'docs-comment',
-    categoryId: 'DIC_kwDOG_ebNM4Cd0uF',
-    mapping: 'pathname',
-    reactionsEnabled: true,
-    inputPosition: 'top',
-    darkTheme: 'dark_protanopia',
-    lightTheme: 'light_protanopia',
-  },
+  // comment: {
+  //   provider: 'Giscus',
+  //   comment: true,
+  //   repo: 'pengzhanbo/vuepress-theme-plume',
+  //   repoId: 'R_kgDOG_ebNA',
+  //   category: 'docs-comment',
+  //   categoryId: 'DIC_kwDOG_ebNM4Cd0uF',
+  //   mapping: 'pathname',
+  //   reactionsEnabled: true,
+  //   inputPosition: 'top',
+  //   darkTheme: 'dark_protanopia',
+  //   lightTheme: 'light_protanopia',
+  // },
+  comment: false,
 
   watermark: {
     enabled: false,

@@ -51,7 +51,7 @@
 <p><strong>获取 css 伪类选择器 <code v-pre>:dir()</code> 在各个浏览器的支持情况：</strong></p>
 <div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">@</span><span style="--shiki-light:#999999;--shiki-dark:#666666">[</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">caniuse</span><span style="--shiki-light:#999999;--shiki-dark:#666666">](</span><span style="--shiki-light:#393A3490;--shiki-light-text-decoration:underline;--shiki-dark:#DEDCD590;--shiki-dark-text-decoration:underline">css-matches-pseudo</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span></span></code></pre>
 </div><p>效果：</p>
-<CanIUseViewer feature="css-matches-pseudo" meta="wchom" past="2" future="1" /><p><strong>以图片的形式，获取 css 伪类选择器 <code v-pre>:dir()</code> 在各个浏览器的支持情况：</strong></p>
+<CanIUseViewer feature="css-matches-pseudo" meta="mdrsj" past="2" future="1" /><p><strong>以图片的形式，获取 css 伪类选择器 <code v-pre>:dir()</code> 在各个浏览器的支持情况：</strong></p>
 <div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">@</span><span style="--shiki-light:#999999;--shiki-dark:#666666">[</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">caniuse image</span><span style="--shiki-light:#999999;--shiki-dark:#666666">](</span><span style="--shiki-light:#393A3490;--shiki-light-text-decoration:underline;--shiki-dark:#DEDCD590;--shiki-dark-text-decoration:underline">css-matches-pseudo</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span></span></code></pre>
 </div><p>效果：</p>
 <ClientOnly><p><picture>
@@ -61,6 +61,6 @@
     </picture></p></ClientOnly><p><strong>获取 css 伪类选择器 <code v-pre>:dir()</code> 特定范围浏览器的支持情况：</strong></p>
 <div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">@</span><span style="--shiki-light:#999999;--shiki-dark:#666666">[</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">caniuse{-2,3}</span><span style="--shiki-light:#999999;--shiki-dark:#666666">](</span><span style="--shiki-light:#393A3490;--shiki-light-text-decoration:underline;--shiki-dark:#DEDCD590;--shiki-dark-text-decoration:underline">css-matches-pseudo</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span></span></code></pre>
 </div><p>效果：</p>
-<CanIUseViewer feature="css-matches-pseudo" meta="lhsdt" past="2" future="3" /></div></template>
+<CanIUseViewer feature="css-matches-pseudo" meta="mmnti" past="2" future="3" /></div></template>
 
 
