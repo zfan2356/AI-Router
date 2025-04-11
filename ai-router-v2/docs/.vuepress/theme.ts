@@ -7,8 +7,8 @@ export const theme: Theme = plumeTheme({
 
   docsRepo: 'https://github.com/zfan2356/AI-Router',
   docsDir: 'docs',
-  changelog: { maxCount: 10 },
-  contributors: { mode: 'block' },
+  changelog: false,
+  contributors: false,
 
   search: { provider: 'local' },
 
