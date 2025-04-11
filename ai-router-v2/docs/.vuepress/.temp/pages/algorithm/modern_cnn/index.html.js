@@ -1,16 +1,3 @@
 import comp from "/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/docs/.vuepress/.temp/pages/algorithm/modern_cnn/index.html.vue"
-const data = JSON.parse("{\"path\":\"/algorithm/modern_cnn/\",\"title\":\"现代卷积神经网络\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"现代卷积神经网络\",\"author\":\"zfan\",\"createTime\":\"2025/04/11 22:07:39\",\"permalink\":\"/algorithm/modern_cnn/\",\"tags\":[\"算法\"],\"gitInclude\":[]},\"headers\":[],\"readingTime\":{\"minutes\":3.49,\"words\":1048},\"filePathRelative\":\"notes/algorithm/modern_cnn.md\",\"bulletin\":false}")
+const data = JSON.parse("{\"path\":\"/algorithm/modern_cnn/\",\"title\":\"现代卷积神经网络\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"现代卷积神经网络\",\"author\":\"zfan\",\"createTime\":\"2025/04/11 22:07:39\",\"permalink\":\"/algorithm/modern_cnn/\",\"tags\":[\"算法\"]},\"headers\":[],\"readingTime\":{\"minutes\":3.49,\"words\":1048},\"git\":{\"updatedTime\":1744386529000,\"contributors\":[{\"name\":\"xingonzhang\",\"username\":\"xingonzhang\",\"email\":\"xingonzhang@tencent.com\",\"commits\":4,\"avatar\":\"https://avatars.githubusercontent.com/xingonzhang?v=4\",\"url\":\"https://github.com/xingonzhang\"},{\"name\":\"zfan2356\",\"username\":\"zfan2356\",\"email\":\"2356754953@qq.com\",\"commits\":2,\"avatar\":\"https://avatars.githubusercontent.com/zfan2356?v=4\",\"url\":\"https://github.com/zfan2356\"}],\"changelog\":[{\"hash\":\"057bddb71879895434bdddd158757d98ea9b1115\",\"time\":1744386529000,\"email\":\"2356754953@qq.com\",\"author\":\"zfan2356\",\"message\":\"add ai-router-v2\"},{\"hash\":\"3be8552a41351edae3c08a8359b144430dbe2e1b\",\"time\":1744213596000,\"email\":\"2356754953@qq.com\",\"author\":\"zfan2356\",\"message\":\"add ai-router-v2\"},{\"hash\":\"47f993bd358c58da3c24b780a3dec7f7f8a19145\",\"time\":1743146717000,\"email\":\"xingonzhang@tencent.com\",\"author\":\"xingonzhang\",\"message\":\"add\"},{\"hash\":\"10ab5d6a6e0cc0e87e3001b956fbb2ec93bed99e\",\"time\":1737186019000,\"email\":\"xingonzhang@tencent.com\",\"author\":\"xingonzhang\",\"message\":\"fix\"},{\"hash\":\"8e6136d3397d264c71c231cf579847a6b5f57ac0\",\"time\":1735043685000,\"email\":\"xingonzhang@tencent.com\",\"author\":\"xingonzhang\",\"message\":\"fix\"},{\"hash\":\"2bce38b9cd48f74c4abd94b5e130294357cdf528\",\"time\":1734863249000,\"email\":\"xingonzhang@tencent.com\",\"author\":\"xingonzhang\",\"message\":\"add\"}]},\"filePathRelative\":\"notes/algorithm/modern_cnn.md\",\"bulletin\":false}")
 export { comp, data }
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
-}

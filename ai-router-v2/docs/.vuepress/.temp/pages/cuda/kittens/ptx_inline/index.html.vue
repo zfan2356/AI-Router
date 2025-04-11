@@ -155,7 +155,7 @@ memory load/store, 所以在init的时候会设置thread_count+transaction_count
 expect_tx, 如果设置的bytes数量到达，就自动减一</p>
 <hr>
 <h3 id="cp-async" tabindex="-1"><a class="header-anchor" href="#cp-async"><span><code v-pre>cp.async</code></span></a></h3>
-<p><img src="@source/notes/cuda/picture/image.png" alt="示例图片"></p>
+<p><img src="@source/notes/cuda/picture/image.png" alt="示例图片" width="982" height="782"></p>
 <p><code v-pre>file: include/ops/warp/memory/util/tma.cuh</code></p>
 <ol>
 <li><code v-pre>cp.async</code>: Initiates an asynchronous copy operation from one state space to

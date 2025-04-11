@@ -167,9 +167,9 @@
 <li>
 <h3 id="在-docs-目录下新建-readme-md-文件" tabindex="-1"><a class="header-anchor" href="#在-docs-目录下新建-readme-md-文件"><span>在 <code v-pre>docs</code> 目录下新建 <code v-pre>README.md</code> 文件</span></a></h3>
 <p>声明首页配置。</p>
-<div class="code-block-title"><div class="code-block-title-bar"><span class="title"><VPIcon name="flat-color-icons:info"/>README.md</span></div><div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">---</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">home: true</span></span>
-<span class="line"><span style="--shiki-light:#1C6B48;--shiki-light-font-weight:bold;--shiki-dark:#4D9375;--shiki-dark-font-weight:bold">---</span></span></code></pre>
+<div class="code-block-title"><div class="code-block-title-bar"><span class="title"><VPIcon name="flat-color-icons:info"/>README.md</span></div><div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">---</span></span>
+<span class="line"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">home</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> true</span></span>
+<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">---</span></span></code></pre>
 </div></div></li>
 <li>
 <h3 id="在本地服务器启动你的文档站点" tabindex="-1"><a class="header-anchor" href="#在本地服务器启动你的文档站点"><span>在本地服务器启动你的文档站点</span></a></h3>

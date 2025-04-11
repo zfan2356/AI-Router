@@ -1,6 +1,6 @@
 <template><div><h2 id="一-什么是softmax" tabindex="-1"><a class="header-anchor" href="#一-什么是softmax"><span>一. 什么是Softmax</span></a></h2>
 <h3 id="_1-引入" tabindex="-1"><a class="header-anchor" href="#_1-引入"><span>1. 引入</span></a></h3>
-<p><img src="@source/notes/algorithm/picture/image.png" alt="示例图片"></p>
+<p><img src="@source/notes/algorithm/picture/image.png" alt="示例图片" width="3284" height="1928"></p>
 <p>我们首先要对分类问题有基本的认知，首先假设现在有三个类别，鸡鸭鹅，我们需要将若干
 禽类数据划分到三种类别下，这个时候我们通常使用”软性”类别，即得到属于每个类别的概
 率</p>

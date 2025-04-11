@@ -10,8 +10,9 @@ import * as clientConfig8 from '/Users/zhangfan/zfan2356/github/AI-Router/ai-rou
 import * as clientConfig9 from '/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/node_modules/@vuepress/plugin-watermark/lib/client/config.js'
 import * as clientConfig10 from '/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/node_modules/@vuepress/plugin-comment/lib/client/config.js'
 import * as clientConfig11 from '/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/node_modules/@vuepress-plume/plugin-search/lib/client/config.js'
-import * as clientConfig12 from '/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/node_modules/vuepress-theme-plume/lib/client/config.js'
-import * as clientConfig13 from '/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/docs/.vuepress/client.ts'
+import * as clientConfig12 from '/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/docs/.vuepress/.temp/git/config.js'
+import * as clientConfig13 from '/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/node_modules/vuepress-theme-plume/lib/client/config.js'
+import * as clientConfig14 from '/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/docs/.vuepress/client.ts'
 
 export const clientConfigs = [
   clientConfig0,
@@ -28,4 +29,5 @@ export const clientConfigs = [
   clientConfig11,
   clientConfig12,
   clientConfig13,
+  clientConfig14,
 ].map((m) => m.default).filter(Boolean)

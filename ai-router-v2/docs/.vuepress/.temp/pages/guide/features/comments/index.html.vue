@@ -92,12 +92,12 @@
 </li>
 <li>
 <p>点击左上角 <a href="https://console.leancloud.app/apps" target="_blank" rel="noopener noreferrer">创建应用</a> 并起一个你喜欢的名字 (请选择免费的开发版):</p>
-<p><img src="https://ecosystem.vuejs.press/assets/leancloud-1-D6GvqV4-.png" alt="创建应用"></p>
+<p><img src="https://ecosystem.vuejs.press/assets/leancloud-1-D6GvqV4-.png" alt="创建应用" width="901" height="733"></p>
 </li>
 <li>
 <p>进入应用，选择左下角的 <code v-pre>设置</code> &gt; <code v-pre>应用 Key</code>。你可以看到你的 <code v-pre>APP ID</code>,<code v-pre>APP Key</code> 和 <code v-pre>Master Key</code>。
 请记录它们，以便后续使用。</p>
-<p><img src="https://ecosystem.vuejs.press/assets/leancloud-2-B5wKvXiY.png" alt="ID 和 Key"></p>
+<p><img src="https://ecosystem.vuejs.press/assets/leancloud-2-B5wKvXiY.png" alt="ID 和 Key" width="1321" height="894"></p>
 </li>
 </ol>
 </div><div class="hint-container warning">
@@ -110,7 +110,7 @@
 <li>按照页面上的提示按要求在 DNS 上完成 CNAME 解析。</li>
 <li>购买独立 IP 并提交工单完成备案接入。(独立 IP 目前价格为 ￥ 50/个/月)</li>
 </ul>
-<p><img src="https://ecosystem.vuejs.press/assets/leancloud-3-D7gbeXS0.png" alt="域名设置"></p>
+<p><img src="https://ecosystem.vuejs.press/assets/leancloud-3-D7gbeXS0.png" alt="域名设置" width="2891" height="1259"></p>
 </div>
 <h3 id="vercel-部署-服务端" tabindex="-1"><a class="header-anchor" href="#vercel-部署-服务端"><span>Vercel 部署 (服务端)</span></a></h3>
 <p><a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwalinejs%2Fwaline%2Ftree%2Fmain%2Fexample" target="_blank" rel="noopener noreferrer"><img src="https://vercel.com/button" alt="Vercel"></a></p>
@@ -124,19 +124,19 @@
 </li>
 <li>
 <p>输入一个你喜欢的 Vercel 项目名称并点击 <code v-pre>Create</code> 继续:</p>
-<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-1.png" alt="创建项目"></p>
+<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-1.png" alt="创建项目" width="2446" height="1946"></p>
 </li>
 <li>
 <p>此时 Vercel 会基于 Waline 模板帮助你新建并初始化仓库，仓库名为你之前输入的项目名。</p>
-<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-3.png" alt="deploy"></p>
+<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-3.png" alt="deploy" width="2446" height="1946"></p>
 <p>一两分钟后，满屏的烟花会庆祝你部署成功。此时点击 <code v-pre>Go to Dashboard</code> 可以跳转到应用的控制台。</p>
-<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-4.png" alt="deploy"></p>
+<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-4.png" alt="deploy" width="2446" height="1946"></p>
 </li>
 <li>
 <p>点击顶部的 <code v-pre>Settings</code> - <code v-pre>Environment Variables</code> 进入环境变量配置页，
 并配置三个环境变量 <code v-pre>LEAN_ID</code>, <code v-pre>LEAN_KEY</code> 和 <code v-pre>LEAN_MASTER_KEY</code> 。
 它们的值分别对应上一步在 LeanCloud 中获得的 <code v-pre>APP ID</code>, <code v-pre>APP KEY</code>, <code v-pre>Master Key</code>。</p>
-<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-5.png" alt="设置环境变量"></p>
+<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-5.png" alt="设置环境变量" width="2446" height="2138"></p>
 <div class="hint-container note">
 <p class="hint-container-title">注</p>
 <p>如果你使用 LeanCloud 国内版，请额外配置 <code v-pre>LEAN_SERVER</code> 环境变量，值为你绑定好的域名。</p>
@@ -144,11 +144,11 @@
 </li>
 <li>
 <p>环境变量配置完成之后点击顶部的 <code v-pre>Deployments</code> 点击顶部最新的一次部署右侧的 <code v-pre>Redeploy</code> 按钮进行重新部署。该步骤是为了让刚才设置的环境变量生效。</p>
-<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-6.png" alt="redeploy"></p>
+<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-6.png" alt="redeploy" width="2446" height="2138"></p>
 </li>
 <li>
 <p>此时会跳转到 <code v-pre>Overview</code> 界面开始部署，等待片刻后 <code v-pre>STATUS</code> 会变成 <code v-pre>Ready</code>。此时请点击 <code v-pre>Visit</code> ，即可跳转到部署好的网站地址，此地址即为你的服务端地址。</p>
-<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-7.png" alt="redeploy success"></p>
+<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-7.png" alt="redeploy success" width="2446" height="2138"></p>
 </li>
 </ol>
 </div><h3 id="绑定域名-可选" tabindex="-1"><a class="header-anchor" href="#绑定域名-可选"><span>绑定域名 (可选)</span></a></h3>
@@ -158,7 +158,7 @@
 </li>
 <li>
 <p>输入需要绑定的域名并点击 <code v-pre>Add</code></p>
-<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-8.png" alt="Add domain"></p>
+<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-8.png" alt="Add domain" width="1026" height="369"></p>
 </li>
 <li>
 <p>在域名服务器商处添加新的 <code v-pre>CNAME</code> 解析记录</p>
@@ -185,7 +185,7 @@
 <li>评论系统：example.your-domain.com</li>
 <li>评论管理：example.your-domain.com/ui</li>
 </ul>
-<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-9.png" alt="success"></p>
+<p><img src="https://ecosystem.vuejs.press/images/comment/vercel-9.png" alt="success" width="785" height="138"></p>
 </li>
 </ol>
 </div><h3 id="客户端" tabindex="-1"><a class="header-anchor" href="#客户端"><span>客户端</span></a></h3>

@@ -103,7 +103,7 @@
     
   </div>
   <div class="demo-container" >
-<img src="/images/custom-banner.jpg" alt="" />
+<img src="/images/custom-banner.jpg" width="1000" height="520">
 </div></div><h3 id="hero" tabindex="-1"><a class="header-anchor" href="#hero"><span>hero</span></a></h3>
 <ul>
 <li>类型： <code v-pre>PlumeThemeHomeHero</code></li>
@@ -186,7 +186,7 @@
     
   </div>
   <div class="demo-container" >
-<img src="/images/custom-hero.jpg" alt="Theme Plume" />
+<img src="/images/custom-hero.jpg" alt="Theme Plume" width="1000" height="525">
 </div></div><p>当 <code v-pre>background</code> 配置为 <code v-pre>tint-plate</code> 时，还可以额外配置 <code v-pre>tintPlate</code> 调整 背景色调，范围为 <code v-pre>0 ~ 255</code>：</p>
 <div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">---</span></span>
 <span class="line"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">home</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> true</span></span>
@@ -272,7 +272,7 @@
     
   </div>
   <div class="demo-container" >
-<img src="/images/custom-doc-hero.jpg" alt="Theme Plume" />
+<img src="/images/custom-doc-hero.jpg" alt="Theme Plume" width="1000" height="303">
 </div></div><p>主题还支持自定义 <code v-pre>name</code>, <code v-pre>tagline</code>， <code v-pre>text</code> 的颜色，以及 <code v-pre>image</code> 的背景色。</p>
 <p>通过 <code v-pre>CSS Vars</code> 进行配置。</p>
 <div class="language-css" data-highlighter="shiki" data-ext="css" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">/* 默认设置，可以在 `index.css` 中覆盖 */</span></span>
@@ -374,7 +374,7 @@
     
   </div>
   <div class="demo-container" >
-<img src="/images/custom-features.jpg" alt="" />
+<img src="/images/custom-features.jpg" width="1000" height="486">
 </div></div><h3 id="text-image-image-text" tabindex="-1"><a class="header-anchor" href="#text-image-image-text"><span>text-image | image-text</span></a></h3>
 <ul>
 <li>类型： <code v-pre>PlumeThemeHomeTextImage</code></li>
@@ -441,14 +441,14 @@
     
   </div>
   <div class="demo-container" >
-<img src="/images/custom-image-text.jpg" alt="image-text" />
+<img src="/images/custom-image-text.jpg" alt="image-text" width="1000" height="380">
 </div></div><div class="demo-wrapper only-img no-padding">
   <div class="demo-head">
     <div class="demo-ctrl"><i></i><i></i><i></i></div>
     
   </div>
   <div class="demo-container" >
-<img src="/images/custom-text-image.jpg" alt="text-image" />
+<img src="/images/custom-text-image.jpg" alt="text-image" width="1000" height="286">
 </div></div><h3 id="blog" tabindex="-1"><a class="header-anchor" href="#blog"><span>blog</span></a></h3>
 <p>将 博客文章列表页 作为一个单独区域，插入到 首页中。</p>
 <h3 id="profile" tabindex="-1"><a class="header-anchor" href="#profile"><span>profile</span></a></h3>
@@ -485,7 +485,7 @@
     
   </div>
   <div class="demo-container" >
-<img src="/images/custom-profile.jpg" alt="profile" />
+<img src="/images/custom-profile.jpg" alt="profile" width="1000" height="146">
 </div></div><h3 id="custom" tabindex="-1"><a class="header-anchor" href="#custom"><span>custom</span></a></h3>
 <ul>
 <li>类型： <code v-pre>PlumeThemeHomeCustom</code></li>
@@ -525,7 +525,7 @@
     
   </div>
   <div class="demo-container" >
-<img src="/images/custom-content.jpg" alt="content" />
+<img src="/images/custom-content.jpg" alt="content" width="1000" height="189">
 </div></div><h2 id="自定义区域类型" tabindex="-1"><a class="header-anchor" href="#自定义区域类型"><span>自定义区域类型</span></a></h2>
 <p>当主题内置的区域类型不足以满足你的需求时，你可以自定义区域类型。</p>
 <p>每一个自定义区域类型，本质上都是一个组件。</p>

@@ -72,7 +72,7 @@
 </blockquote>
 <p><RouteLink to="/">链接</RouteLink></p>
 <p><a href="https://github.com/pengzhanbo" target="_blank" rel="noopener noreferrer">外部链接</a></p>
-<p><img src="/plume.png" alt="plume"></p>
+<p><img src="/plume.png" alt="plume" width="180" height="180"></p>
 <p><strong>Badge：</strong></p>
 <ul>
 <li>

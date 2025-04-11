@@ -1,16 +1,3 @@
 import comp from "/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/docs/.vuepress/.temp/pages/algorithm/linear/index.html.vue"
-const data = JSON.parse("{\"path\":\"/algorithm/linear/\",\"title\":\"Linear Regression\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"Linear Regression\",\"author\":\"zfan\",\"createTime\":\"2025/04/11 22:07:39\",\"permalink\":\"/algorithm/linear/\",\"tags\":[\"算法\"],\"gitInclude\":[]},\"headers\":[],\"readingTime\":{\"minutes\":5.23,\"words\":1569},\"filePathRelative\":\"notes/algorithm/linear_regression.md\",\"bulletin\":false}")
+const data = JSON.parse("{\"path\":\"/algorithm/linear/\",\"title\":\"Linear Regression\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"Linear Regression\",\"author\":\"zfan\",\"createTime\":\"2025/04/11 22:07:39\",\"permalink\":\"/algorithm/linear/\",\"tags\":[\"算法\"]},\"headers\":[],\"readingTime\":{\"minutes\":5.23,\"words\":1569},\"git\":{\"updatedTime\":1744386529000,\"contributors\":[{\"name\":\"xingonzhang\",\"username\":\"xingonzhang\",\"email\":\"xingonzhang@tencent.com\",\"commits\":6,\"avatar\":\"https://avatars.githubusercontent.com/xingonzhang?v=4\",\"url\":\"https://github.com/xingonzhang\"},{\"name\":\"zfan2356\",\"username\":\"zfan2356\",\"email\":\"2356754953@qq.com\",\"commits\":6,\"avatar\":\"https://avatars.githubusercontent.com/zfan2356?v=4\",\"url\":\"https://github.com/zfan2356\"}],\"changelog\":[{\"hash\":\"057bddb71879895434bdddd158757d98ea9b1115\",\"time\":1744386529000,\"email\":\"2356754953@qq.com\",\"author\":\"zfan2356\",\"message\":\"add ai-router-v2\"},{\"hash\":\"3be8552a41351edae3c08a8359b144430dbe2e1b\",\"time\":1744213596000,\"email\":\"2356754953@qq.com\",\"author\":\"zfan2356\",\"message\":\"add ai-router-v2\"},{\"hash\":\"47f993bd358c58da3c24b780a3dec7f7f8a19145\",\"time\":1743146717000,\"email\":\"xingonzhang@tencent.com\",\"author\":\"xingonzhang\",\"message\":\"add\"},{\"hash\":\"c59744620b2c0ce7b9a183cf59ad182ee083ce63\",\"time\":1737280649000,\"email\":\"xingonzhang@tencent.com\",\"author\":\"xingonzhang\",\"message\":\"add\"},{\"hash\":\"e165bc06ec05ace72dbae0067c877371a301f582\",\"time\":1734698982000,\"email\":\"xingonzhang@tencent.com\",\"author\":\"xingonzhang\",\"message\":\"add\"},{\"hash\":\"796a3f23e61fd82e62c05666d04b2f986ccd2e84\",\"time\":1734269564000,\"email\":\"2356754953@qq.com\",\"author\":\"zfan2356\",\"message\":\"add\"},{\"hash\":\"0b9cdac32d4755318e1556fb59ec6a4e32afcffa\",\"time\":1734268221000,\"email\":\"2356754953@qq.com\",\"author\":\"zfan2356\",\"message\":\"add\"},{\"hash\":\"e478ca856ee0e559c35380bf5d6903947f0423bb\",\"time\":1734266958000,\"email\":\"2356754953@qq.com\",\"author\":\"zfan2356\",\"message\":\"add\"},{\"hash\":\"c47a0110a04e848720cf7ad7c336c12c1f771c3e\",\"time\":1734253170000,\"email\":\"2356754953@qq.com\",\"author\":\"zfan2356\",\"message\":\"add\"},{\"hash\":\"71f43cea77d1e945cdccafb1b64512c403ea7d1f\",\"time\":1734178755000,\"email\":\"xingonzhang@tencent.com\",\"author\":\"xingonzhang\",\"message\":\"move to docs\"}]},\"filePathRelative\":\"notes/algorithm/linear_regression.md\",\"bulletin\":false}")
 export { comp, data }
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
-}

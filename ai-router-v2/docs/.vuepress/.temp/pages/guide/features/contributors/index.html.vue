@@ -47,7 +47,7 @@
 <ul>
 <li>
 <p><code v-pre>inline</code>：在文章页底部，与 最后更新时间，并列显示贡献者信息，该模式下仅显示 贡献者名称。</p>
-<p><img src="/images/contributors-inline.png" alt="contributors inline"></p>
+<p><img src="/images/contributors-inline.png" alt="contributors inline" width="1830" height="584"></p>
 </li>
 <li>
 <p><code v-pre>block</code>：在文章内容末尾插入贡献者信息，该模式下包含 贡献者名称、贡献者链接、贡献者头像。

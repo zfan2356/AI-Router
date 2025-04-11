@@ -1,16 +1,3 @@
 import comp from "/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/docs/.vuepress/.temp/pages/article/30995vcd/index.html.vue"
-const data = JSON.parse("{\"path\":\"/article/30995vcd/\",\"title\":\"照片类作品示例\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"照片类作品示例\",\"createTime\":\"2024/08/17 14:30:23\",\"permalink\":\"/article/30995vcd/\",\"gitInclude\":[]},\"headers\":[],\"readingTime\":{\"minutes\":0.87,\"words\":260},\"filePathRelative\":\"1.示例/照片类作品示例.md\",\"categoryList\":[{\"id\":\"7e4ecf\",\"sort\":1,\"name\":\"示例\"}],\"bulletin\":false}")
+const data = JSON.parse("{\"path\":\"/article/30995vcd/\",\"title\":\"照片类作品示例\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"照片类作品示例\",\"createTime\":\"2024/08/17 14:30:23\",\"permalink\":\"/article/30995vcd/\"},\"headers\":[],\"readingTime\":{\"minutes\":0.87,\"words\":260},\"git\":{\"updatedTime\":1744386529000,\"contributors\":[{\"name\":\"zfan2356\",\"username\":\"zfan2356\",\"email\":\"2356754953@qq.com\",\"commits\":1,\"avatar\":\"https://avatars.githubusercontent.com/zfan2356?v=4\",\"url\":\"https://github.com/zfan2356\"}],\"changelog\":[{\"hash\":\"057bddb71879895434bdddd158757d98ea9b1115\",\"time\":1744386529000,\"email\":\"2356754953@qq.com\",\"author\":\"zfan2356\",\"message\":\"add ai-router-v2\"}]},\"filePathRelative\":\"1.示例/照片类作品示例.md\",\"categoryList\":[{\"id\":\"7e4ecf\",\"sort\":1,\"name\":\"示例\"}],\"bulletin\":false}")
 export { comp, data }
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
-}

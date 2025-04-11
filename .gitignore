@@ -1,1 +1,3 @@
 node_modules
+.vuepress/dist
+ai-router-v2/docs/.vuepress/dist

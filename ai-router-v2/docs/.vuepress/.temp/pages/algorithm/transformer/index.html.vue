@@ -2,7 +2,7 @@
 <p>Transformer是如此的重要，以至于我们需要单开一章来重点讲解</p>
 </blockquote>
 <h2 id="一-模型架构" tabindex="-1"><a class="header-anchor" href="#一-模型架构"><span>一. 模型架构</span></a></h2>
-<p><img src="@source/notes/algorithm/picture/image18.png" alt="示例图片"></p>
+<p><img src="@source/notes/algorithm/picture/image18.png" alt="示例图片" width="886" height="954"></p>
 <p>从宏观角度来看，Transformer的编码器是由多个相同的层叠加而成的，每个层都有两个子
 层（子层表示为 sublayer）。第一个子层是多头自注意力（multi-head self-attention）
 汇聚；第二个子层是基于位置的前馈网络（positionwise feed-forward network）。具体
