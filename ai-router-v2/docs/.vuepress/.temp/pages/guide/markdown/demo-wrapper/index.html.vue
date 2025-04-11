@@ -24,7 +24,7 @@
     
   </div>
   <div class="demo-container" >
-<p><img src="/images/custom-hero.jpg" alt="hero" width="1000" height="525"></p>
+<p><img src="/images/custom-hero.jpg" alt="hero"></p>
 </div></div><p>包含 markdown 语法：</p>
 <div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: demo-wrapper title="标题"</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-light-font-weight:bold;--shiki-dark:#666666;--shiki-dark-font-weight:bold">###</span><span style="--shiki-light:#1C6B48;--shiki-light-font-weight:bold;--shiki-dark:#4D9375;--shiki-dark-font-weight:bold"> 三级标题</span></span>

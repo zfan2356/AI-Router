@@ -19,7 +19,7 @@
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">[</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Markdown</span><span style="--shiki-light:#999999;--shiki-dark:#666666">](</span><span style="--shiki-light:#393A3490;--shiki-light-text-decoration:underline;--shiki-dark:#DEDCD590;--shiki-dark-text-decoration:underline">./basic.md</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span></span></code></pre>
 </div><p>渲染为：</p>
-<p><RouteLink to="/guide/markdown/">Markdown</RouteLink></p>
+<p><a href="/guide/markdown/" target="_blank" rel="noopener noreferrer">Markdown</a></p>
 <p><RouteLink to="/notes/theme/guide/markdown/basic.html">Markdown</RouteLink></p>
 <h3 id="外部链接" tabindex="-1"><a class="header-anchor" href="#外部链接"><span>外部链接</span></a></h3>
 <p>外部链接带有 <code v-pre>target=&quot;_blank&quot; rel=&quot;noreferrer&quot;</code> ：</p>

@@ -88,7 +88,7 @@
 <span class="line"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">  imageHeight</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#2F798A;--shiki-dark:#4C9A91"> 100</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">---</span></span></code></pre>
 </div><h3 id="示例" tabindex="-1"><a class="header-anchor" href="#示例"><span>示例</span></a></h3>
-<p><RouteLink to="/article/i4cuuonn/">图片水印</RouteLink></p>
+<p><a href="/article/i4cuuonn/" target="_blank" rel="noopener noreferrer">图片水印</a></p>
 <h2 id="文字水印" tabindex="-1"><a class="header-anchor" href="#文字水印"><span>文字水印</span></a></h2>
 <p>主题支持使用 文字 作为水印。</p>
 <div class="language-ts line-numbers-mode" data-highlighter="shiki" data-ext="ts" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">import</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> defineUserConfig</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> }</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> from</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">vuepress</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
@@ -124,8 +124,8 @@
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">---</span></span></code></pre>
 </div><h2 id="示例-1" tabindex="-1"><a class="header-anchor" href="#示例-1"><span>示例</span></a></h2>
 <ul>
-<li><RouteLink to="/article/2z59hh8g/">内容水印</RouteLink></li>
-<li><RouteLink to="/article/97s6ha1e/">全屏水印</RouteLink></li>
+<li><a href="/article/2z59hh8g/" target="_blank" rel="noopener noreferrer">内容水印</a></li>
+<li><a href="/article/97s6ha1e/" target="_blank" rel="noopener noreferrer">全屏水印</a></li>
 </ul>
 </div></template>
 

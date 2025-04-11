@@ -48,7 +48,7 @@
 </VPCard><VPCard title="卡片标题 2" icon="twemoji:astonished-face"><p>这里是卡片内容。</p>
 </VPCard></VPCardGrid><div class="hint-container info">
 <p class="hint-container-title">相关信息</p>
-<p>如果你更喜欢通过组件的方式使用 卡片，你可以查看 <RouteLink to="/guide/features/component/#card">卡片组件</RouteLink> 。</p>
+<p>如果你更喜欢通过组件的方式使用 卡片，你可以查看 <a href="/guide/features/component/#card" target="_blank" rel="noopener noreferrer">卡片组件</a> 。</p>
 </div>
 </div></template>
 

@@ -64,7 +64,7 @@
 </ul>
 </div>
 <h2 id="示例" tabindex="-1"><a class="header-anchor" href="#示例"><span>示例</span></a></h2>
-<p>点击访问 <RouteLink to="/article/enx7c9s/">加密文章，密码：123456</RouteLink></p>
+<p>点击访问 <a href="/article/enx7c9s/" target="_blank" rel="noopener noreferrer">加密文章，密码：123456</a></p>
 <h2 id="相关配置" tabindex="-1"><a class="header-anchor" href="#相关配置"><span>相关配置</span></a></h2>
 <p>以下配置支持在多语言配置中使用。</p>
 <h3 id="encryptglobaltext" tabindex="-1"><a class="header-anchor" href="#encryptglobaltext"><span>encryptGlobalText</span></a></h3>
