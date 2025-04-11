@@ -11,7 +11,7 @@ cd docs/.vuepress/dist
 
 git init
 git add -A
-git commit -m 'deploy'
+git commit -m 'deploy v2'
 
 git config --global init.defaultBranch main
 
