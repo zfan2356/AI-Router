@@ -1,6 +1,10 @@
 ---
 title: Softmax
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /algorithm/softmax/
+tags:
+  - 算法 
 ---
 
 ## 一. 什么是Softmax

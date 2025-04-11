@@ -1,6 +1,10 @@
 ---
 title: Python中多线程和async/await异步
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /python/async/
+tags:
+  - python
 ---
 
 ## 一. 多线程

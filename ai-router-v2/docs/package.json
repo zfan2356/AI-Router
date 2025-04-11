@@ -1,0 +1,35 @@
+{
+  "name": "docs",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "docs:build": "vuepress build --clean-cache --clean-temp",
+    "docs:clean": "rimraf .vuepress/.temp .vuepress/.cache .vuepress/dist",
+    "docs:dev": "vuepress dev",
+    "docs:serve": "http-server .vuepress/dist -d 0"
+  },
+  "peerDependencies": {
+    "vuepress": "catalog:vuepress"
+  },
+  "dependencies": {
+    "@iconify/json": "catalog:peer",
+    "@simonwep/pickr": "catalog:dev",
+    "@vuepress/bundler-vite": "catalog:vuepress",
+    "@vuepress/shiki-twoslash": "catalog:vuepress",
+    "chart.js": "catalog:prod",
+    "echarts": "catalog:prod",
+    "flowchart.ts": "catalog:prod",
+    "http-server": "catalog:dev",
+    "markmap-lib": "catalog:prod",
+    "markmap-toolbar": "catalog:prod",
+    "markmap-view": "catalog:prod",
+    "mermaid": "catalog:dev",
+    "sass-embedded": "catalog:peer",
+    "swiper": "catalog:peer",
+    "vue": "catalog:prod",
+    "vuepress-theme-plume": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/express": "catalog:dev"
+  }
+}

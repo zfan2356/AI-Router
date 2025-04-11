@@ -1,6 +1,5 @@
 ---
-title: PyTorch篇
-author: zfan
+title: pytorch
+createTime: 2025/04/11 22:28:04
+permalink: /pytorch/
 ---
-
-这里是和算法篇一脉相承的, 但是更加聚焦于pytorch本身的使用和底层逻辑

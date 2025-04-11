@@ -1,6 +1,10 @@
 ---
 title: PyTorch常用函数以及方法
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /pytorch/basic/
+tags:
+  - pytorch
 ---
 
 ## 一. torch.tensor

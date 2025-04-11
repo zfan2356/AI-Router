@@ -1,3 +1,12 @@
+---
+title: Kittens PTX
+author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /cuda/kittens/ptx_inline/
+tags:
+  - cuda
+---
+
 [blog](https://hazyresearch.stanford.edu/blog/2024-05-12-tk)
 
 ## 一. 浅谈一些封装的PTX

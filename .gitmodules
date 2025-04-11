@@ -1,0 +1,3 @@
+[submodule "3rd/vuepress-theme-plume"]
+	path = 3rd/vuepress-theme-plume
+	url = https://github.com/pengzhanbo/vuepress-theme-plume.git

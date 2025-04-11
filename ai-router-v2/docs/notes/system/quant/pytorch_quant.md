@@ -1,6 +1,11 @@
 ---
 title: PyTorch模型量化
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /system/quant/pytorch-quant/
+tags:
+  - system
+  - quant
 ---
 
 在PyTorch上进行量化，实际上也离不开量化最基础的步骤，我们的目的仍然是计算`scale`

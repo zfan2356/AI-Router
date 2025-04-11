@@ -1,6 +1,11 @@
 ---
 title: Large Model Distributed Parallelism Strategies
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /system/pre-train/model-parallel/
+tags:
+  - system
+  - pre-train
 ---
 
 ## Megatron-LM: Training Multi-Billion Parameter Language Models

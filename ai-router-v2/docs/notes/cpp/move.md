@@ -1,6 +1,10 @@
 ---
 title: move 语义
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /cpp/move/
+tags:
+  - cpp
 ---
 
 ## 一. 右值

@@ -1,6 +1,10 @@
 ---
 title: 卷积神经网络CNN
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /algorithm/cnn/
+tags:
+  - 算法 
 ---
 
 > 前言：这一节我们将学习卷积神经网络，从全连接层过渡到卷积，然后讲解

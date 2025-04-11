@@ -1,6 +1,10 @@
 ---
 title: Transformer论文
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /paper/transformer/
+tags:
+  - paper
 ---
 
 [论文地址](https://arxiv.org/pdf/1706.03762)

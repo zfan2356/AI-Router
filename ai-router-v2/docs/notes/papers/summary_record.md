@@ -1,6 +1,10 @@
 ---
 title: paper阅读记录
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /paper/read/
+tags:
+  - paper
 ---
 
 - Scaling Laws for Neural Language Models

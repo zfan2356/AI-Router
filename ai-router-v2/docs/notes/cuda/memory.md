@@ -1,6 +1,10 @@
 ---
 title: Memory Model
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /cuda/memory/
+tags:
+  - cuda
 ---
 
 ## 一. Memory Consistency Model

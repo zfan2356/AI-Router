@@ -1,6 +1,10 @@
 ---
 title: Const 语义
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /cpp/const/
+tags:
+  - cpp
 ---
 
 ### 一. `const`修饰变量

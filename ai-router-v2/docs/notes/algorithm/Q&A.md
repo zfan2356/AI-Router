@@ -1,6 +1,11 @@
 ---
 title: Q&A
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /algorithm/qa/
+tags:
+  - 算法
+  - QA
 ---
 
 ### 说出ResNet的模型结构?

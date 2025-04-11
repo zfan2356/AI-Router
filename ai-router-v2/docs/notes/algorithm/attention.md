@@ -1,6 +1,10 @@
 ---
 title: 注意力机制
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /algorithm/attention/
+tags:
+  - 算法 
 ---
 
 ## 一. 注意力机制简介

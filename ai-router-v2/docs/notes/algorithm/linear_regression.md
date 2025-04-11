@@ -1,6 +1,10 @@
 ---
 title: Linear Regression
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /algorithm/linear/
+tags:
+  - 算法 
 ---
 
 ## 一. 什么是线性回归？

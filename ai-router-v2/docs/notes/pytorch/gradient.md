@@ -1,6 +1,10 @@
 ---
 title: PyTorch中的梯度计算
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /pytorch/gradient/
+tags:
+  - pytorch
 ---
 
 在机器学习中，一般是使用梯度下降来优化损失函数，梯度的计算一般是依赖pytorch的自

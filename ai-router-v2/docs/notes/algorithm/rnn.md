@@ -1,6 +1,10 @@
 ---
 title: 循环神经网络RNN
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /algorithm/rnn/
+tags:
+  - 算法 
 ---
 
 ## 一. RNN引入

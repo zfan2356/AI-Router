@@ -1,6 +1,10 @@
 ---
 title: 类型推导
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /cpp/type/
+tags:
+  - cpp
 ---
 
 ## 一. 模板类型推导

@@ -1,6 +1,10 @@
 ---
 title: Transformer架构
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /algorithm/transformer/
+tags:
+  - 算法 
 ---
 
 > Transformer是如此的重要，以至于我们需要单开一章来重点讲解

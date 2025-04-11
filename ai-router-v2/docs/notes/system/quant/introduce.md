@@ -1,6 +1,11 @@
 ---
 title: 大模型量化简介
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /system/quant/intro/
+tags:
+  - system
+  - quant
 ---
 
 ## 一. 什么是模型量化

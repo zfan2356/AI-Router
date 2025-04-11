@@ -1,6 +1,11 @@
 ---
 title: Pipline Communication
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /system/pre-train/pp/
+tags:
+  - system
+  - pre-train
 ---
 
 本节主要就伪代码来演示pipline parallel如何实现, 主要参考是Megatron-LM中的

@@ -1,7 +1,5 @@
 ---
-title: Python篇
-author: zfan
+title: python
+createTime: 2025/04/11 22:28:04
+permalink: /python/
 ---
-
-这里我主要想放一些python相关的知识, 工程经验, 以及一些有趣的项目和实现, 希望能够
-给予一些启发

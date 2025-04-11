@@ -1,6 +1,10 @@
 ---
 title: 现代卷积神经网络
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /algorithm/modern_cnn/
+tags:
+  - 算法 
 ---
 
 这一章主要是讲一些现代设计的卷积神经网络模型以及一些技术，这可以为我们的设计提供

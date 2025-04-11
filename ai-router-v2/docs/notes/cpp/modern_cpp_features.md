@@ -1,6 +1,10 @@
 ---
 title: 现代cpp的一些特性
 author: zfan
+createTime: 2025/04/11 22:07:39
+permalink: /cpp/modern/
+tags:
+  - cpp
 ---
 
 ## 一. `{}` 初始化
