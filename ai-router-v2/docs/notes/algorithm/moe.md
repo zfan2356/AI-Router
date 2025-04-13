@@ -4,13 +4,12 @@ author: zfan
 createTime: 2025/04/11 22:07:39
 permalink: /algorithm/moe/
 tags:
-  - 算法 
+  - 算法
 ---
 
 ## 一. Basic MoE
 
-较为简单，input流向所有的expert，所有的expert给出自己的答案，然后通过gateway决定
-每个expert的权重，之后加权求和之后得到输出
+较为简单，input流向所有的expert，所有的expert给出自己的答案，然后通过gateway决定每个expert的权重，之后加权求和之后得到输出
 
 ![示例图片](./picture/image19.png)
 

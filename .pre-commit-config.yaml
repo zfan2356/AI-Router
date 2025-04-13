@@ -32,7 +32,7 @@ repos:
       hooks:
           - id: prettier
             files: \.md$
-            args: [--prose-wrap=always, --write, --embedded-language-formatting=auto]
+            args: [--prose-wrap=never, --write, --embedded-language-formatting=auto]
     - repo: local
       hooks:
         - id: format-md-cpp

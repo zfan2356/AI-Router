@@ -15,14 +15,11 @@ Markdown 的目标是实现「易读易写」。
 
 ## 概述
 
-不过最需要强调的便是它的可读性。一份使用 Markdown 格式撰写的文件应该可以直接以纯文字发佈，并且看起来不会像是由许多标签或是格式指令所构成。Markdown 语法受到一些既有 text-to-HTML 格式的影响，
-包括 [Setext][1]、[atx][2]、[Textile][3]、[reStructuredText][4]、[Grutatext][5] 和 [EtText][6]，然而最大灵感来源其实是纯文字的电子邮件格式。
+不过最需要强调的便是它的可读性。一份使用 Markdown 格式撰写的文件应该可以直接以纯文字发佈，并且看起来不会像是由许多标签或是格式指令所构成。Markdown 语法受到一些既有 text-to-HTML 格式的影响，包括 [Setext][1]、[atx][2]、[Textile][3]、[reStructuredText][4]、[Grutatext][5] 和 [EtText][6]，然而最大灵感来源其实是纯文字的电子邮件格式。
 
 因此 Markdown 的语法全由标点符号所组成，并经过严谨慎选，是为了让它们看起来就像所要表达的意思。像是在文字两旁加上星号，看起来就像\*强调\*。Markdown 的列表看起来，嗯，就是列表。假如你有使用过电子邮件，引言写法看起来就真的像是引用一段文字。
 
-Markdown 具有一系列衍生版本，用于扩展 Markdown 的功能 (如表格、脚注、内嵌 HTML 等等) ，
-这些功能原初的 Markdown 尚不具备，它们能让 Markdown 转换成更多的格式，例如 LaTeX，Docbook。
-Markdown 增强版中比较有名的有 Markdown Extra、MultiMarkdown、 Maruku 等。这些衍生版本要么基于工具，如 Pandoc；要么基于网站，如 GitHub 和 Wikipedia，在语法上基本兼容，但在一些语法和渲染效果上有改动。
+Markdown 具有一系列衍生版本，用于扩展 Markdown 的功能 (如表格、脚注、内嵌 HTML 等等) ，这些功能原初的 Markdown 尚不具备，它们能让 Markdown 转换成更多的格式，例如 LaTeX，Docbook。Markdown 增强版中比较有名的有 Markdown Extra、MultiMarkdown、 Maruku 等。这些衍生版本要么基于工具，如 Pandoc；要么基于网站，如 GitHub 和 Wikipedia，在语法上基本兼容，但在一些语法和渲染效果上有改动。
 
 ## 用途
 
@@ -38,8 +35,7 @@ Markdown 的语法简洁明了、学习容易，而且功能比纯文本更强�
 
 不在 Markdown 涵盖范围之外的标签，都可以直接在文件里面用 HTML 撰写。不需要额外标注这是 HTML 或是 Markdown；只要直接加标签就可以了。
 
-只有块元素 ── 比如 `<div>`、`<table>`、`<pre>`、`<p>` 等标签，必须在前后加上空行，以利与内容区隔。
-而且这些 (元素) 的开始与结尾标签，不可以用 tab 或是空白来缩进。Markdown 的解析器有智慧型判断，可以避免在块标签前后加上没有必要的 `<p>` 标签。
+只有块元素 ── 比如 `<div>`、`<table>`、`<pre>`、`<p>` 等标签，必须在前后加上空行，以利与内容区隔。而且这些 (元素) 的开始与结尾标签，不可以用 tab 或是空白来缩进。Markdown 的解析器有智慧型判断，可以避免在块标签前后加上没有必要的 `<p>` 标签。
 
 举例来说，在 Markdown 文件里加上一段 HTML 表格:
 
@@ -101,9 +97,7 @@ Markdown 将会把它转换为:
 4 &lt; 5
 ```
 
-不过需要注意的是，code 范围内，不论是行内还是块， `<` 和 `&` 两个符号都*一定*会被转换成 HTML 实体，
-这项特性让你可以很容易地用 Markdown 写 HTML code (和 HTML 相对而言， HTML 语法中，
-你要把所有的 `<` 和 `&` 都转换为 HTML 实体，才能在 HTML 文件里面写出 HTML code。)
+不过需要注意的是，code 范围内，不论是行内还是块， `<` 和 `&` 两个符号都*一定*会被转换成 HTML 实体，这项特性让你可以很容易地用 Markdown 写 HTML code (和 HTML 相对而言， HTML 语法中，你要把所有的 `<` 和 `&` 都转换为 HTML 实体，才能在 HTML 文件里面写出 HTML code。)
 
 ---
 
@@ -113,9 +107,7 @@ Markdown 将会把它转换为:
 
 一个段落是由一个以上相连接的行句组成，而一个以上的空行则会切分出不同的段落 (空行的定义是显示上看起来像是空行，便会被视为空行。比方说，若某一行只包含空白和 tab，则该行也会被视为空行) ，一般的段落不需要用空白或断行缩进。
 
-「一个以上相连接的行句组成」这句话其实暗示了 Markdown 允许段落内的强迫断行，
-这个特性和其他大部分的 text-to-HTML 格式不一样 (包括 MovableType 的「Convert Line Breaks」选项) ，
-其它的格式会把每个断行都转成 `<br />` 标签。
+「一个以上相连接的行句组成」这句话其实暗示了 Markdown 允许段落内的强迫断行，这个特性和其他大部分的 text-to-HTML 格式不一样 (包括 MovableType 的「Convert Line Breaks」选项) ，其它的格式会把每个断行都转成 `<br />` 标签。
 
 <!-- markdownlint-disable MD038 -->
 
@@ -155,23 +147,17 @@ Atx (推荐)形式则是在行首插入 1 到 6 个 `#` ，对应到标题 1 到
 Markdown 使用 email 形式的块引言，如果你很熟悉如何在 email 信件中引言，你就知道怎么在 Markdown 文件中建立一个块引言，那会看起来像是你强迫断行，然后在每行的最前面加上 `>` :
 
 ```md
-> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
-> consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
-> Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
 >
-> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-> id sem consectetuer libero luctus adipiscing.
+> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.
 ```
 
 Markdown 也允许你只在整个段落的第一行最前面加上 `>` :
 
 ```md
-> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
-> consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
-> Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
 
-> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-> id sem consectetuer libero luctus adipiscing.
+> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.
 ```
 
 块引言可以有阶层 (例如: 引言内的引言) ，只要根据层数加上不同数量的 `>` :
@@ -256,21 +242,15 @@ Markdown 支持有序列表和无序列表。
 要让列表看起来更漂亮，你可以把内容用固定的缩进整理好:
 
 ```md
-- Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-  Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
-  viverra nec, fringilla in, laoreet vitae, risus.
-- Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-  Suspendisse id sem consectetuer libero luctus adipiscing.
+- Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+- Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.
 ```
 
 但是如果你很懒，那也不一定需要:
 
 ```md
-- Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-  Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
-  viverra nec, fringilla in, laoreet vitae, risus.
-- Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-  Suspendisse id sem consectetuer libero luctus adipiscing.
+- Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+- Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.
 ```
 
 如果列表项目间用空行分开， Markdown 会把项目的内容在输出时用 `<p>` 标签包起来，举例来说:
@@ -309,13 +289,9 @@ Markdown 支持有序列表和无序列表。
 列表项目可以包含多个段落，每个项目下的段落都必须缩进 4 个空白或是一个 tab :
 
 ```md
-1.  This is a list item with two paragraphs. Lorem ipsum dolor
-    sit amet, consectetuer adipiscing elit. Aliquam hendrerit
-    mi posuere lectus.
+1.  This is a list item with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
 
-    Vestibulum enim wisi, viverra nec, fringilla in, laoreet
-    vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
-    sit amet velit.
+    Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus. Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
 
 2.  Suspendisse id sem consectetuer libero luctus adipiscing.
 ```
@@ -325,9 +301,7 @@ Markdown 支持有序列表和无序列表。
 ```md
 - This is a list item with two paragraphs.
 
-  This is the second paragraph in the list item. You're
-  only required to indent the first line. Lorem ipsum dolor
-  sit amet, consectetuer adipiscing elit.
+  This is the second paragraph in the list item. You're only required to indent the first line. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 
 - Another item in the same list.
 ```
@@ -337,8 +311,7 @@ Markdown 支持有序列表和无序列表。
 ```md
 - A list item with a blockquote:
 
-  > This is a blockquote
-  > inside a list item.
+  > This is a blockquote inside a list item.
 ```
 
 当然，项目列表很可能会不小心产生，像是下面这样的写法:
@@ -380,9 +353,7 @@ Markdown 会转换成:
 ```md
 Here is an example of AppleScript:
 
-tell application "Foo"
-beep
-end tell
+tell application "Foo" beep end tell
 ```
 
 会被转换为:
@@ -425,7 +396,7 @@ end tell
 `````md
 ````md
 ```js
-const a = 1
+const a = 1;
 ```
 ````
 `````
@@ -434,7 +405,7 @@ const a = 1
 
 ````md
 ```js
-const a = 1
+const a = 1;
 ```
 ````
 
@@ -525,8 +496,7 @@ This is [an example][id] reference-style link.
 链接辨识标签可以有字母、数字、空白和标点符号，但是并**不**区分大小写，因此下面两个链接是一样的:
 
 ```md
-[link text][a]
-[link text][a]
+[link text][a] [link text][a]
 ```
 
 *预设的链接标签*功能让你可以省略指定链接标签，这种情形下，链接标签和链接文字会视为相同，要用预设链接标签只要在链接文字后面加上一个空的方括号，如果你要让 "Google" 链接到 google.com，你可以简化成:
@@ -558,8 +528,7 @@ Visit [Daring Fireball][] for more information.
 下面是一个参考式链接的范例:
 
 ```md
-I get 10 times more traffic from [Google][1] than from
-[Yahoo][2] or [MSN][3].
+I get 10 times more traffic from [Google][1] than from [Yahoo][2] or [MSN][3].
 
 [1]: http://google.com/ "Google"
 [2]: http://search.yahoo.com/ "Yahoo Search"
@@ -569,8 +538,7 @@ I get 10 times more traffic from [Google][1] than from
 如果改成用链接名称的方式写:
 
 ```md
-I get 10 times more traffic from [Google][] than from
-[Yahoo][] or [MSN][].
+I get 10 times more traffic from [Google][] than from [Yahoo][] or [MSN][].
 
 [google]: http://google.com/ "Google"
 [yahoo]: http://search.yahoo.com/ "Yahoo Search"
@@ -591,9 +559,7 @@ I get 10 times more traffic from [Google][] than from
 下面是用行内形式写的同样一段内容的 Markdown 文件，提供作为比较之用:
 
 ```md
-I get 10 times more traffic from [Google](http://google.com/ "Google")
-than from [Yahoo](http://search.yahoo.com/ "Yahoo Search") or
-[MSN](http://search.msn.com/ "MSN Search").
+I get 10 times more traffic from [Google](http://google.com/ "Google") than from [Yahoo](http://search.yahoo.com/ "Yahoo Search") or [MSN](http://search.msn.com/ "MSN Search").
 ```
 
 参考式的链接其实重点不在于它比较好写，而是它比较好读，比较一下上面的范例，使用参考式的文章本身只有 81 个字元，但是用行内形式的链接却会增加到 176 个字元，如果是用纯 HTML 格式来写，会有 234 个字元，在 HTML 格式中，标签比文字还要多。
@@ -729,8 +695,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 
 - 一个惊叹号 `!`
 - 一个方括号，里面放上图片的替代文字
-- 一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上
-  选择性的 title 文字。
+- 一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 title 文字。
 
 参考式的图片语法则长得像这样:
 

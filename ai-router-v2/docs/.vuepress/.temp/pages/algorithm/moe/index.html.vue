@@ -1,6 +1,5 @@
 <template><div><h2 id="一-basic-moe" tabindex="-1"><a class="header-anchor" href="#一-basic-moe"><span>一. Basic MoE</span></a></h2>
-<p>较为简单，input流向所有的expert，所有的expert给出自己的答案，然后通过gateway决定
-每个expert的权重，之后加权求和之后得到输出</p>
+<p>较为简单，input流向所有的expert，所有的expert给出自己的答案，然后通过gateway决定每个expert的权重，之后加权求和之后得到输出</p>
 <p><img src="@source/notes/algorithm/picture/image19.png" alt="示例图片" width="1890" height="1250"></p>
 <div class="language-python line-numbers-mode" data-highlighter="shiki" data-ext="python" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">import</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE"> torch</span></span>
 <span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">from</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE"> torch </span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">import</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE"> nn</span></span>

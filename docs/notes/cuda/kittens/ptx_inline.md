@@ -2,8 +2,7 @@
 
 ## 一. 浅谈一些封装的PTX
 
-PTX内联的形
-式：`asm volatile("指令" : 输出操作数约束 : 输入操作数约束 : Clobber列表);`
+PTX内联的形式：`asm volatile("指令" : 输出操作数约束 : 输入操作数约束 : Clobber列表);`
 
 常用约束符:
 
@@ -76,8 +75,7 @@ asm volatile("ld.shared.v4.b32 {%0, %1, %2, %3}, [%4];"
                  : "r"(shm_ptr));
 ```
 
-`ldmatrix`: Collectively load one or more matrices from shared memory for `mma`
-instruction
+`ldmatrix`: Collectively load one or more matrices from shared memory for `mma` instruction
 
 ```
 ldmatrix.sync.aligned.shape.num{.trans}{.ss}.type r, [p];
@@ -108,17 +106,13 @@ struct move<fp8e4m3_4> {
 };
 ```
 
-`m8n8`意思是8x8的matrix, b16意思是每次load/store 16bit, 可以看出这
-个`fp8e4m3_4`有四个元素，每行两个，也就是8x8
+`m8n8`意思是8x8的matrix, b16意思是每次load/store 16bit, 可以看出这个`fp8e4m3_4`有四个元素，每行两个，也就是8x8
 
 ---
 
 ### `semaphore`: `mbarrier/barrier/bar`
 
-`mbarrier`: mbarrier is a barrier created in shared memory that supports:
-Synchronizing any subset of threads within a CTA，and Waiting for completion of
-asynchronous memory operations initiated by a thread and making them visible to
-other threads.
+`mbarrier`: mbarrier is a barrier created in shared memory that supports: Synchronizing any subset of threads within a CTA，and Waiting for completion of asynchronous memory operations initiated by a thread and making them visible to other threads.
 
 可以得知，`mbarrier`对象是不透明的，且有固定的类型和位置(64bit, 在smem中)
 
@@ -173,9 +167,7 @@ asm volatile("mbarrier.arrive.release.cta.shared::cta.b64 _, [%0], %1;\n"
              : "memory");
 ```
 
-可以看出，hopper架构下，可以指定当前arrive了多少次，比较有用的用法就是，只使用一
-个warp来load或者store数据，如果当前mbarrier设置的是warp_num的话，我可
-以`arrive(mbarrier, 4)`, 来达到每个warpgroup出一个warp来load的目的
+可以看出，hopper架构下，可以指定当前arrive了多少次，比较有用的用法就是，只使用一个warp来load或者store数据，如果当前mbarrier设置的是warp_num的话，我可以`arrive(mbarrier, 4)`, 来达到每个warpgroup出一个warp来load的目的
 
 - `mbarrier.wait`
 
@@ -192,9 +184,7 @@ asm volatile(
     "r"(kPhaseBit));
 ```
 
-这里需要注意`kPhaseBit`, `try_wait/test_wait`其实就是check当前这个Phase是否结
-束，所以我们每个Phase需要传入一个kPhaseBit来表示当前的阶段，为了和其他阶段区分，
-在具体应用的时候，可以直接使用01交替，因为只需要区分上一个phase
+这里需要注意`kPhaseBit`, `try_wait/test_wait`其实就是check当前这个Phase是否结束，所以我们每个Phase需要传入一个kPhaseBit来表示当前的阶段，为了和其他阶段区分，在具体应用的时候，可以直接使用01交替，因为只需要区分上一个phase
 
 - `mbarrier.expect_tx`
 
@@ -206,10 +196,7 @@ asm volatile(
 
 可以设置tma想要load的bytes, 等到达之后tx_count会自动减少
 
-总结来说，因为`mbarrier`可以同时用来同步threads/warp/warpgroup, 以及同步aync
-memory load/store, 所以在init的时候会设置thread_count+transaction_count, 对于到
-达的thread_count, 需要显式arrive一下，对于async memory transaction, 可以设置
-expect_tx, 如果设置的bytes数量到达，就自动减一
+总结来说，因为`mbarrier`可以同时用来同步threads/warp/warpgroup, 以及同步aync memory load/store, 所以在init的时候会设置thread_count+transaction_count, 对于到达的thread_count, 需要显式arrive一下，对于async memory transaction, 可以设置expect_tx, 如果设置的bytes数量到达，就自动减一
 
 ---
 
@@ -219,8 +206,7 @@ expect_tx, 如果设置的bytes数量到达，就自动减一
 
 `file: include/ops/warp/memory/util/tma.cuh`
 
-1. `cp.async`: Initiates an asynchronous copy operation from one state space to
-   another. 启动一个异步数据拷贝，貌似只能从global->shared
+1. `cp.async`: Initiates an asynchronous copy operation from one state space to another. 启动一个异步数据拷贝，貌似只能从global->shared
 
 ```cpp
 cp.async.ca.shared.global xxx;
@@ -231,8 +217,7 @@ cp.async.cg.shared.global xxx;
 
 然后使用 `cp.async.wait_group` 来等待异步操作完成
 
-2. `cp.async.bulk`: Initiates an asynchronous copy operation from one state
-   space to another. 意思是启动一个批量异步拷贝. 使用tma
+2. `cp.async.bulk`: Initiates an asynchronous copy operation from one state space to another. 意思是启动一个批量异步拷贝. 使用tma
 
 ```cpp
 // global -> shared (load)
@@ -245,12 +230,9 @@ cp.async.bulk.global.shared::cta.bulk_group[dstMem], [srcMem], size;
 
 也会有`cp.async.prefetch` 来预取，`cp.reduce.async.bulk` 来做reduce
 
-和`cp.async`一样，也有`cp.async.bulk.commit_group`, 以
-及`cp.async.bulk.wait_group`
+和`cp.async`一样，也有`cp.async.bulk.commit_group`, 以及`cp.async.bulk.wait_group`
 
-`cp.async.bulk.tensor`: Initiates an asynchronous copy operation on the tensor
-data from one state space to another. 相当于针对tensor的批量异步拷贝，需要创建
-tensor map, 然后启动`tma`
+`cp.async.bulk.tensor`: Initiates an asynchronous copy operation on the tensor data from one state space to another. 相当于针对tensor的批量异步拷贝，需要创建tensor map, 然后启动`tma`
 
 ```cpp
 // global -> shared
@@ -263,16 +245,13 @@ cp.async.bulk.tensor.1d.global.shared ::cta.bulk_group[tensorMap3, {tc0}],
     ,→[sMem3];
 ```
 
-其中`.completion_mechanism = { .mbarrier::complete_tx::bytes }`, 进一步印证了“对
-于async memory transaction, 可以设置expect_tx, 如果设置的bytes数量到达，就自动减
-一”, 所以我们使用`cp.async.bulk`的时候，需要传入`mbarrier`
+其中`.completion_mechanism = { .mbarrier::complete_tx::bytes }`, 进一步印证了“对于async memory transaction, 可以设置expect_tx, 如果设置的bytes数量到达，就自动减一”, 所以我们使用`cp.async.bulk`的时候，需要传入`mbarrier`
 
 首先来看kittens中实现的最基础的async load/store两个方法
 
 #### `load_async`
 
-首先是`with-tma`的版本, 这里使用了`cp.async.bulk.tensor.5d`, 需要使用tma，先load
-tensor map
+首先是`with-tma`的版本, 这里使用了`cp.async.bulk.tensor.5d`, 需要使用tma，先load tensor map
 
 ```cpp
 template <int axis, cache_policy policy, ducks::st::all ST, ducks::gl::all GL,
@@ -313,8 +292,7 @@ __device__ static inline void load_async(ST &dst, const GL &src,
 }
 ```
 
-我们可以对比一下`non-tma`的版本，`non-tma`的版本下，可以合理利用所有的`thread`,
-然后使用`cp.async`来异步搬运数据
+我们可以对比一下`non-tma`的版本，`non-tma`的版本下，可以合理利用所有的`thread`, 然后使用`cp.async`来异步搬运数据
 
 ```cpp
 template <int axis, bool assume_aligned, ducks::st::all ST, ducks::gl::all GL,
@@ -418,8 +396,7 @@ __device__ static inline void store_async(const GL &dst, const ST &src,
 }
 ```
 
-在代码中找到了一个`shared::cluster -> shared::cta` 的 async store，不知道是什么
-用途
+在代码中找到了一个`shared::cluster -> shared::cta` 的 async store，不知道是什么用途
 
 ```cpp
 // Generic transfer
@@ -463,8 +440,7 @@ __device__ static inline void store_async(void* dst, void* src, int dst_cta,
 }
 ```
 
-`cp.async`貌似只能用来load， 这里放一个sync版本的store，其实就是使用的上文中提到
-的`move`中的`st`指令
+`cp.async`貌似只能用来load， 这里放一个sync版本的store，其实就是使用的上文中提到的`move`中的`st`指令
 
 ```cpp
 template <int axis, bool assume_aligned, ducks::st::all ST, ducks::gl::all GL,
@@ -510,11 +486,7 @@ __device__ static inline void store(const GL &dst, const ST &src,
 }
 ```
 
-总结：warp level中，对于global <-> share 之间的传输，提供了最基础的load/store
-(使用st/ld/ldmatrix/stmatrix) 的基础指令，同时也提供了aync方法, load async,
-store async，这里需要区分是否使用tma，如果使用tma的话，就使用的
-是`cp.async.bulk.tensor`来load/store, 如果没有使用tma，load_async的实现是使用的
-`cp.async`
+总结：warp level中，对于global <-> share 之间的传输，提供了最基础的load/store (使用st/ld/ldmatrix/stmatrix) 的基础指令，同时也提供了aync方法, load async, store async，这里需要区分是否使用tma，如果使用tma的话，就使用的是`cp.async.bulk.tensor`来load/store, 如果没有使用tma，load_async的实现是使用的 `cp.async`
 
 #### 同步机制
 
@@ -560,8 +532,7 @@ __device__ static inline void store_async_read_wait() {
 }
 ```
 
-- `load_async_wait()`: 注意这里不需要，仔细阅读上文中`with-tma`的`load_aync`, 会
-  发现需要传入一个`mbarrier`, 这个bar会帮我们做好同步的事情
+- `load_async_wait()`: 注意这里不需要，仔细阅读上文中`with-tma`的`load_aync`, 会发现需要传入一个`mbarrier`, 这个bar会帮我们做好同步的事情
 
 - `expected_bytes()`:
 
@@ -585,8 +556,7 @@ __device__ static inline void expect_bytes(semaphore& bar, uint32_t bytes) {
 
 - `store_async_wait()`: 上文中说到，non-tma无法做到async store，故忽略
 
-- `load_async_wait()` 这个kittens中放到了warpgroup下，其实也就是使
-  用`cp.async.wait_group`来等待
+- `load_async_wait()` 这个kittens中放到了warpgroup下，其实也就是使用`cp.async.wait_group`来等待
 
 ```cpp
 template <int N = 0>
@@ -643,5 +613,4 @@ for (coord = {0, 0}; coord < UPPER; coord = next(coord)) {
 }
 ```
 
-这个范式trick了一下，将第一个warp的sync放到下一次循环的开头，其实更加native的写
-法，是在每次循环的最后，再次`kittens::wait(output_ready[warpgroup_id], phase)`
+这个范式trick了一下，将第一个warp的sync放到下一次循环的开头，其实更加native的写法，是在每次循环的最后，再次`kittens::wait(output_ready[warpgroup_id], phase)`

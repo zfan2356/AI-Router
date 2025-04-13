@@ -4,7 +4,7 @@ author: zfan
 createTime: 2025/04/11 22:07:39
 permalink: /algorithm/transformer/
 tags:
-  - 算法 
+  - 算法
 ---
 
 > Transformer是如此的重要，以至于我们需要单开一章来重点讲解
@@ -13,30 +13,15 @@ tags:
 
 ![示例图片](./picture/image18.png)
 
-从宏观角度来看，Transformer的编码器是由多个相同的层叠加而成的，每个层都有两个子
-层（子层表示为 sublayer）。第一个子层是多头自注意力（multi-head self-attention）
-汇聚；第二个子层是基于位置的前馈网络（positionwise feed-forward network）。具体
-来说，在计算编码器的自注意力时，查询、键和值都来自前一个编码器层的输出。受 7.6节
-中残差网络的启发，每个子层都采用了**残差连接（residual connection）**。在
-Transformer中，对于序列中任何位置的任何输入 $\mathbf{x} \in \mathbb{R}^{d}$ , 都
-要求满足 $sublayer(\mathbf{x}) \in \mathbb{R}^{d}$，以便满足残差连接。在残差连接
-的加法计算之后，紧接着应用层规范化（layer normalization）。因此，输入序列对应的
-每个位置，Transformer编码器都将输出一个维表示向量。
+从宏观角度来看，Transformer的编码器是由多个相同的层叠加而成的，每个层都有两个子层（子层表示为 sublayer）。第一个子层是多头自注意力（multi-head self-attention）汇聚；第二个子层是基于位置的前馈网络（positionwise feed-forward network）。具体来说，在计算编码器的自注意力时，查询、键和值都来自前一个编码器层的输出。受 7.6节中残差网络的启发，每个子层都采用了**残差连接（residual connection）**。在Transformer中，对于序列中任何位置的任何输入 $\mathbf{x} \in \mathbb{R}^{d}$ , 都要求满足 $sublayer(\mathbf{x}) \in \mathbb{R}^{d}$，以便满足残差连接。在残差连接的加法计算之后，紧接着应用层规范化（layer normalization）。因此，输入序列对应的每个位置，Transformer编码器都将输出一个维表示向量。
 
-Transformer解码器也是由多个相同的层叠加而成的，并且层中使用了残差连接和层规范
-化。除了编码器中描述的两个子层之外，解码器还在这两个子层之间插入了第三个子层，称
-为编码器－解码器注意力（encoder-decoder attention）层。在编码器－解码器注意力
-中，查询来自前一个解码器层的输出，而键和值来自整个编码器的输出。在解码器自注意力
-中，查询、键和值都来自上一个解码器层的输出。但是，解码器中的每个位置只能考虑该位
-置之前的所有位置。这种掩蔽（masked）注意力保留了自回归（auto-regressive）属性，
-确保预测仅依赖于已生成的输出词元。
+Transformer解码器也是由多个相同的层叠加而成的，并且层中使用了残差连接和层规范化。除了编码器中描述的两个子层之外，解码器还在这两个子层之间插入了第三个子层，称为编码器－解码器注意力（encoder-decoder attention）层。在编码器－解码器注意力中，查询来自前一个解码器层的输出，而键和值来自整个编码器的输出。在解码器自注意力中，查询、键和值都来自上一个解码器层的输出。但是，解码器中的每个位置只能考虑该位置之前的所有位置。这种掩蔽（masked）注意力保留了自回归（auto-regressive）属性，确保预测仅依赖于已生成的输出词元。
 
 具体的解析我放到另外一篇文章中，其中也包含了常见面试问题
 
 [transformer论文解析](docs/notes/papers/transformer.md)
 
-接下来我们分模块针对transformer的架构实现代码，具体原理的话，已经在上一章
-attention机制中讲过了，这里就不过多赘述。
+接下来我们分模块针对transformer的架构实现代码，具体原理的话，已经在上一章attention机制中讲过了，这里就不过多赘述。
 
 ### 1. Multi-Head Attention
 

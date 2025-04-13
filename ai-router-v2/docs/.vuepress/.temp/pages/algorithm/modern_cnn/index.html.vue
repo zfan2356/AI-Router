@@ -1,5 +1,4 @@
-<template><div><p>这一章主要是讲一些现代设计的卷积神经网络模型以及一些技术，这可以为我们的设计提供
-参考。</p>
+<template><div><p>这一章主要是讲一些现代设计的卷积神经网络模型以及一些技术，这可以为我们的设计提供参考。</p>
 <h2 id="一-alexnet" tabindex="-1"><a class="header-anchor" href="#一-alexnet"><span>一. AlexNet</span></a></h2>
 <h2 id="二-vgg" tabindex="-1"><a class="header-anchor" href="#二-vgg"><span>二. VGG</span></a></h2>
 <div class="language-python line-numbers-mode" data-highlighter="shiki" data-ext="python" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"># 生成VGG块，VGG以块为一个单元</span></span>

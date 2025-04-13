@@ -4,7 +4,7 @@ author: zfan
 createTime: 2025/04/11 22:07:39
 permalink: /algorithm/mtp/
 tags:
-  - 算法 
+  - 算法
 ---
 
 文章：

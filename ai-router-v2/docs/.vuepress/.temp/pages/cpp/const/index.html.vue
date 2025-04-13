@@ -19,15 +19,12 @@
 <p>这两种写法的区别在于<code v-pre>const</code>修饰语义.</p>
 </blockquote>
 <ul>
-<li><code v-pre>const T* t</code> 代表的<code v-pre>t</code>是一个指向<code v-pre>T</code>对象的指针, 指针指向的对象是常量, 不能通过
-该指针来改变对象的属性, 意味着<strong>对象不可变</strong>.</li>
-<li><code v-pre>T* const t</code>代表的<code v-pre>t</code>是一个常量指针, 指针本身不可变, 但是可以通过指针来改变其
-指向的对象<code v-pre>T</code>的属性, 意味着<strong>指针不可变</strong>.</li>
+<li><code v-pre>const T* t</code> 代表的<code v-pre>t</code>是一个指向<code v-pre>T</code>对象的指针, 指针指向的对象是常量, 不能通过该指针来改变对象的属性, 意味着<strong>对象不可变</strong>.</li>
+<li><code v-pre>T* const t</code>代表的<code v-pre>t</code>是一个常量指针, 指针本身不可变, 但是可以通过指针来改变其指向的对象<code v-pre>T</code>的属性, 意味着<strong>指针不可变</strong>.</li>
 </ul>
 <p>当然我们也可以追求对象和指针同时不可变, 写为<code v-pre>const T* const t</code>.</p>
 <h3 id="const修饰函数" tabindex="-1"><a class="header-anchor" href="#const修饰函数"><span><code v-pre>const</code>修饰函数</span></a></h3>
-<p><code v-pre>const</code>修饰的函数被称为常量函数, 是指不会修改所属类的成员变量的函数, 作用是提供
-类内部属性的安全访问, 保证了&quot;只读&quot;的行为.</p>
+<p><code v-pre>const</code>修饰的函数被称为常量函数, 是指不会修改所属类的成员变量的函数, 作用是提供类内部属性的安全访问, 保证了&quot;只读&quot;的行为.</p>
 <div class="language-cpp line-numbers-mode" data-highlighter="shiki" data-ext="cpp" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">class</span><span style="--shiki-light:#2E8F82;--shiki-dark:#5DA994"> T</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
 <span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676"> private</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span></span>
 <span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">  int</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE"> i</span><span style="--shiki-light:#999999;--shiki-dark:#666666">;</span></span>
@@ -46,10 +43,8 @@
 <span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">    return</span><span style="--shiki-light:#A65E2B;--shiki-dark:#C99076"> this</span><span style="--shiki-light:#999999;--shiki-dark:#666666">-></span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">i</span><span style="--shiki-light:#999999;--shiki-dark:#666666">;</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">  }</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">};</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>当我们生成一个常量对象时, 其就可以调用常量函数. 常量对象<strong>只能调用常量函数</strong>, 普
-通对象则都可以调用.</p>
-<p>有一条性质比较好用, 当出现函数重载的时候, 常量对象会优先调用常量方法, 普通对象则
-会优先调用普通方法.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>当我们生成一个常量对象时, 其就可以调用常量函数. 常量对象<strong>只能调用常量函数</strong>, 普通对象则都可以调用.</p>
+<p>有一条性质比较好用, 当出现函数重载的时候, 常量对象会优先调用常量方法, 普通对象则会优先调用普通方法.</p>
 <div class="language-cpp" data-highlighter="shiki" data-ext="cpp" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">const</span><span style="--shiki-light:#2E8F82;--shiki-dark:#5DA994"> T</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665"> t1</span><span style="--shiki-light:#999999;--shiki-dark:#666666">(</span><span style="--shiki-light:#2F798A;--shiki-dark:#4C9A91">1</span><span style="--shiki-light:#999999;--shiki-dark:#666666">,</span><span style="--shiki-light:#2F798A;--shiki-dark:#4C9A91"> 2</span><span style="--shiki-light:#999999;--shiki-dark:#666666">);</span></span>
 <span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">// 输出 1</span></span>
 <span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">std</span><span style="--shiki-light:#999999;--shiki-dark:#666666">::</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">cout </span><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">&#x3C;&#x3C;</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> t1</span><span style="--shiki-light:#999999;--shiki-dark:#666666">.</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665">getValue</span><span style="--shiki-light:#999999;--shiki-dark:#666666">()</span><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676"> &#x3C;&#x3C;</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#A65E2B;--shiki-dark:#C99076">\n</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666">;</span></span>

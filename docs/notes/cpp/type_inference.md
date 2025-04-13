@@ -14,8 +14,7 @@ void f(param_type param);
 f(expr);
 ```
 
-主要还是几个规则的记忆，具体的底层原理可能在后面的章节会有讲解，对于模板类型推
-导，主要是以下几种模板定义以及三种实参定义的全连接组合
+主要还是几个规则的记忆，具体的底层原理可能在后面的章节会有讲解，对于模板类型推导，主要是以下几种模板定义以及三种实参定义的全连接组合
 
 ```cpp
 // 如果形参是ref
@@ -121,13 +120,11 @@ void initial_list_f(std::initializer_list<T> init_list);
 initial_list_f({123});  // 可以正常推导
 ```
 
-c++14允许auto用于函数返回值并会被推导，而且c++14的lambda函数也允许在形参声明中使
-用auto
+c++14允许auto用于函数返回值并会被推导，而且c++14的lambda函数也允许在形参声明中使用auto
 
 总结：
 
-- `auto`类型推导通常和模板类型推导相同，但是`auto`类型推导假定花括号初始化代
-  表`std::initializer_list<int>`, 而模板类型推导就不行.
+- `auto`类型推导通常和模板类型推导相同，但是`auto`类型推导假定花括号初始化代表`std::initializer_list<int>`, 而模板类型推导就不行.
 
 ## 三. decltype
 
@@ -149,8 +146,7 @@ if (f(s)) {
 std::vector<int> v(12);  // decltype(v[0]): int&
 ```
 
-decltype有一个比较重要的作用就是在模板中标识返回值类型, 但是c++14可以自动推导
-lambda表达式返回值，编译器将会从函数实现中推导出函数的返回类型。
+decltype有一个比较重要的作用就是在模板中标识返回值类型, 但是c++14可以自动推导lambda表达式返回值，编译器将会从函数实现中推导出函数的返回类型。
 
 ```cpp
 template <typename Container, typename Index>
@@ -159,8 +155,7 @@ auto authAndAccess(Container& c, Index i) -> decltype(c[i]) {
 }
 ```
 
-但是在之前的auto推导中我们得知，推导会去掉表达式的引用性ref, 针对我们这个函数而
-言，返回的`c[i]` 就无法作为左值来使用，这个时候我们就需要使用decltype
+但是在之前的auto推导中我们得知，推导会去掉表达式的引用性ref, 针对我们这个函数而言，返回的`c[i]` 就无法作为左值来使用，这个时候我们就需要使用decltype
 
 ```cpp
 template <typename Container, typename Index>
@@ -169,12 +164,9 @@ decltype(auto) authAndAccess(Container& c, Index i) {
 }
 ```
 
-这个时候我们`c[i]` 就可以返回 `T&` 类型，当然不光是返回值，在前一部分讨论的auto
-初始化表达式类型推导的地方，也可以使用`decltype(auto)` 来"强化"auto的类型推导
+这个时候我们`c[i]` 就可以返回 `T&` 类型，当然不光是返回值，在前一部分讨论的auto初始化表达式类型推导的地方，也可以使用`decltype(auto)` 来"强化"auto的类型推导
 
-但是这里带来了一些问题，我们通过传递引用的方式传递非常量左值引用，因为返回一个引
-用允许用户来修改容器。这意味着我们无法给函数传递右值容器，因为右值无法绑定到左值
-上，除非是const左值。
+但是这里带来了一些问题，我们通过传递引用的方式传递非常量左值引用，因为返回一个引用允许用户来修改容器。这意味着我们无法给函数传递右值容器，因为右值无法绑定到左值上，除非是const左值。
 
 如果我们想让函数接受右值，重载是一个不错的选择
 
@@ -190,10 +182,7 @@ decltype(auto) authAndAccess(Container&& c, Index i) {
 }
 ```
 
-这里我们并不知道container中的类型是什么，那么对于一个未知对象使用传值通常会造成
-不必要的拷贝，对程序的性能有极大的影响，所以这里可以使用`std::forward()`实现通用
-引用，具体的内容将在后面讲解, 但是目前可以知道的是，这样可以保证传入的参数c具有
-之前的左值or右值的特性，避免无意义的拷贝内存开销
+这里我们并不知道container中的类型是什么，那么对于一个未知对象使用传值通常会造成不必要的拷贝，对程序的性能有极大的影响，所以这里可以使用`std::forward()`实现通用引用，具体的内容将在后面讲解, 但是目前可以知道的是，这样可以保证传入的参数c具有之前的左值or右值的特性，避免无意义的拷贝内存开销
 
 ```cpp
 template <typename Container, typename Index>
@@ -202,8 +191,7 @@ decltype(auto) authAndAccess(Container&& c, Index i) {
 }
 ```
 
-但是decltype也会产生一些意想不到的结果，例如对于左值表达式，decltype就会返回左值
-引用
+但是decltype也会产生一些意想不到的结果，例如对于左值表达式，decltype就会返回左值引用
 
 ```cpp
 decltype(auto) f1() {

@@ -25,8 +25,7 @@ tags:
 
 内部和外部链接都会被特殊处理。
 
-主题默认对每个 md 文件自动生成一个新的 链接，并保存在对应的 md 文件的 frontmatter 的 `permalink` 中。
-你可以随时修改它们。你也可以通过 `theme.autoFrontmatter` 选项来禁用这个功能，这时会恢复为 VuePress 的默认行为。
+主题默认对每个 md 文件自动生成一个新的 链接，并保存在对应的 md 文件的 frontmatter 的 `permalink` 中。你可以随时修改它们。你也可以通过 `theme.autoFrontmatter` 选项来禁用这个功能，这时会恢复为 VuePress 的默认行为。
 
 ### 内部链接
 
@@ -109,56 +108,32 @@ tags:
 **输入：**
 
 ```md
-::: note
-This is a note box
-:::
+::: note This is a note box :::
 
-::: info
-This is an info box.
-:::
+::: info This is an info box. :::
 
-::: tip
-This is a tip.
-:::
+::: tip This is a tip. :::
 
-::: warning
-This is a warning.
-:::
+::: warning This is a warning. :::
 
-::: caution
-This is a dangerous warning.
-:::
+::: caution This is a dangerous warning. :::
 
-::: details
-This is a details block.
-:::
+::: details This is a details block. :::
 ```
 
 **输出：**
 
-::: note
-This is a note box
-:::
+::: note This is a note box :::
 
-::: info
-This is an info box.
-:::
+::: info This is an info box. :::
 
-::: tip
-This is a tip.
-:::
+::: tip This is a tip. :::
 
-::: warning
-This is a warning.
-:::
+::: warning This is a warning. :::
 
-::: caution
-This is a dangerous warning.
-:::
+::: caution This is a dangerous warning. :::
 
-::: details
-This is a details block.
-:::
+::: details This is a details block. :::
 
 ### 自定义标题
 
@@ -167,27 +142,25 @@ This is a details block.
 **输入：**
 
 ````md
-::: caution STOP
-危险区域，请勿继续
-:::
+::: caution STOP危险区域，请勿继续 :::
 
 ::: details 点我查看代码
+
 ```js
-console.log('Hello, VitePress!')
+console.log("Hello, VitePress!");
 ```
+
 :::
 ````
 
 **输出：**
 
-::: caution STOP
-危险区域，请勿继续
-:::
+::: caution STOP危险区域，请勿继续 :::
 
 ::: details 点我查看代码
 
 ```js
-console.log('Hello, VitePress!')
+console.log("Hello, VitePress!");
 ```
 
 :::
@@ -199,43 +172,32 @@ console.log('Hello, VitePress!')
 **输入：**
 
 ```md
-> [!NOTE]
-> 强调用户在快速浏览文档时也不应忽略的重要信息。
+> [!NOTE] 强调用户在快速浏览文档时也不应忽略的重要信息。
 
-> [!TIP]
-> 有助于用户更顺利达成目标的建议性信息。
+> [!TIP] 有助于用户更顺利达成目标的建议性信息。
 
-> [!IMPORTANT]
-> 对用户达成目标至关重要的信息。
+> [!IMPORTANT] 对用户达成目标至关重要的信息。
 
-> [!WARNING]
-> 因为可能存在风险，所以需要用户立即关注的关键内容。
+> [!WARNING] 因为可能存在风险，所以需要用户立即关注的关键内容。
 
-> [!CAUTION]
-> 行为可能带来的负面影响。
+> [!CAUTION] 行为可能带来的负面影响。
 ```
 
 **输出：**
 
-> [!NOTE]
-> 强调用户在快速浏览文档时也不应忽略的重要信息。
+> [!NOTE] 强调用户在快速浏览文档时也不应忽略的重要信息。
 
-> [!TIP]
-> 有助于用户更顺利达成目标的建议性信息。
+> [!TIP] 有助于用户更顺利达成目标的建议性信息。
 
-> [!IMPORTANT]
-> 对用户达成目标至关重要的信息。
+> [!IMPORTANT] 对用户达成目标至关重要的信息。
 
-> [!WARNING]
-> 因为可能存在风险，所以需要用户立即关注的关键内容。
+> [!WARNING] 因为可能存在风险，所以需要用户立即关注的关键内容。
 
-> [!CAUTION]
-> 行为可能带来的负面影响。
+> [!CAUTION] 行为可能带来的负面影响。
 
 ## 代码块中的语法高亮
 
-主题 使用 [Shiki](https://github.com/shikijs/shiki) 在 Markdown 代码块中使用彩色文本实现语法高亮。
-Shiki 支持多种编程语言。需要做的就是将有效的语言别名附加到代码块的开头：
+主题 使用 [Shiki](https://github.com/shikijs/shiki) 在 Markdown 代码块中使用彩色文本实现语法高亮。Shiki 支持多种编程语言。需要做的就是将有效的语言别名附加到代码块的开头：
 
 **输入：**
 
@@ -262,16 +224,14 @@ export default {
 
 ```js
 export default {
-  name: 'MyComponent',
+  name: "MyComponent",
   // ...
-}
+};
 ```
 
 ```html
 <ul>
-  <li v-for="todo in todos" :key="todo.id">
-    {{ todo.text }}
-  </li>
+  <li v-for="todo in todos" :key="todo.id">{{ todo.text }}</li>
 </ul>
 ```
 
@@ -367,10 +327,10 @@ export default {
 export default {
   data() {
     return {
-      msg: 'Highlighted!' // [!code highlight]
-    }
-  }
-}
+      msg: "Highlighted!", // [!code highlight]
+    };
+  },
+};
 ```
 
 ## 代码块中聚焦
@@ -399,10 +359,10 @@ export default {
 export default {
   data() {
     return {
-      msg: 'Focused!' // [!code focus]
-    }
-  }
-}
+      msg: "Focused!", // [!code focus]
+    };
+  },
+};
 ```
 
 ## 代码块中的颜色差异
@@ -430,11 +390,11 @@ export default {
 export default {
   data() {
     return {
-      remove: 'Removed', // [!code --]
-      add: 'Added' // [!code ++]
-    }
-  }
-}
+      remove: "Removed", // [!code --]
+      add: "Added", // [!code ++]
+    };
+  },
+};
 ```
 
 ## 高亮“错误”和“警告”
@@ -462,11 +422,11 @@ export default {
 export default {
   data() {
     return {
-      error: 'Error', // [!code error]
-      warning: 'Warning' // [!code warning]
-    }
-  }
-}
+      error: "Error", // [!code error]
+      warning: "Warning", // [!code warning]
+    };
+  },
+};
 ```
 
 ## 代码块中 词高亮
@@ -485,9 +445,10 @@ export function foo() { // [\!code word:Hello]
 **输出：**
 
 ```ts
-export function foo() { // [!code word:Hello]
-  const msg = 'Hello World'
-  console.log(msg) // prints Hello World
+export function foo() {
+  // [!code word:Hello]
+  const msg = "Hello World";
+  console.log(msg); // prints Hello World
 }
 ```
 
@@ -508,9 +469,9 @@ console.log(options.foo) // 这个不会被高亮显示
 
 ```ts
 // [!code word:options:2]
-const options = { foo: 'bar' }
-options.foo = 'baz'
-console.log(options.foo) // 这个不会被高亮显示
+const options = { foo: "bar" };
+options.foo = "baz";
+console.log(options.foo); // 这个不会被高亮显示
 ```
 
 ## 代码组
@@ -520,36 +481,37 @@ console.log(options.foo) // 这个不会被高亮显示
 **输入：**
 
 ````md
-::: code-tabs
-@tab config.js
+::: code-tabs @tab config.js
+
 ```js
 /**
  * @type {import('vuepress').UserConfig}
  */
 const config = {
   // ..
-}
+};
 
-export default config
+export default config;
 ```
 
 @tab config.ts
+
 ```ts
-import type { UserConfig } from 'vuepress'
+import type { UserConfig } from "vuepress";
 
 const config: UserConfig = {
   // ..
-}
+};
 
-export default config
+export default config;
 ```
+
 :::
 ````
 
 **输出：**
 
-::: code-tabs
-@tab config.js
+::: code-tabs @tab config.js
 
 ```js
 /**
@@ -557,21 +519,21 @@ export default config
  */
 const config = {
   // ..
-}
+};
 
-export default config
+export default config;
 ```
 
 @tab config.ts
 
 ```ts
-import type { UserConfig } from 'vuepress'
+import type { UserConfig } from "vuepress";
 
 const config: UserConfig = {
   // ..
-}
+};
 
-export default config
+export default config;
 ```
 
 :::
@@ -596,6 +558,7 @@ export default config
 
 ```md
 <!-- 仅导入第 1 行至第 10 行 -->
+
 @[code{1-10}](../snippet/snippet-1.js)
 ```
 
@@ -603,9 +566,11 @@ export default config
 
 ```md
 <!-- 指定代码语言 -->
+
 @[code js](../snippet/snippet-1.js)
 
 <!-- 行高亮 -->
+
 @[code js{2,4-5}](../foo.js)
 ```
 
@@ -613,7 +578,7 @@ export default config
 
 **输入：**
 
-````
+```
 When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are
 $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
 
@@ -624,20 +589,19 @@ $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
 | $\nabla \cdot \vec{\mathbf{B}}  = 0$                                                                                                                                      | divergence of $\vec{\mathbf{B}}$ is zero                                               |
 | $\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t}  = \vec{\mathbf{0}}$                                                          | curl of $\vec{\mathbf{E}}$ is proportional to the rate of change of $\vec{\mathbf{B}}$ |
 | $\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} = \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} = 4 \pi \rho$ | _wha?_                                                                                 |
-````
+```
 
 **输出：**
 
-When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are
-$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
+When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
 
 **Maxwell's equations:**
 
-| equation                                                                                                                                                                  | description                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| $\nabla \cdot \vec{\mathbf{B}}  = 0$                                                                                                                                      | divergence of $\vec{\mathbf{B}}$ is zero                                               |
-| $\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t}  = \vec{\mathbf{0}}$                                                          | curl of $\vec{\mathbf{E}}$ is proportional to the rate of change of $\vec{\mathbf{B}}$ |
-| $\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} = \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} = 4 \pi \rho$ | _wha?_                                                                                 |
+| equation | description |
+| --- | --- |
+| $\nabla \cdot \vec{\mathbf{B}}  = 0$ | divergence of $\vec{\mathbf{B}}$ is zero |
+| $\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t}  = \vec{\mathbf{0}}$ | curl of $\vec{\mathbf{E}}$ is proportional to the rate of change of $\vec{\mathbf{B}}$ |
+| $\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} = \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} = 4 \pi \rho$ | _wha?_ |
 
 ## 标记
 
@@ -674,33 +638,21 @@ vuepress-theme-plume 是一个 ==简洁美观== 的 主题
 
 **输入：**
 
-````md
-::: left
-左对齐的内容
-:::
+```md
+::: left左对齐的内容 :::
 
-::: center
-居中的内容
-:::
+::: center居中的内容 :::
 
-::: right
-右对齐的内容
-:::
-````
+::: right右对齐的内容 :::
+```
 
 **输出：**
 
-::: left
-左对齐的内容
-:::
+::: left左对齐的内容 :::
 
-::: center
-居中的内容
-:::
+::: center居中的内容 :::
 
-::: right
-右对齐的内容
-:::
+::: right右对齐的内容 :::
 
 ## 属性支持
 
@@ -732,11 +684,11 @@ vuepress-theme-plume 是一个 ==简洁美观== 的 主题
 
 **输入：**
 
-````md
+```md
 - [ ] 任务 1
 - [x] 任务 2
 - [ ] 任务 3
-````
+```
 
 **输出：**
 
@@ -748,11 +700,11 @@ vuepress-theme-plume 是一个 ==简洁美观== 的 主题
 
 **输入：**
 
-````md
+```md
 人生自古谁无死，留取丹心照汗青[^脚注1]。
 
 [^脚注1]: 出自 宋·文天祥 **《过零丁洋》**
-````
+```
 
 **输出：**
 

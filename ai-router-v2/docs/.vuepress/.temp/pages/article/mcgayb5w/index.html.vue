@@ -6,8 +6,7 @@
 </div><p>这允许将标题链接为 <code v-pre>#my-anchor</code>，而不是默认的 <code v-pre>#使用自定义锚点</code>。</p>
 <h2 id="链接" tabindex="-1"><a class="header-anchor" href="#链接"><span>链接</span></a></h2>
 <p>内部和外部链接都会被特殊处理。</p>
-<p>主题默认对每个 md 文件自动生成一个新的 链接，并保存在对应的 md 文件的 frontmatter 的 <code v-pre>permalink</code> 中。
-你可以随时修改它们。你也可以通过 <code v-pre>theme.autoFrontmatter</code> 选项来禁用这个功能，这时会恢复为 VuePress 的默认行为。</p>
+<p>主题默认对每个 md 文件自动生成一个新的 链接，并保存在对应的 md 文件的 frontmatter 的 <code v-pre>permalink</code> 中。你可以随时修改它们。你也可以通过 <code v-pre>theme.autoFrontmatter</code> 选项来禁用这个功能，这时会恢复为 VuePress 的默认行为。</p>
 <h3 id="内部链接" tabindex="-1"><a class="header-anchor" href="#内部链接"><span>内部链接</span></a></h3>
 <p>有三种方式来使用内部链接：</p>
 <ul>
@@ -68,147 +67,140 @@
 <p><strong>输入：</strong></p>
 <div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">[</span><span style="--shiki-light:#999999;--shiki-dark:#666666">[</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">TOC</span><span style="--shiki-light:#999999;--shiki-dark:#666666">]</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">]</span></span></code></pre>
 </div><p><strong>输出：</strong></p>
-<nav class="table-of-contents"><ul><li><router-link to="#标题锚点">标题锚点</router-link><ul><li><router-link to="#自定义锚点">自定义锚点</router-link></li></ul></li><li><router-link to="#链接">链接</router-link><ul><li><router-link to="#内部链接">内部链接</router-link></li></ul></li><li><router-link to="#github风格的表格">Github风格的表格</router-link></li><li><router-link to="#emoji">Emoji 🎉</router-link></li><li><router-link to="#目录表">目录表</router-link></li><li><router-link to="#自定义容器">自定义容器</router-link><ul><li><router-link to="#默认标题">默认标题</router-link></li><li><router-link to="#自定义标题">自定义标题</router-link></li></ul></li><li><router-link to="#github-风格的警报">GitHub 风格的警报</router-link></li><li><router-link to="#代码块中的语法高亮">代码块中的语法高亮</router-link></li><li><router-link to="#在代码块中实现行高亮">在代码块中实现行高亮</router-link></li><li><router-link to="#代码块中聚焦">代码块中聚焦</router-link></li><li><router-link to="#代码块中的颜色差异">代码块中的颜色差异</router-link></li><li><router-link to="#高亮-错误-和-警告">高亮“错误”和“警告”</router-link></li><li><router-link to="#代码块中-词高亮">代码块中 词高亮</router-link></li><li><router-link to="#代码组">代码组</router-link></li><li><router-link to="#导入代码块">导入代码块</router-link></li><li><router-link to="#数学方程">数学方程</router-link></li><li><router-link to="#标记">标记</router-link></li><li><router-link to="#上下角标">上下角标</router-link></li><li><router-link to="#自定义对齐">自定义对齐</router-link></li><li><router-link to="#属性支持">属性支持</router-link></li><li><router-link to="#任务列表">任务列表</router-link></li><li><router-link to="#脚注">脚注</router-link></li></ul></nav>
+<nav class="table-of-contents"><ul><li><router-link to="#标题锚点">标题锚点</router-link><ul><li><router-link to="#自定义锚点">自定义锚点</router-link></li></ul></li><li><router-link to="#链接">链接</router-link><ul><li><router-link to="#内部链接">内部链接</router-link></li></ul></li><li><router-link to="#github风格的表格">Github风格的表格</router-link></li><li><router-link to="#emoji">Emoji 🎉</router-link></li><li><router-link to="#目录表">目录表</router-link></li><li><router-link to="#自定义容器">自定义容器</router-link><ul><li><router-link to="#默认标题">默认标题</router-link></li></ul></li><li><router-link to="#导入代码块">导入代码块</router-link></li><li><router-link to="#数学方程">数学方程</router-link></li><li><router-link to="#标记">标记</router-link></li><li><router-link to="#上下角标">上下角标</router-link></li><li><router-link to="#自定义对齐">自定义对齐</router-link></li><li><router-link to="#属性支持">属性支持</router-link></li><li><router-link to="#任务列表">任务列表</router-link></li><li><router-link to="#脚注">脚注</router-link></li></ul></nav>
 <h2 id="自定义容器" tabindex="-1"><a class="header-anchor" href="#自定义容器"><span>自定义容器</span></a></h2>
 <p>自定义容器可以通过它们的类型、标题和内容来定义。</p>
 <h3 id="默认标题" tabindex="-1"><a class="header-anchor" href="#默认标题"><span>默认标题</span></a></h3>
 <p><strong>输入：</strong></p>
-<div class="language-md line-numbers-mode" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: note</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">This is a note box</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span>
+<div class="language-md line-numbers-mode" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: note This is a note box :::</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: info</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">This is an info box.</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span>
+<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: info This is an info box. :::</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: tip</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">This is a tip.</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span>
+<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: tip This is a tip. :::</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: warning</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">This is a warning.</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span>
+<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: warning This is a warning. :::</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: caution</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">This is a dangerous warning.</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span>
+<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: caution This is a dangerous warning. :::</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: details</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">This is a details block.</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>输出：</strong></p>
+<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: details This is a details block. :::</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>输出：</strong></p>
 <div class="hint-container note">
-<p class="hint-container-title">注</p>
-<p>This is a note box</p>
-</div>
+<p class="hint-container-title">This is a note box :::</p>
 <div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p>This is an info box.</p>
-</div>
+<p class="hint-container-title">This is an info box. :::</p>
 <div class="hint-container tip">
-<p class="hint-container-title">提示</p>
-<p>This is a tip.</p>
-</div>
+<p class="hint-container-title">This is a tip. :::</p>
 <div class="hint-container warning">
-<p class="hint-container-title">注意</p>
-<p>This is a warning.</p>
-</div>
+<p class="hint-container-title">This is a warning. :::</p>
 <div class="hint-container caution">
-<p class="hint-container-title">警告</p>
-<p>This is a dangerous warning.</p>
-</div>
-<details class="hint-container details"><summary>详情</summary>
-<p>This is a details block.</p>
-</details>
+<p class="hint-container-title">This is a dangerous warning. :::</p>
+<details class="hint-container details"><summary>This is a details block. :::</summary>
 <h3 id="自定义标题" tabindex="-1"><a class="header-anchor" href="#自定义标题"><span>自定义标题</span></a></h3>
 <p>可以通过在容器的 &quot;type&quot; 之后附加文本来设置自定义标题。</p>
 <p><strong>输入：</strong></p>
-<div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: caution STOP</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">危险区域，请勿继续</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span>
+<div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: caution STOP危险区域，请勿继续 :::</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: details 点我查看代码</span></span>
+<span class="line"></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">```</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">js</span></span>
-<span class="line"><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">console</span><span style="--shiki-light:#999999;--shiki-dark:#666666">.</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665">log</span><span style="--shiki-light:#999999;--shiki-dark:#666666">(</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Hello, VitePress!</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">```</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span></code></pre>
-</div><p><strong>输出：</strong></p>
-<div class="hint-container caution">
-<p class="hint-container-title">STOP</p>
-<p>危险区域，请勿继续</p>
-</div>
-<details class="hint-container details"><summary>点我查看代码</summary>
-<div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">console</span><span style="--shiki-light:#999999;--shiki-dark:#666666">.</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665">log</span><span style="--shiki-light:#999999;--shiki-dark:#666666">(</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Hello, VitePress!</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span></span></code></pre>
+<span class="line"><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">console</span><span style="--shiki-light:#999999;--shiki-dark:#666666">.</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665">log</span><span style="--shiki-light:#999999;--shiki-dark:#666666">(</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Hello, VitePress!</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="--shiki-light:#999999;--shiki-dark:#666666">);</span></span>
+<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">```</span></span></code></pre>
 </div></details>
-<h2 id="github-风格的警报" tabindex="-1"><a class="header-anchor" href="#github-风格的警报"><span>GitHub 风格的警报</span></a></h2>
-<p>主题 同样支持以标注的方式渲染 <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts" target="_blank" rel="noopener noreferrer">GitHub 风格的警报</a>。它们和<a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%B9%E5%99%A8">自定义容器</a>的渲染方式相同。</p>
-<p><strong>输入：</strong></p>
-<div class="language-md line-numbers-mode" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">></span><span style="--shiki-light:#999999;--shiki-dark:#666666"> [</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">!NOTE</span><span style="--shiki-light:#999999;--shiki-dark:#666666">]</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">></span><span style="--shiki-light:#2E808F;--shiki-dark:#5D99A9"> 强调用户在快速浏览文档时也不应忽略的重要信息。</span></span>
-<span class="line"></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">></span><span style="--shiki-light:#999999;--shiki-dark:#666666"> [</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">!TIP</span><span style="--shiki-light:#999999;--shiki-dark:#666666">]</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">></span><span style="--shiki-light:#2E808F;--shiki-dark:#5D99A9"> 有助于用户更顺利达成目标的建议性信息。</span></span>
-<span class="line"></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">></span><span style="--shiki-light:#999999;--shiki-dark:#666666"> [</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">!IMPORTANT</span><span style="--shiki-light:#999999;--shiki-dark:#666666">]</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">></span><span style="--shiki-light:#2E808F;--shiki-dark:#5D99A9"> 对用户达成目标至关重要的信息。</span></span>
-<span class="line"></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">></span><span style="--shiki-light:#999999;--shiki-dark:#666666"> [</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">!WARNING</span><span style="--shiki-light:#999999;--shiki-dark:#666666">]</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">></span><span style="--shiki-light:#2E808F;--shiki-dark:#5D99A9"> 因为可能存在风险，所以需要用户立即关注的关键内容。</span></span>
-<span class="line"></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">></span><span style="--shiki-light:#999999;--shiki-dark:#666666"> [</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">!CAUTION</span><span style="--shiki-light:#999999;--shiki-dark:#666666">]</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">></span><span style="--shiki-light:#2E808F;--shiki-dark:#5D99A9"> 行为可能带来的负面影响。</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>输出：</strong></p>
-<div class="hint-container note">
-<p class="hint-container-title">注</p>
-<p>强调用户在快速浏览文档时也不应忽略的重要信息。</p>
 </div>
-<div class="hint-container tip">
-<p class="hint-container-title">提示</p>
-<p>有助于用户更顺利达成目标的建议性信息。</p>
 </div>
-<div class="hint-container important">
-<p class="hint-container-title">重要</p>
-<p>对用户达成目标至关重要的信息。</p>
 </div>
-<div class="hint-container warning">
-<p class="hint-container-title">注意</p>
-<p>因为可能存在风险，所以需要用户立即关注的关键内容。</p>
 </div>
-<div class="hint-container caution">
-<p class="hint-container-title">警告</p>
-<p>行为可能带来的负面影响。</p>
 </div>
-<h2 id="代码块中的语法高亮" tabindex="-1"><a class="header-anchor" href="#代码块中的语法高亮"><span>代码块中的语法高亮</span></a></h2>
-<p>主题 使用 <a href="https://github.com/shikijs/shiki" target="_blank" rel="noopener noreferrer">Shiki</a> 在 Markdown 代码块中使用彩色文本实现语法高亮。
-Shiki 支持多种编程语言。需要做的就是将有效的语言别名附加到代码块的开头：</p>
-<p><strong>输入：</strong></p>
-<div class="language-" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span>```js</span></span>
-<span class="line"><span>export default {</span></span>
-<span class="line"><span>  name: 'MyComponent',</span></span>
-<span class="line"><span>  // ...</span></span>
-<span class="line"><span>}</span></span>
-<span class="line"><span>```</span></span></code></pre>
-</div><div class="language-" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span>```html</span></span>
-<span class="line"><span>&#x3C;ul></span></span>
-<span class="line"><span>  &#x3C;li v-for="todo in todos" :key="todo.id"></span></span>
-<span class="line"><span>    {{ todo.text }}</span></span>
-<span class="line"><span>  &#x3C;/li></span></span>
-<span class="line"><span>&#x3C;/ul></span></span>
-<span class="line"><span>```</span></span></code></pre>
-</div><p><strong>输出：</strong></p>
-<div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
+<div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span></span></span>
+<span class="line"><span>**输出：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>::: caution STOP危险区域，请勿继续 :::</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>::: details 点我查看代码</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```js</span></span>
+<span class="line"><span>console.log("Hello, VitePress!");</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>:::</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## GitHub 风格的警报</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>主题 同样支持以标注的方式渲染 [GitHub 风格的警报](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts)。它们和[自定义容器](#自定义容器)的渲染方式相同。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输入：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```md</span></span>
+<span class="line"><span>> [!NOTE] 强调用户在快速浏览文档时也不应忽略的重要信息。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>> [!TIP] 有助于用户更顺利达成目标的建议性信息。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>> [!IMPORTANT] 对用户达成目标至关重要的信息。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>> [!WARNING] 因为可能存在风险，所以需要用户立即关注的关键内容。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>> [!CAUTION] 行为可能带来的负面影响。</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输出：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>> [!NOTE] 强调用户在快速浏览文档时也不应忽略的重要信息。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>> [!TIP] 有助于用户更顺利达成目标的建议性信息。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>> [!IMPORTANT] 对用户达成目标至关重要的信息。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>> [!WARNING] 因为可能存在风险，所以需要用户立即关注的关键内容。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>> [!CAUTION] 行为可能带来的负面影响。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 代码块中的语法高亮</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>主题 使用 [Shiki](https://github.com/shikijs/shiki) 在 Markdown 代码块中使用彩色文本实现语法高亮。Shiki 支持多种编程语言。需要做的就是将有效的语言别名附加到代码块的开头：</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输入：**</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
 <span class="line"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">  name</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">MyComponent</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666">,</span></span>
 <span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">  // ...</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span></code></pre>
+</div><div class="language-" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span></span></span></code></pre>
 </div><div class="language-html" data-highlighter="shiki" data-ext="html" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">&#x3C;</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">ul</span><span style="--shiki-light:#999999;--shiki-dark:#666666">></span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">  &#x3C;</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">li</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> v-for</span><span style="--shiki-light:#999999;--shiki-dark:#666666">=</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">todo in todos</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> :key</span><span style="--shiki-light:#999999;--shiki-dark:#666666">=</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">todo.id</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="--shiki-light:#999999;--shiki-dark:#666666">></span></span>
 <span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">    {{ todo.text }}</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">  &#x3C;/</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">li</span><span style="--shiki-light:#999999;--shiki-dark:#666666">></span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">&#x3C;/</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">ul</span><span style="--shiki-light:#999999;--shiki-dark:#666666">></span></span></code></pre>
-</div><p>在 Shiki 的代码仓库中，可以找到 <a href="https://shiki.style/languages" target="_blank" rel="noopener noreferrer">合法的编程语言列表</a>。</p>
-<h2 id="在代码块中实现行高亮" tabindex="-1"><a class="header-anchor" href="#在代码块中实现行高亮"><span>在代码块中实现行高亮</span></a></h2>
-<p><strong>输入：</strong></p>
-<div class="language-" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span>```js{4}</span></span>
+</div><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span></span></span>
+<span class="line"><span>**输出：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```js</span></span>
+<span class="line"><span>export default {</span></span>
+<span class="line"><span>  name: "MyComponent",</span></span>
+<span class="line"><span>  // ...</span></span>
+<span class="line"><span>};</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```html</span></span>
+<span class="line"><span>&#x3C;ul></span></span>
+<span class="line"><span>  &#x3C;li v-for="todo in todos" :key="todo.id">{{ todo.text }}&#x3C;/li></span></span>
+<span class="line"><span>&#x3C;/ul></span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>在 Shiki 的代码仓库中，可以找到 [合法的编程语言列表](https://shiki.style/languages)。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 在代码块中实现行高亮</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输入：**</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">  data</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> ()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">    return</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line highlighted"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Highlighted!</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
+<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">    }</span></span>
+<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">  }</span></span>
+<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span></code></pre>
+</div><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span></span></span>
+<span class="line"><span>**输出：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```js{4}</span></span>
 <span class="line"><span>export default {</span></span>
 <span class="line"><span>  data () {</span></span>
 <span class="line"><span>    return {</span></span>
@@ -216,23 +208,30 @@ Shiki 支持多种编程语言。需要做的就是将有效的语言别名附�
 <span class="line"><span>    }</span></span>
 <span class="line"><span>  }</span></span>
 <span class="line"><span>}</span></span>
-<span class="line"><span>```</span></span></code></pre>
-</div><p><strong>输出：</strong></p>
-<div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>除了单行之外，还可以指定多个单行、多行，或两者均指定：</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>- 多行：例如 `{5-8}`、`{3-10}`、`{10-17}`</span></span>
+<span class="line"><span>- 多个单行：例如 `{4,7,9}`</span></span>
+<span class="line"><span>- 多行与单行：例如 `{4,7-13,16,23-27,40}`</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输入：**</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-js line-numbers-mode" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line highlighted"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // Highlighted</span></span>
 <span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">  data</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> ()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
 <span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">    return</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line highlighted"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Highlighted!</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
+<span class="line highlighted"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> `</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Highlighted!</span></span>
+<span class="line"><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">      This line isn't highlighted,</span></span>
+<span class="line highlighted"><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">      but this and the next 2 are.</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">`</span><span style="--shiki-light:#999999;--shiki-dark:#666666">,</span></span>
+<span class="line highlighted"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      motd</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">VitePress is awesome</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666">,</span></span>
+<span class="line highlighted"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      lorem</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">ipsum</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">    }</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">  }</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span></code></pre>
-</div><p>除了单行之外，还可以指定多个单行、多行，或两者均指定：</p>
-<ul>
-<li>多行：例如 <code v-pre>{5-8}</code>、<code v-pre>{3-10}</code>、<code v-pre>{10-17}</code></li>
-<li>多个单行：例如 <code v-pre>{4,7,9}</code></li>
-<li>多行与单行：例如 <code v-pre>{4,7-13,16,23-27,40}</code></li>
-</ul>
-<p><strong>输入：</strong></p>
-<div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span>```js{1,4,6-8}</span></span>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span></span></span>
+<span class="line"><span>**输出：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```js{1,4,6-8}</span></span>
 <span class="line"><span>export default { // Highlighted</span></span>
 <span class="line"><span>  data () {</span></span>
 <span class="line"><span>    return {</span></span>
@@ -244,186 +243,215 @@ Shiki 支持多种编程语言。需要做的就是将有效的语言别名附�
 <span class="line"><span>    }</span></span>
 <span class="line"><span>  }</span></span>
 <span class="line"><span>}</span></span>
-<span class="line"><span>```</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>输出：</strong></p>
-<div class="language-js line-numbers-mode" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line highlighted"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // Highlighted</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>也可以使用 `// [!code highlight]` 注释实现行高亮。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输入：**</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
 <span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">  data</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> ()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
 <span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">    return</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line highlighted"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> `</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Highlighted!</span></span>
-<span class="line"><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">      This line isn't highlighted,</span></span>
-<span class="line highlighted"><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">      but this and the next 2 are.</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">`</span><span style="--shiki-light:#999999;--shiki-dark:#666666">,</span></span>
-<span class="line highlighted"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      motd</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">VitePress is awesome</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666">,</span></span>
-<span class="line highlighted"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      lorem</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">ipsum</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
+<span class="line"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Highlighted!</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // [!code highlight]</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">    }</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">  }</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>也可以使用 <code v-pre>// [!code highlight]</code> 注释实现行高亮。</p>
-<p><strong>输入：</strong></p>
-<div class="language-" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span>```js</span></span>
+</div><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span></span></span>
+<span class="line"><span>**输出：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```js</span></span>
 <span class="line"><span>export default {</span></span>
-<span class="line"><span>  data () {</span></span>
+<span class="line"><span>  data() {</span></span>
 <span class="line"><span>    return {</span></span>
-<span class="line"><span>      msg: 'Highlighted!' // [!code highlight]</span></span>
-<span class="line"><span>    }</span></span>
-<span class="line"><span>  }</span></span>
-<span class="line"><span>}</span></span>
-<span class="line"><span>```</span></span></code></pre>
-</div><p><strong>输出：</strong></p>
-<div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark has-highlighted vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">  data</span><span style="--shiki-light:#999999;--shiki-dark:#666666">()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line"><span>      msg: "Highlighted!", // [!code highlight]</span></span>
+<span class="line"><span>    };</span></span>
+<span class="line"><span>  },</span></span>
+<span class="line"><span>};</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 代码块中聚焦</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>在某一行上添加 `// [!code focus]` 注释将聚焦它并模糊代码的其他部分。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>此外，可以使用 `// [!code focus:&#x3C;lines>]` 定义要聚焦的行数。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输入：**</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">  data</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> ()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
 <span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">    return</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line highlighted"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Highlighted!</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
+<span class="line"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Focused!</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // [!code focus]</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">    }</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">  }</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span></code></pre>
-</div><h2 id="代码块中聚焦" tabindex="-1"><a class="header-anchor" href="#代码块中聚焦"><span>代码块中聚焦</span></a></h2>
-<p>在某一行上添加 <code v-pre>// [!code focus]</code> 注释将聚焦它并模糊代码的其他部分。</p>
-<p>此外，可以使用 <code v-pre>// [!code focus:&lt;lines&gt;]</code> 定义要聚焦的行数。</p>
-<p><strong>输入：</strong></p>
-<div class="language-" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span>```js</span></span>
+</div><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span></span></span>
+<span class="line"><span>**输出：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```js</span></span>
 <span class="line"><span>export default {</span></span>
-<span class="line"><span>  data () {</span></span>
+<span class="line"><span>  data() {</span></span>
 <span class="line"><span>    return {</span></span>
-<span class="line"><span>      msg: 'Focused!' // [!code focus]</span></span>
-<span class="line"><span>    }</span></span>
-<span class="line"><span>  }</span></span>
-<span class="line"><span>}</span></span>
-<span class="line"><span>```</span></span></code></pre>
-</div><p><strong>输出：</strong></p>
-<div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark has-focused-lines vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">  data</span><span style="--shiki-light:#999999;--shiki-dark:#666666">()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line"><span>      msg: "Focused!", // [!code focus]</span></span>
+<span class="line"><span>    };</span></span>
+<span class="line"><span>  },</span></span>
+<span class="line"><span>};</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 代码块中的颜色差异</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>在某一行添加 `// [!code --]` 或 `// [!code ++]` 注释将会为该行创建 diff，同时保留代码块的颜色。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输入：**</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">  data</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> ()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
 <span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">    return</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line has-focus"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Focused!</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
+<span class="line"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      remove</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Removed</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666">,</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // [!code --]</span></span>
+<span class="line"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      add</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Added</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // [!code ++]</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">    }</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">  }</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span></code></pre>
-</div><h2 id="代码块中的颜色差异" tabindex="-1"><a class="header-anchor" href="#代码块中的颜色差异"><span>代码块中的颜色差异</span></a></h2>
-<p>在某一行添加 <code v-pre>// [!code --]</code> 或 <code v-pre>// [!code ++]</code> 注释将会为该行创建 diff，同时保留代码块的颜色。</p>
-<p><strong>输入：</strong></p>
-<div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span>```js</span></span>
+</div><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span></span></span>
+<span class="line"><span>**输出：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```js</span></span>
 <span class="line"><span>export default {</span></span>
-<span class="line"><span>  data () {</span></span>
+<span class="line"><span>  data() {</span></span>
 <span class="line"><span>    return {</span></span>
-<span class="line"><span>      remove: 'Removed', // [!code --]</span></span>
-<span class="line"><span>      add: 'Added' // [!code ++]</span></span>
-<span class="line"><span>    }</span></span>
-<span class="line"><span>  }</span></span>
-<span class="line"><span>}</span></span>
-<span class="line"><span>```</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>输出：</strong></p>
-<div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark has-diff vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">  data</span><span style="--shiki-light:#999999;--shiki-dark:#666666">()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line"><span>      remove: "Removed", // [!code --]</span></span>
+<span class="line"><span>      add: "Added", // [!code ++]</span></span>
+<span class="line"><span>    };</span></span>
+<span class="line"><span>  },</span></span>
+<span class="line"><span>};</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 高亮“错误”和“警告”</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>在某一行添加 `// [!code warning]` 或 `// [!code error]` 注释将会为该行相应的着色。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输入：**</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">  data</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> ()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
 <span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">    return</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line diff remove"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      remove</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Removed</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666">,</span></span>
-<span class="line diff add"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      add</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Added</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
+<span class="line"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      error</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Error</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666">,</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // [!code error]</span></span>
+<span class="line"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      warning</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Warning</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // [!code warning]</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">    }</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">  }</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span></code></pre>
-</div><h2 id="高亮-错误-和-警告" tabindex="-1"><a class="header-anchor" href="#高亮-错误-和-警告"><span>高亮“错误”和“警告”</span></a></h2>
-<p>在某一行添加 <code v-pre>// [!code warning]</code> 或 <code v-pre>// [!code error]</code> 注释将会为该行相应的着色。</p>
-<p><strong>输入：</strong></p>
-<div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span>```js</span></span>
+</div><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span></span></span>
+<span class="line"><span>**输出：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```js</span></span>
 <span class="line"><span>export default {</span></span>
-<span class="line"><span>  data () {</span></span>
+<span class="line"><span>  data() {</span></span>
 <span class="line"><span>    return {</span></span>
-<span class="line"><span>      error: 'Error', // [!code error]</span></span>
-<span class="line"><span>      warning: 'Warning' // [!code warning]</span></span>
-<span class="line"><span>    }</span></span>
-<span class="line"><span>  }</span></span>
-<span class="line"><span>}</span></span>
-<span class="line"><span>```</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>输出：</strong></p>
-<div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark has-highlighted vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">  data</span><span style="--shiki-light:#999999;--shiki-dark:#666666">()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">    return</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line highlighted error"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      error</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Error</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666">,</span></span>
-<span class="line highlighted warning"><span style="--shiki-light:#998418;--shiki-dark:#B8A965">      warning</span><span style="--shiki-light:#999999;--shiki-dark:#666666">:</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Warning</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">    }</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">  }</span></span>
+<span class="line"><span>      error: "Error", // [!code error]</span></span>
+<span class="line"><span>      warning: "Warning", // [!code warning]</span></span>
+<span class="line"><span>    };</span></span>
+<span class="line"><span>  },</span></span>
+<span class="line"><span>};</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 代码块中 词高亮</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输入：**</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-ts" data-highlighter="shiki" data-ext="ts" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676"> function</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665"> foo</span><span style="--shiki-light:#999999;--shiki-dark:#666666">()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // [!code word:Hello]</span></span>
+<span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">  const </span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> =</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">Hello World</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
+<span class="line"><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">  console</span><span style="--shiki-light:#999999;--shiki-dark:#666666">.</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665">log</span><span style="--shiki-light:#999999;--shiki-dark:#666666">(</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // prints Hello World</span></span>
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span></code></pre>
-</div><h2 id="代码块中-词高亮" tabindex="-1"><a class="header-anchor" href="#代码块中-词高亮"><span>代码块中 词高亮</span></a></h2>
-<p><strong>输入：</strong></p>
-<div class="language-" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span>```ts</span></span>
-<span class="line"><span>export function foo() { // [!code word:Hello]</span></span>
-<span class="line"><span>  const msg = 'Hello World'</span></span>
-<span class="line"><span>  console.log(msg) // prints Hello World</span></span>
+</div><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span></span></span>
+<span class="line"><span>**输出：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```ts</span></span>
+<span class="line"><span>export function foo() {</span></span>
+<span class="line"><span>  const msg = "</span><span class="highlighted-word">Hello</span><span> World";</span></span>
+<span class="line"><span>  console.log(msg); // prints </span><span class="highlighted-word">Hello</span><span> World</span></span>
 <span class="line"><span>}</span></span>
-<span class="line"><span>```</span></span></code></pre>
-</div><p><strong>输出：</strong></p>
-<div class="language-ts" data-highlighter="shiki" data-ext="ts" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676"> function</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665"> foo</span><span style="--shiki-light:#999999;--shiki-dark:#666666">()</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">  const </span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> =</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D" class="highlighted-word">Hello</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> World</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
-<span class="line"><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">  console</span><span style="--shiki-light:#999999;--shiki-dark:#666666">.</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665">log</span><span style="--shiki-light:#999999;--shiki-dark:#666666">(</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">msg</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // prints </span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD" class="highlighted-word">Hello</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> World</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span></code></pre>
-</div><p>你还可以指定高亮显示的次数，例如 <code v-pre>[!code word:options:2]</code> 会高亮显示近两个 <code v-pre>options</code>。</p>
-<p><strong>输入：</strong></p>
-<div class="language-" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span>```ts</span></span>
-<span class="line"><span>// [!code word:options:2]</span></span>
-<span class="line"><span>const options = { foo: 'bar' }</span></span>
-<span class="line"><span>options.foo = 'baz'</span></span>
-<span class="line"><span>console.log(options.foo) // 这个不会被高亮显示</span></span>
-<span class="line"><span>```</span></span></code></pre>
-</div><p><strong>输出：</strong></p>
-<div class="language-ts" data-highlighter="shiki" data-ext="ts" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">const </span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A" class="highlighted-word">options</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> =</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> { </span><span style="--shiki-light:#998418;--shiki-dark:#B8A965">foo</span><span style="--shiki-light:#999999;--shiki-dark:#666666">: </span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">bar</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> }</span></span>
-<span class="line"><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A" class="highlighted-word">options</span><span style="--shiki-light:#999999;--shiki-dark:#666666">.</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">foo</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> =</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">baz</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>你还可以指定高亮显示的次数，例如 `[!code word:options:2]` 会高亮显示近两个 `options`。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输入：**</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-ts" data-highlighter="shiki" data-ext="ts" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">// [!code word:options:2]</span></span>
+<span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">const </span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">options</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> =</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> { </span><span style="--shiki-light:#998418;--shiki-dark:#B8A965">foo</span><span style="--shiki-light:#999999;--shiki-dark:#666666">: </span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">bar</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> }</span></span>
+<span class="line"><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">options</span><span style="--shiki-light:#999999;--shiki-dark:#666666">.</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">foo</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> =</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">baz</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
 <span class="line"><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">console</span><span style="--shiki-light:#999999;--shiki-dark:#666666">.</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665">log</span><span style="--shiki-light:#999999;--shiki-dark:#666666">(</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">options</span><span style="--shiki-light:#999999;--shiki-dark:#666666">.</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">foo</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> // 这个不会被高亮显示</span></span></code></pre>
-</div><h2 id="代码组" tabindex="-1"><a class="header-anchor" href="#代码组"><span>代码组</span></a></h2>
-<p>可以像这样对多个代码块进行分组：</p>
-<p><strong>输入：</strong></p>
-<div class="language-md line-numbers-mode" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: code-tabs</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">@tab config.js</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">```</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">js</span></span>
-<span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">/**</span></span>
+</div><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span></span></span>
+<span class="line"><span>**输出：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```ts</span></span>
+<span class="line"><span>const </span><span class="highlighted-word">options</span><span> = { foo: "bar" };</span></span>
+<span class="line"><span class="highlighted-word">options</span><span>.foo = "baz";</span></span>
+<span class="line"><span>console.log(options.foo); // 这个不会被高亮显示</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 代码组</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>可以像这样对多个代码块进行分组：</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**输入：**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>````md</span></span>
+<span class="line"><span>::: code-tabs @tab config.js</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```js</span></span>
+<span class="line"><span>/**</span></span>
+<span class="line"><span> * @type {import('vuepress').UserConfig}</span></span>
+<span class="line"><span> */</span></span>
+<span class="line"><span>const config = {</span></span>
+<span class="line"><span>  // ..</span></span>
+<span class="line"><span>};</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>export default config;</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@tab config.ts</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>```ts</span></span>
+<span class="line"><span>import type { UserConfig } from "vuepress";</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>const config: UserConfig = {</span></span>
+<span class="line"><span>  // ..</span></span>
+<span class="line"><span>};</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>export default config;</span></span>
+<span class="line"><span>```</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>:::</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>输出：</strong></p>
+<p>::: code-tabs @tab config.js</p>
+<div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">/**</span></span>
 <span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> * </span><span style="--shiki-light:#999999;--shiki-dark:#666666">@</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">type</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span><span style="--shiki-light:#2E8F82;--shiki-dark:#5DA994">import('vuepress').UserConfig</span><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span>
 <span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> */</span></span>
 <span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">const</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> config</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> =</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
 <span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">  // ..</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span>
+<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">};</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> config</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">```</span></span>
-<span class="line"></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">@tab config.ts</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">```</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">ts</span></span>
-<span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">import</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> type</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> UserConfig</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> }</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> from</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">vuepress</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
+<span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> config</span><span style="--shiki-light:#999999;--shiki-dark:#666666">;</span></span></code></pre>
+</div><p>@tab config.ts</p>
+<div class="language-ts" data-highlighter="shiki" data-ext="ts" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">import</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> type</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> UserConfig</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> }</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> from</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">vuepress</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">"</span><span style="--shiki-light:#999999;--shiki-dark:#666666">;</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">const </span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">config</span><span style="--shiki-light:#999999;--shiki-dark:#666666">: </span><span style="--shiki-light:#2E8F82;--shiki-dark:#5DA994">UserConfig</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> =</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
 <span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">  // ..</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span>
+<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">};</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> config</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">```</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>输出：</strong></p>
-<CodeTabs id="415" :data='[{"id":"config.js"},{"id":"config.ts"}]'><template #title0="{ value, isActive }"><VPIcon name="vscode-icons:file-type-js"/><span>config.js</span></template><template #title1="{ value, isActive }"><VPIcon name="vscode-icons:file-type-typescript"/><span>config.ts</span></template><template #tab0="{ value, isActive }"><div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">/**</span></span>
-<span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> * </span><span style="--shiki-light:#999999;--shiki-dark:#666666">@</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">type</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span><span style="--shiki-light:#2E8F82;--shiki-dark:#5DA994">import('vuepress').UserConfig</span><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span>
-<span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"> */</span></span>
-<span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">const</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> config</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> =</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">  // ..</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> config</span></span></code></pre>
-</div></template><template #tab1="{ value, isActive }"><div class="language-ts" data-highlighter="shiki" data-ext="ts" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">import</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> type</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> UserConfig</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> }</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> from</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">vuepress</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span></span>
-<span class="line"></span>
-<span class="line"><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">const </span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">config</span><span style="--shiki-light:#999999;--shiki-dark:#666666">: </span><span style="--shiki-light:#2E8F82;--shiki-dark:#5DA994">UserConfig</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> =</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> {</span></span>
-<span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">  // ..</span></span>
-<span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> config</span></span></code></pre>
-</div></template></CodeTabs><p>你还可以通过 <code v-pre>@tab:active</code></p>
+<span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375"> default</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> config</span><span style="--shiki-light:#999999;--shiki-dark:#666666">;</span></span></code></pre>
+</div><p>:::</p>
+<p>你还可以通过 <code v-pre>@tab:active</code></p>
 <h2 id="导入代码块" tabindex="-1"><a class="header-anchor" href="#导入代码块"><span>导入代码块</span></a></h2>
 <p><strong>输入：</strong></p>
 <p>你可以使用下面的语法，从文件中导入代码块：</p>
 <div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">@</span><span style="--shiki-light:#999999;--shiki-dark:#666666">[</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">code</span><span style="--shiki-light:#999999;--shiki-dark:#666666">](</span><span style="--shiki-light:#393A3490;--shiki-light-text-decoration:underline;--shiki-dark:#DEDCD590;--shiki-dark-text-decoration:underline">../snippet/snippet-1.js</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span></span></code></pre>
 </div><p><strong>输出：</strong></p>
-<div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#1E754F;--shiki-dark:#4D9375">export</span><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676"> const</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> a</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> =</span><span style="--shiki-light:#2F798A;--shiki-dark:#4C9A91"> 1</span></span></code></pre>
+<div class="language-js" data-highlighter="shiki" data-ext="js" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A">File</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> not</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> found</span></span></code></pre>
 </div><p>如果你只想导入这个文件的一部分：</p>
 <div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">&#x3C;!-- 仅导入第 1 行至第 10 行 --></span></span>
+<span class="line"></span>
 <span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">@</span><span style="--shiki-light:#999999;--shiki-dark:#666666">[</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">code{1-10}</span><span style="--shiki-light:#999999;--shiki-dark:#666666">](</span><span style="--shiki-light:#393A3490;--shiki-light-text-decoration:underline;--shiki-dark:#DEDCD590;--shiki-dark-text-decoration:underline">../snippet/snippet-1.js</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span></span></code></pre>
 </div><p>代码语言会根据文件扩展名进行推断，但我们建议你显式指定：</p>
 <div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">&#x3C;!-- 指定代码语言 --></span></span>
+<span class="line"></span>
 <span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">@</span><span style="--shiki-light:#999999;--shiki-dark:#666666">[</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">code js</span><span style="--shiki-light:#999999;--shiki-dark:#666666">](</span><span style="--shiki-light:#393A3490;--shiki-light-text-decoration:underline;--shiki-dark:#DEDCD590;--shiki-dark-text-decoration:underline">../snippet/snippet-1.js</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">&#x3C;!-- 行高亮 --></span></span>
+<span class="line"></span>
 <span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">@</span><span style="--shiki-light:#999999;--shiki-dark:#666666">[</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">code js{2,4-5}</span><span style="--shiki-light:#999999;--shiki-dark:#666666">](</span><span style="--shiki-light:#393A3490;--shiki-light-text-decoration:underline;--shiki-dark:#DEDCD590;--shiki-dark-text-decoration:underline">../foo.js</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span></span></code></pre>
 </div><h2 id="数学方程" tabindex="-1"><a class="header-anchor" href="#数学方程"><span>数学方程</span></a></h2>
 <p><strong>输入：</strong></p>
@@ -438,20 +466,7 @@ Shiki 支持多种编程语言。需要做的就是将有效的语言别名附�
 <span class="line"><span>| $\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t}  = \vec{\mathbf{0}}$                                                          | curl of $\vec{\mathbf{E}}$ is proportional to the rate of change of $\vec{\mathbf{B}}$ |</span></span>
 <span class="line"><span>| $\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} = \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} = 4 \pi \rho$ | _wha?_                                                                                 |</span></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>输出：</strong></p>
-<p>When <span v-pre class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a \ne 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>, there are two solutions to <span v-pre class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(ax^2 + bx + c = 0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">b</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span> and they are</p>
-<p v-pre class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo>−</mo><mi>b</mi><mo>±</mo><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">x = {-b \pm \sqrt{b^2-4ac} \over 2a} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.2764em;vertical-align:-0.686em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5904em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mord mathnormal">a</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">±</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9134em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7401em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">4</span><span class="mord mathnormal">a</span><span class="mord mathnormal">c</span></span></span><span style="top:-2.8734em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
-c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
-c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
-c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
-s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
-c69,-144,104.5,-217.7,106.5,-221
-l0 -0
-c5.3,-9.3,12,-14,20,-14
-H400000v40H845.2724
-s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
-c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
-M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1266em;"><span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></span></p>
+<p>When <span v-pre class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a \ne 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>, there are two solutions to <span v-pre class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(ax^2 + bx + c = 0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">b</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span> and they are $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$</p>
 <p><strong>Maxwell's equations:</strong></p>
 <table>
 <thead>
@@ -562,22 +577,16 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
 </ul>
 <h2 id="自定义对齐" tabindex="-1"><a class="header-anchor" href="#自定义对齐"><span>自定义对齐</span></a></h2>
 <p><strong>输入：</strong></p>
-<div class="language-md line-numbers-mode" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: left</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">左对齐的内容</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span>
+<div class="language-md" data-highlighter="shiki" data-ext="md" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: left左对齐的内容 :::</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: center</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">居中的内容</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span>
+<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: center居中的内容 :::</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: right</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">右对齐的内容</span></span>
-<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">:::</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>输出：</strong></p>
-<div style="text-align:left"><p>左对齐的内容</p>
-</div><div style="text-align:center"><p>居中的内容</p>
-</div><div style="text-align:right"><p>右对齐的内容</p>
-</div><h2 id="属性支持" tabindex="-1"><a class="header-anchor" href="#属性支持"><span>属性支持</span></a></h2>
+<span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">::: right右对齐的内容 :::</span></span></code></pre>
+</div><p><strong>输出：</strong></p>
+<p>::: left左对齐的内容 :::</p>
+<p>::: center居中的内容 :::</p>
+<p>::: right右对齐的内容 :::</p>
+<h2 id="属性支持" tabindex="-1"><a class="header-anchor" href="#属性支持"><span>属性支持</span></a></h2>
 <p>你可以使用特殊标记为 Markdown 元素添加属性。</p>
 <p><strong>为图片添加属性：</strong></p>
 <p>这将为图片添加 一个 名为 <code v-pre>full-width</code> 的 class 属性，以及一个 <code v-pre>width</code> 属性，值为 <code v-pre>100%</code>。</p>
