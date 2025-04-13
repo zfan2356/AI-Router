@@ -1,2 +1,2 @@
 import './articleTagColors.css'
-export const articleTagColors = {"markdown":"k758","教程":"e062","预览":"j9x7","标签":"mv9k","算法":"iav6","QA":"j9x7","cpp":"pee6","python":"xlhl","paper":"fpyw","pytorch":"k758","cuda":"pee6","system":"fgbm","inference":"u634","rl":"y070","quant":"dr43","pre-train":"fpyw"}
+export const articleTagColors = {"markdown":"tyov","教程":"wuut","预览":"ts0a","标签":"8mj9","算法":"dc01","QA":"ts0a","cpp":"0k5o","paper":"rkou","cuda":"0k5o","python":"9b9m","pytorch":"tyov","system":"fc5q","inference":"je8b","pre-train":"rkou","rl":"ibvd","quant":"9ugm"}

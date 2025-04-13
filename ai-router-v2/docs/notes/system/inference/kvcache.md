@@ -119,7 +119,7 @@ $$
 上文讲到一次前向传递中，对于每个token，每个模型参数，进行2次浮点数计算。使用激活重计算技术来减少中间激活显存（下文会详细介绍）需要进行一次额外的前向传递，因此前向传递 + 后向传递 + 激活重计算的系数 $=1+2+1=4$。使用激活重计算的一次训练迭代中，对于每个token，每个模型参数，需要进行8次浮点数运算。在给定训练tokens数、硬件环境配置的情况下，训练transformer模型的计算时间为：
 
 $$
-训练时间 = \frac{8 \times \text{tokens数} \times \text{模型参数量}}{\text{GPU数} \times \text{GPU峰值flops} \times \text{GPU利用率}}
+\text{训练时间} = \frac{8 \times \text{tokens数} \times \text{模型参数量}}{\text{GPU数} \times \text{GPU峰值flops} \times \text{GPU利用率}}
 $$
 
 ### 3. 中间激活值分析
