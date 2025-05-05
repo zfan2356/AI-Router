@@ -7,6 +7,10 @@ tags:
   - cuda
 ---
 
+优先度NO.1 [一篇超级赞的博客](https://zhuanlan.zhihu.com/p/15027115038)
+
+非常厉害, 本身博客包含了一些其他作者的博客, 通篇读下来, 可以对gemm有一个超级深刻的印象, 可以使用hopper写出一个超过cublas的gemm kernel
+
 ## Cutlass: Fast GEMM with WGMMA
 
 [part1](https://research.colfax-intl.com/cutlass-tutorial-wgmma-hopper/)
@@ -14,6 +18,8 @@ tags:
 [part2](https://research.colfax-intl.com/cutlass-tutorial-design-of-a-gemm-kernel/)
 
 [part3](https://research.colfax-intl.com/cutlass-tutorial-persistent-kernels-and-stream-k/)
+
+[tma](https://research.colfax-intl.com/tutorial-hopper-tma/)
 
 ## GEMM
 

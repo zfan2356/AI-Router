@@ -7,11 +7,9 @@ tags:
   - 算法
 ---
 
-## 一. Basic MoE
+## Basic MoE
 
-较为简单，input流向所有的expert，所有的expert给出自己的答案，然后通过gateway决定每个expert的权重，之后加权求和之后得到输出
-
-![示例图片](./picture/image19.png)
+MoE的核心思想是, 将MLP层变化为多个Expert, 每个Expert都是一个MLP, 然后我们对输入的token进行转发, 使用某个可以更好地解决这个token问题的Expert来处理该token, 这就是最朴素的MoE
 
 ```python
 import torch
@@ -70,3 +68,23 @@ if __name__ == "__main__":
     print(out.shape) # x shape is (2, 10, 128)
 
 ```
+
+当然, 现代的MoE会设置Shared Expert, 所有token首先都会流经Shared Experts, 然后再寻找最适合的Local Experts, 最后汇集在一起, 可以看出这个结构很适合parallel并行, 这就是EP并行策略(Expert Parallel), 核心思想就是将所有的Experts划分为若干Local Expert, 然后将token进行Dispatch.
+
+综上所述, MoE架构按照顺序的话, 有如下核心结构:
+
+- Shared Experts and Router
+
+- Dispatch
+
+- Local Experts Permute and GroupGemm
+
+- Combine
+
+接下来会一一讲解
+
+## Shared Experts and Router
+
+Shared Expert结构最初应该是出现在qwen2(?)的模型结构中, 作用是对于每个结果都会经过共享的experts, 然后再按照匹配程度分配到一些专属的experts上, 也就是local experts. 最后的结果会按照加权综合考虑shared experts和local experts.
+
+Router是一个核心网络结构, 我们会根据这个结构来对tokens进行分发, 将其对应到该属于的experts中, 然后进行all2all通信. 在moe中我们一般会设定一个topk, 意味着我们一个token会对所有的experts都计算"匹配度", 然后选择最高的topk个.
