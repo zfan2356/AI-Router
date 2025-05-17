@@ -11,6 +11,7 @@ export const cuda = defineNoteConfig({
         'gemm',
         'hardware',
         'memory',
+        'env',
       ],
     },
     {
