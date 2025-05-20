@@ -55,8 +55,25 @@
 <h2 id="dualpipe" tabindex="-1"><a class="header-anchor" href="#dualpipe"><span>Dualpipe</span></a></h2>
 <p><a href="https://arxiv.org/pdf/2412.19437" target="_blank" rel="noopener noreferrer">DeepSeek V3 paper</a></p>
 <p>论文中对Dualpipe的描述是这样的： efficient pipeline parallelism. Compared with existing PP methods, DualPipe has fewer pipeline bubbles. More importantly, it overlaps the computation and communication phases across forward and backward processes, thereby addressing the challenge of heavy communication overhead introduced by cross-node expert parallelism.</p>
-<p>可以看出，Dualpipe其实是一种和DeepEP深度耦合的技术，主要解决的就是expert之间的all2all通信问题，当然其本身的overlap也很优秀，拥有更少的bubbles</p>
+<p>可以看出，Dualpipe其实是一种和DeepEP深度耦合的技术，主要解决的就是expert之间的all2all通信问题，将dispatcher和combiner这两个all2all通信算子, 和其余的computation overlap起来, 提高了效率. 当然其本身的调度也很优秀，拥有更少的bubbles</p>
 <p>题外话：Finally, we meticulously optimize the memory footprint during training, thereby enabling us to train DeepSeek-V3 without using costly Tensor Parallelism (TP). 果然TP已经是时代的眼泪了（bushi</p>
+<p>DualPipeV是带有virtual stage的dualpipe, 本文主要研究DualpipeV, 因为在当今训练中, 一般都会开启virtual stage, 以求在更少的device上有更低的bubble率.</p>
+<p><img src="@source/notes/system/pre-train/picture/image3.png" alt="图片" width="1752" height="984"></p>
+<p>以上是DualPipeV的Schedule以及和1F1B的Bubble等数据的对比, 可以看出DualPipeV主要有以下的一些关键点:</p>
+<ul>
+<li>
+<p>V形调度: 观察1F1B Interleaved调度, 可以看出来我们last rank做完stage1的forward的时候, 开启stage2的forward需要再度传给first rank, 而DualPipeV采取了V形调度, 抹去了这一次通信</p>
+</li>
+<li>
+<p>backward weight与activation的分离: 在1F1B调度中, 我们的B一般就是weight + activation的backward, 这里上文中也提到&quot;由于bwd耗时往往为fwd的两倍，所以占据两个格子&quot;, 在DualPipeV中, 我们将其拆解, 也就是相当于将计算单元拆小, 灵活地进行调度, 减少了Bubble</p>
+</li>
+<li>
+<p>forward &amp; backward overlap执行: 从图中可以看出, 稳定阶段的DualPipeV, 会进入到fwd &amp; bwd overlap阶段, 这一阶段我们会进行通信与计算的overlap, 通过控制sm数量和高效的all2all rmda实现, 来完成overlap.</p>
+</li>
+<li>
+<p>更加精细的异步与tensor内存释放: 这里大部分的操作均为异步, 我们只需要在少数同步点上同步一下通信, 获得数据. 比如在fwd和bwd的时候, 在compute之前我们需要receive一下上一个stage的tensor, 这个时候我们必须得去sync一下, 不然拿不到compute需要的input. 然后再下沉到transformer layer上, 在fwd &amp; bwd的overlap上, 我们需要精细的控制计算图, 不能让每个part之间产生计算图的依赖, 不然就会出现内存泄露的情况, 这里就是属于DeepEP的部分了.</p>
+</li>
+</ul>
 </div></template>
 
 

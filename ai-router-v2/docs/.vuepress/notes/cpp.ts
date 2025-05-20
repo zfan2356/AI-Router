@@ -12,6 +12,7 @@ export const cpp = defineNoteConfig({
         'move',
         'type_inference',
         'modern_cpp_features',
+        'tiny_cpp_projects',
       ],
     },
   ],

@@ -41,6 +41,8 @@
 <li>在bwd阶段，我们需要的是上一个阶段传来的<code v-pre>output_tensor_grad</code>, 然后根据当前阶段的<code v-pre>input_tensor</code>和<code v-pre>output_tensor</code>, 计算出<code v-pre>input_tensor_grad</code>，其中<code v-pre>output_tensor</code>已经经过伪释放，只保留了计算图信息，然后通过bwd计算出了<code v-pre>input_tensor_grad</code>, 存储在<code v-pre>input_tensor</code>中，我们需要将<code v-pre>input_tensor</code>中的<code v-pre>grad</code>取出来，send出去, 之后<code v-pre>input_tensor</code>和<code v-pre>output_tensor_grad</code>本身也就没用了，完全销毁掉。</li>
 </ol>
 <p>总结: <code v-pre>input_tensor</code>: 计算完bwd之后完全释放，<code v-pre>output_tensor</code>: 计算完梯度之后完全释放，<code v-pre>output_tensor_grad</code>: 计算完梯度之后完全释放，<code v-pre>input_tensor_grad</code>, send之后完全释放</p>
+<p>这里其实有一个点要注意一下, 有的时候我们bwd的时候, 需要input_tensor, output_tensor等的<code v-pre>data</code>信息来计算梯度, 但是这种数据的保存, 一般放到<code v-pre>torch.autograd.Function</code>的<code v-pre>ctx.save_for_backward</code>这一&quot;维度&quot;中考虑, 而在pp维度其实care的是更加上层的调度, 所以我们考虑的是grad的传递问题, 以及计算图的保存问题, 对于data来说, 其实能释放就都得释放掉, 不管是<code v-pre>input_tensor</code> 还是 <code v-pre>output_tensor</code>的<code v-pre>data</code>.</p>
+<p>但是对于<code v-pre>ctx.save_for_backward()</code>来说, 保存的tensor一般是一份引用, 所以我们input_tensor的data一般不会释放.</p>
 </div></template>
 
 

@@ -2,7 +2,7 @@
 title: Gemm
 author: zfan
 createTime: 2025/05/16
-permalink: /cuda/gemm/
+permalink: /cuda/env/
 tags:
   - cuda
 ---

@@ -4,6 +4,7 @@ author: zfan
 createTime: 2025/04/18
 tags:
   - article
+permalink: /article/p6ciasa4/
 ---
 
 - triton gemm -> group gemm -> persistent gemm kernel -> deep gemm

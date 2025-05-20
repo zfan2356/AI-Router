@@ -2,7 +2,7 @@
 title: cpp 手搓项目合集
 author: zfan
 createTime: 2025/04/11 22:07:39
-permalink: /cpp/const/
+permalink: /cpp/projects/
 tags:
   - cpp
 ---
