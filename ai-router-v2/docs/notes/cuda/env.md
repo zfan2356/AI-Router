@@ -1,5 +1,5 @@
 ---
-title: Gemm
+title: CUDA Dev Env
 author: zfan
 createTime: 2025/05/16
 permalink: /cuda/env/
