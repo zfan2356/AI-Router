@@ -5,10 +5,20 @@ export const python = defineNoteConfig({
   link: '/python/',
   sidebar: [
     {
-      text: 'Python',
+      text: 'Language',
       collapsed: false,
+      prefix: 'language',
       items: [
         'thread',
+      ],
+    },
+    {
+      text: 'PyTorch',
+      collapsed: false,
+      prefix: 'pytorch',
+      items: [
+        'basic',
+        'gradient',
       ],
     },
   ],

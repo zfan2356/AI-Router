@@ -27,12 +27,6 @@ export const zhNavbar = defineNavbarConfig([
     activeMatch: '^/cuda/',
   },
   {
-    text: 'PyTorch',
-    icon: 'material-symbols:article-outline',
-    link: '/notes/pytorch/README.md',
-    activeMatch: '^/pytorch/',
-  },
-  {
     text: 'System',
     icon: 'material-symbols:article-outline',
     link: '/notes/system/README.md',

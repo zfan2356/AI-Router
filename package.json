@@ -30,6 +30,7 @@
   "dependencies": {
     "@neilsustc/markdown-it-katex": "^1.0.0",
     "markdown-it-katex": "^2.0.3",
-    "markdown-it-texmath": "^1.0.0"
+    "markdown-it-texmath": "^1.0.0",
+    "viz.js": "^2.1.2"
   }
 }

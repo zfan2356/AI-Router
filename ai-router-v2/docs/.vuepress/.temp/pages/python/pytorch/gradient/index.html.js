@@ -1,0 +1,3 @@
+import comp from "/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/docs/.vuepress/.temp/pages/python/pytorch/gradient/index.html.vue"
+const data = JSON.parse("{\"path\":\"/python/pytorch/gradient/\",\"title\":\"PyTorch中的梯度计算\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"PyTorch中的梯度计算\",\"author\":\"zfan\",\"createTime\":\"2025/04/11 22:07:39\",\"permalink\":\"/python/pytorch/gradient/\",\"tags\":[\"pytorch\"]},\"headers\":[],\"readingTime\":{\"minutes\":4.96,\"words\":1489},\"git\":{},\"filePathRelative\":\"notes/python/pytorch/gradient.md\",\"bulletin\":false}")
+export { comp, data }

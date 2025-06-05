@@ -1,7 +1,6 @@
 import { defineNotesConfig } from 'vuepress-theme-plume'
 import { algorithm } from './algorithm'
 import { papers } from './papers'
-import { pytorch } from './pytorch'
 import { system } from './system'
 import { cpp } from './cpp'
 import { cuda } from './cuda'
@@ -15,7 +14,6 @@ export const zhNotes = defineNotesConfig({
     system,
     cuda,
     cpp,
-    pytorch,
     python,
     papers,
   ],
