@@ -13,11 +13,12 @@ tags:
 class MyRelu(torch.nn.Module):
      def __init__(self):
           super(MyRelu, self).__init__()
-     
+
      def forward(self, input: torch.Tensor):
           return F.relu(input)
 
 ```
+
 这就是一个自定义的`torch.nn.Module`, 其中的计算部分是调用的`torch.nn.functional`中自带的函数. 在`functional`中存在了很多torch预先帮我们设计好的函数, 会针对CPU或者GPU进行优化, 并且可以在计算图之中创建一个节点, 然后定义了fwd和bwd的操作.
 
 根据pytorch的自动微分机制, bwd的时候, 其实就是沿着计算图根据链式法则进行求导. `functional`中的函数可以满足我们的一部分需求, 但是有的时候我们会有其他的要求, 这使得我们需要一个可以自己定义fwd和bwd逻辑, 在`nn.Module`中充当一个计算点的工具, 这就是`torch.autograd`之中实现的功能
@@ -26,7 +27,7 @@ class MyRelu(torch.nn.Module):
 
 允许我们自定义计算图节点, 实现计算操作, 主要的用途是自定义函数, fuse一些重复启动的函数, 实现一些高效的GPU算子.
 
-对于继承了`torch.autograd.Function`的函数类, 需要自己实现fwd和bwd方法, 在`nn.Module`中调用, 视为创建一个计算图节点.(当然要保证`input.requires_grad = True`), 这里补充一些会创建节点的操作: 
+对于继承了`torch.autograd.Function`的函数类, 需要自己实现fwd和bwd方法, 在`nn.Module`中调用, 视为创建一个计算图节点.(当然要保证`input.requires_grad = True`), 这里补充一些会创建节点的操作:
 
 ```python
 # 数学运算
@@ -107,11 +108,11 @@ class _MyExp(torch.autograd.Function):
 def my_exp(input: torch.Tensor):
      return _MyExp.apply(input)
 ```
+
 这个函数可以实现一个需求, 那就是如果你有更好的exp实现方式, 你就可以将其替换掉, 这样就可以实现你自己定制的exp函数
 
-fwd没啥好说的, 其实就是简单的前向计算的过程, 对于bwd来说, 每一个节点的任务, 其实就是根据`grad_output`, 计算出`grad_input`返回出去, 作为下一个节点的`grad_output`. 事实上如果当前有`nn.Parameter`参与计算, 比如linear层的weight矩阵, 那么你还需要返回一个weight的梯度. 
+fwd没啥好说的, 其实就是简单的前向计算的过程, 对于bwd来说, 每一个节点的任务, 其实就是根据`grad_output`, 计算出`grad_input`返回出去, 作为下一个节点的`grad_output`. 事实上如果当前有`nn.Parameter`参与计算, 比如linear层的weight矩阵, 那么你还需要返回一个weight的梯度.
 
 在backward实现中, backward的return值的数量要和forward中 ctx之后的输入值的数量一致, 要一一对应, 比如在这里, backward返回的值其实就对应了forward的input.
 
-对于一个exp函数来说, 
-
+对于一个exp函数来说,

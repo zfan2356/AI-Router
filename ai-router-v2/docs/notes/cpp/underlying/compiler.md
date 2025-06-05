@@ -12,7 +12,7 @@ tags:
 首先这里有一个表格：
 
 | 分类维度 | 具体类型 | 典型代表/影响 |
-|---------|---------|--------------|
+| --- | --- | --- |
 | **硬件架构** | CPU指令集架构(ISA) | x86, ARM, MIPS, RISC-V, PowerPC |
 | **语法风格** | 汇编语法规范 | AT&T语法, Intel语法 |
 | **编译器/工具链** | 代码生成方式 | GCC, MSVC, Clang, NASM |
@@ -28,13 +28,12 @@ tags:
 
 对于每种硬件架构，都有他对应的汇编器，汇编器的作用就是将汇编语言转化为机器码，机器码就是直接在CPU上运行的代码。但是一种硬件架构可以有多种汇编器，不过至少有一点是确定的，就是如果更换平台的话，就必须要更换汇编器。
 
-| 架构类型 | 汇编器代表 | 处理指令示例 | 输出格式 |
-|---------|-----------|-------------|---------|
-| x86/x64 | NASM, MASM | mov eax, 1 | PE/ELF |
-| ARM/AArch64 | GNU as (Gas) | mov w0, #1 | ELF |
-| RISC-V | riscv64-unknown-elf-as | li a0, 1 | ELF |
-| MIPS | mips-linux-gnu-as | li $t0, 1 | ELF |
-
+| 架构类型    | 汇编器代表             | 处理指令示例 | 输出格式 |
+| ----------- | ---------------------- | ------------ | -------- |
+| x86/x64     | NASM, MASM             | mov eax, 1   | PE/ELF   |
+| ARM/AArch64 | GNU as (Gas)           | mov w0, #1   | ELF      |
+| RISC-V      | riscv64-unknown-elf-as | li a0, 1     | ELF      |
+| MIPS        | mips-linux-gnu-as      | li $t0, 1    | ELF      |
 
 ## 二. 编译流程
 
@@ -44,8 +43,8 @@ tags:
 #include <iostream>
 
 int main() {
-    std::cout << "Hello, World!" << "\n";
-    return 0;
+  std::cout << "Hello, World!" << "\n";
+  return 0;
 }
 ```
 
@@ -65,79 +64,79 @@ flowchart TD
     classDef tool fill:#e0f7ff, stroke:#0366d6, stroke-width:1px
     classDef file fill:#f0f8ff, stroke:#1b1f23, stroke-width:1px
     classDef lib fill:#f0fff0, stroke:#28a745, stroke-width:1px
-    
+
     %% ===== 源文件节点 =====
     cpp["hello.cpp<br/>(C++源代码)"]:::file
-    
+
     %% ===== 预处理阶段 =====
     subgraph PRE["预处理阶段"]
         gcc_pre["g++ -E<br/>(GCC预处理器)"]:::tool
         clang_pre["clang++ -E<br/>(Clang预处理器)"]:::tool
         pre_out["hello.ii<br/>(预处理后源码)"]:::file
-        
+
         cpp -->|GCC路径| gcc_pre
         cpp -->|Clang路径| clang_pre
         gcc_pre --> pre_out
         clang_pre --> pre_out
     end
-    
+
     %% ===== 编译阶段 =====
     subgraph COMP["编译阶段"]
         gcc_fe["g++ -S<br/>(GCC编译器前端)"]:::tool
         clang_fe["clang++ -S<br/>(Clang编译器前端)"]:::tool
-        
+
         asm_gcc["hello.s (GCC汇编)"]:::file
         asm_clang["hello.s (Clang汇编)"]:::file
         ir_out["hello.ll<br/>(LLVM IR)"]:::file
-        
+
         pre_out --> gcc_fe
         pre_out --> clang_fe
-        
+
         gcc_fe -->|生成AT&T汇编| asm_gcc
         clang_fe -->|可选路径| ir_out
         clang_fe -->|直接路径| asm_clang
-        
+
         opt["opt -O3<br/>(LLVM优化器)"]:::tool
         ir_out --> opt --> asm_clang
     end
-    
+
     %% ===== 优化阶段 =====
     subgraph OPT["优化阶段"]
         gcc_opt["g++ -O3<br/>(GCC优化器)"]:::tool
         asm_gcc --->|GCC内置优化| gcc_opt
         gcc_opt -.-> asm_gcc
     end
-    
+
     %% ===== 汇编阶段 =====
     subgraph ASM["汇编阶段"]
         gas["as<br/>(GNU汇编器)"]:::tool
         llvm_mc["llvm-mc<br/>(LLVM汇编器)"]:::tool
         obj["hello.o<br/>(目标文件)"]:::file
-        
+
         asm_gcc --> gas
         asm_clang --> llvm_mc
         gas --> obj
         llvm_mc --> obj
     end
-    
+
     %% ===== 链接阶段 =====
     subgraph LINK["链接阶段"]
         ld["ld<br/>(GNU链接器)"]:::tool
         lld["lld<br/>(LLVM链接器)"]:::tool
         exec["a.out<br/>(可执行文件)"]:::file
-        
+
         obj -->|GCC路径| ld
         obj -->|Clang路径| lld
         ld --> exec
         lld --> exec
     end
-    
+
     %% ===== 系统库和运行时 =====
     subgraph LIBS["系统库和运行时"]
         libc["libc.a/libc.so<br/>(C库)"]:::lib
         libstdc["libstdc++.a/so<br/>(C++库)"]:::lib
         crt["crt1.o/crti.o<br/>(运行时启动)"]:::lib
-        
+
         libc --> ld
         libstdc --> ld
         crt --> ld
@@ -159,48 +158,49 @@ flowchart TD
 
 - **链接阶段**: 链接的是该平台的机器码，一般没啥差别。
 
-
 ## 三. 性能分析
 
 - **预处理阶段**: 这里gcc和clang的差距主要是编译时间，内存占用以及输出大小，这里由于自身实现的差距，clang一般要优于gcc。
 
-| 指标 | GCC | Clang | 差异幅度 |
-|------|-----|-------|----------|
+| 指标     | GCC  | Clang    | 差异幅度    |
+| -------- | ---- | -------- | ----------- |
 | 编译时间 | 较慢 | 快30-50% | 🔴 显著差异 |
-| 内存占用 | 高 | 低20-30% | 🔴 显著差异 |
-| 输出大小 | 相同 | 相同 | ⚪ 无差异 |
+| 内存占用 | 高   | 低20-30% | 🔴 显著差异 |
+| 输出大小 | 相同 | 相同     | ⚪ 无差异   |
 
 - **编译阶段**：
+
   - 前端：构建AST，诊断信息质量，模板处理效率，这里clang也大概比gcc快一倍，特别是在模板解析过程中，clang比gcc优势大很多
 
   - 中间表示优化：
-  
+
 | 优化类型 | GCC 优势 | Clang 优势 | 中立领域 |
-|----------|----------|------------|----------|
+| --- | --- | --- | --- |
 | 循环优化 | 简单循环展开 | 循环向量化 | 公共子表达式消除 |
 | 内联决策 | 保守策略 (减少代码膨胀) | 激进策略 (更多内联) | 静态函数优化 |
 | 常数传播 | 基础传播 | 跨函数传播 | 本地传播 |
 | SIMD向量化 | - | AVX-512支持更好 | SSE基础优化 |
 
-  - 汇编代码生成`hello.s`: 性能因素取决于汇编指令数，指令选择质量，以及寄存器分配。在这里clang是高指令密度，依赖链优化较好，寄存器溢出5%，gcc表现各个方面较为一般。Clang 平均生成少10-15%的指令，复杂控制流中优势明显。
+- 汇编代码生成`hello.s`: 性能因素取决于汇编指令数，指令选择质量，以及寄存器分配。在这里clang是高指令密度，依赖链优化较好，寄存器溢出5%，gcc表现各个方面较为一般。Clang 平均生成少10-15%的指令，复杂控制流中优势明显。
 
 - **目标文件生成**：性能指标是文件大小，重定位信息以及调试信息, 调试信息一般是DWARF格式，clang有更加完善的格式。
 
-| 特征 | GCC | Clang | 差异原因 |
-|------|-----|-------|----------|
-| .o 文件大小 | 稍大 | 稍小 | DWARF格式差异 |
-| LTO支持 | 有限 | 完善 | LLVM模块化设计 |
-| 调试信息 | DWARF4 | DWARF5 | 标准版本不同 |
+| 特征        | GCC    | Clang  | 差异原因       |
+| ----------- | ------ | ------ | -------------- |
+| .o 文件大小 | 稍大   | 稍小   | DWARF格式差异  |
+| LTO支持     | 有限   | 完善   | LLVM模块化设计 |
+| 调试信息    | DWARF4 | DWARF5 | 标准版本不同   |
 
 - **链接阶段**：链接阶段关心的性能是链接速度，内存占用以及LTO效果。GCC 默认使用 GNU ld 或 gold，Clang 可选 lld 或 mold(超快链接器)。
- - LTO技术是一种链接时的代码优化技术，会在编译时带来一些编译期性能的开销（大概多一倍），但是可以给编译后的目标文件带来较大的提升，他会保存编译时的中间表示，例如LLVM IR，然后在链接的时候对全局的代码进行优化，例如库函数跨模块内联，无用代码全局消除，全局常量传播，全程序指针分析等等，可以达到20%+的运行时提升，体积也会减少20%-40%，
+- LTO技术是一种链接时的代码优化技术，会在编译时带来一些编译期性能的开销（大概多一倍），但是可以给编译后的目标文件带来较大的提升，他会保存编译时的中间表示，例如LLVM IR，然后在链接的时候对全局的代码进行优化，例如库函数跨模块内联，无用代码全局消除，全局常量传播，全程序指针分析等等，可以达到20%+的运行时提升，体积也会减少20%-40%，
 
- ```shell
- # GCC 启用LTO
+```shell
+# GCC 启用LTO
 g++ -flto -O3 main.cpp utils.cpp -o app_gcc
 # Clang 启用LTO
 clang++ -flto=thin -O3 main.cpp utils.cpp -o app_clang
- ```
+```
+
 - **执行阶段**: 上述的各个阶段可以看出都已经产生了若干实质性的差异，这些差异最终导致Clang和GCC机器码的不同，对于CPU来说，机器码的执行逻辑是一样的，但是Clang编译出的机器码，分支预测错误率会更低，向量化计算密度更高。
 
 总结：可以看出
@@ -227,20 +227,20 @@ clang++ -flto=thin -O3 main.cpp utils.cpp -o app_clang
 
 首先是指令集问题。指令集（ISA）是一组软件层面约定的和CPU硬件执行的接口，所以对于ISA来说首先需要硬件层面支持，其次OS内核也需要支持，最后需要告诉编译器生成支持该指令的代码或者在软件层面自己编写该ISA代码，前者比较通用，后者可以特定优化。
 
-| 层级 | 要求 | 检测方法 |
-|------|------|----------|
-| **硬件** | CPU支持该指令集 | lscpu 查看标志位 |
-| **操作系统** | 内核支持指令执行 | 运行时CPUID检测 |
-| **编译器** | 支持生成该指令代码 | 编译器版本检查 |
-| **应用程序** | 显式使用指令 | 条件编译与运行时检测 |
+| 层级         | 要求               | 检测方法             |
+| ------------ | ------------------ | -------------------- |
+| **硬件**     | CPU支持该指令集    | lscpu 查看标志位     |
+| **操作系统** | 内核支持指令执行   | 运行时CPUID检测      |
+| **编译器**   | 支持生成该指令代码 | 编译器版本检查       |
+| **应用程序** | 显式使用指令       | 条件编译与运行时检测 |
 
 这里有一些常用的ISA，比如x86-64一般都是AVX ISA，
 
-| 平台 | 基础ISA | 向量扩展 | 特殊功能扩展 |
-|------|---------|----------|--------------|
-| x86-64 | AVX2 | AVX-512 | AMX(矩阵运算) |
-| ARM v9 | A64 | SVE2(可变长向量) | SME(矩阵扩展) |
-| RISC-V | RV64GC | RVV 1.0(向量扩展) | N/A |
+| 平台   | 基础ISA | 向量扩展          | 特殊功能扩展  |
+| ------ | ------- | ----------------- | ------------- |
+| x86-64 | AVX2    | AVX-512           | AMX(矩阵运算) |
+| ARM v9 | A64     | SVE2(可变长向量)  | SME(矩阵扩展) |
+| RISC-V | RV64GC  | RVV 1.0(向量扩展) | N/A           |
 
 当然不同平台的指令集不同，具体需要根据平台来决定，linux可以使用下面的指令查看当前平台支持的ISA：
 
@@ -260,5 +260,3 @@ Flags:                                fp asimd evtstrm aes pmull sha1 sha2 crc32
 ### 2. 汇编语法初探
 
 这里打算解析一下x86-64 平台上的`hello.s`文件的汇编语言含义。
-
-

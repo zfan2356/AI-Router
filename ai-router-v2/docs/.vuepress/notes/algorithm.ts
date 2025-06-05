@@ -5,18 +5,28 @@ export const algorithm = defineNoteConfig({
   link: '/algorithm/',
   sidebar: [
     {
-      text: '算法',
-      collapsed: false,
+      text: '李沐deep learning notes',
+      collapsed: true,
+      prefix: 'limu',
       items: [
         'linear_regression',
         'softmax',
-        'multilayer_perceptron',
         'cnn',
         'modern_cnn',
         'rnn',
         'attention',
         'transformer',
+      ],
+    },
+    {
+      text: 'LLM notes',
+      collapsed: false,
+      prefix: 'llm',
+      items: [
+        'mla',
+        'mtp',
         'moe',
+        'ppo',
       ],
     },
   ],

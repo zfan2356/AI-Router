@@ -1,5 +1,5 @@
 ---
-title: tiny cpp projects 
+title: tiny cpp projects
 author: zfan
 createTime: 2025/04/11 22:07:39
 permalink: /cpp/projects/tiny_cpp_projects
