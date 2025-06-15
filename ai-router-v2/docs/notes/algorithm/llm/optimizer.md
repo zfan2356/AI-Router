@@ -1,5 +1,5 @@
 ---
-title: ZeRO
+title: Optimizer
 author: zfan
 createTime: 2025/06/09
 permalink: /algorithm/llm/optimizer/

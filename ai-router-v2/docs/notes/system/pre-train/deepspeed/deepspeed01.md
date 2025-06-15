@@ -145,6 +145,24 @@ Runner (runner.py)
 
 我看的是[deepspeed example](https://github.com/deepspeedai/DeepSpeedExamples) 里面的BERT pre-train脚本，在`training/bing_bert`之中
 
+main函数如下
+
+```python
+def main():
+    start = time.time()
+    args = construct_arguments()
+    model, optimizer = prepare_model_optimizer(args)
+    start_epoch = 0
+    if not None in [args.load_training_checkpoint, args.load_checkpoint_id]:
+        start_epoch = load_checkpoint(args, model)
+    run(args, model, optimizer, start_epoch)
+    elapsed = time.time() - start
+    logger = args.logger
+    logger.info(f"Elapsed time: {elapsed} seconds")
+```
+
+Init集中在`prepare_model_optimizer`之中，内部会调用DeepSpeed的`initialize()`函数，对全局的框架进行初始化.
+
 ### 1. distribute
 
 > deepspeed/comm/
@@ -220,3 +238,172 @@ dist.initialize_mesh_device(mesh_param, ("data_parallel", "sequence_parallel"))
 这里就是将各个worker组织成二维网格结构，第一行是dp的gpu group，第二行是sp的gpu group，这样做的好处就是不需要自己去划分不同的process group，更加便捷。不过我观察megatron并没有使用device mesh, 而是选择自己手动管理process group的形式，不知道有无什么讲究
 
 然后就是构造engine，deepspeed将pp与dp+tp分割开了，看样子deepspeed并不支持3D parallel。不过也可以理解，deepspeed适合比较小的模型，走的是ZeRO这一套，如果是真正的大模型，还是需要使用megatron
+
+另外deepspeed还提供了一个`init_inference`, 最后的结果仍然是返回一个`engin`, 返回的是`InferenceEngine`
+
+弹性训练打算在单独开一个章节记录，因为我在megatron之中并没有看到弹性训练的东西，到时候可能需要结合pytorch底层原理，讲解一下如何弹性训练。
+
+### 3. Config
+
+config是管理各种配置选项的，因为训练框架参数众多，可定制化需要做的很强很强，所以config的管理会比较长，对于这种比较考验架构设计能力的地方，我觉得写好一个config还是比较困难的。在deepspeed中，我发现了这个类，他可以解决一个比较痛苦的地方，那就是配置项的废弃迁移。deepspeed实现了一个`DeepSpeedConfigModel`, 之后的`config`类可以继承自这个类，可以使用`pydantic`比较巧妙地实现新旧字段的废弃和兼容。
+
+```python
+class DeepSpeedConfigModel(BaseModel):
+    def __init__(self, strict=False, **data):
+        if (not strict):  # This is temporary until we refactor all DS configs, allows HF to load models
+            data = {k: v for k, v in data.items() if (v != "auto" or k == "replace_method")}
+        super().__init__(**data)
+        self._deprecated_fields_check()
+
+    def _process_deprecated_field(self, dep_field):
+        # Get information about the deprecated field
+        pydantic_config = self
+        fields_set = pydantic_config.model_fields_set
+        kwargs = type(pydantic_config).model_fields[dep_field].json_schema_extra
+        new_param_fn = kwargs.get("new_param_fn", lambda x: x)
+        param_value = new_param_fn(getattr(pydantic_config, dep_field))
+        new_field = kwargs.get("new_param", "")
+        dep_msg = kwargs.get("deprecated_msg", "")
+        if dep_field in fields_set:
+            logger.warning(f"Config parameter {dep_field} is deprecated" +
+                           (f" use {new_field} instead" if new_field else "") + (f". {dep_msg}" if dep_msg else ""))
+            # Check if there is a new param and if it should be set with a value
+            if new_field and kwargs.get("set_new_param", True):
+                # Remove the deprecate field if there is a replacing field
+                try:
+                    delattr(pydantic_config, dep_field)
+                except Exception as e:
+                    logger.error(f"Tried removing deprecated '{dep_field}' from config")
+                    raise e
+
+                # Set new param value
+                new_param_nested = new_field.split(".")
+                if len(new_param_nested) > 1:
+                    # If the new param exists in a subconfig, we need to get
+                    # the fields set for that subconfig
+                    pydantic_config = reduce(getattr, new_param_nested[:-1], pydantic_config)
+                    fields_set = pydantic_config.model_fields_set
+                new_param_name = new_param_nested[-1]
+                assert (
+                    new_param_name not in fields_set
+                ), f"Cannot provide deprecated parameter '{dep_field}' and replacing parameter '{new_field}' together"
+                # A custom function for converting the old param value to new param value can be provided
+                try:
+                    setattr(pydantic_config, new_param_name, param_value)
+                except Exception as e:
+                    logger.error(f"Tried setting value for '{new_field}' with value from deprecated '{dep_field}'")
+                    raise e
+
+    def _deprecated_fields_check(self):
+        fields = type(self).model_fields
+        for field_name, field_info in fields.items():
+            if field_info.json_schema_extra and field_info.json_schema_extra.get("deprecated", False):
+                self._process_deprecated_field(field_name)
+
+    # 一些有关BaseModel的配置
+    model_config = ConfigDict(
+        validate_default=True, # 对默认值进行验证
+        validate_assignment=True, # 赋值时进行验证
+        use_enum_values=True, # 使用枚举的值而不是枚举对象
+        populate_by_name=True, # 允许通过字段名来填充数据
+        extra="forbid", # 禁止额外的字段
+        arbitrary_types_allowed=True, #允许任意类型，json之中如果有额外的字段会报错
+        protected_namespaces=(),
+    )
+
+    @field_serializer("dtype", check_fields=False)
+    def serialize_torch_dtype(dtype: torch.dtype) -> str:
+        return str(dtype)
+```
+
+使用方法如下
+
+```python
+class OptimizerConfig(BaseModel):
+    lr: float = 0.001
+
+class TrainingConfig(DeepSpeedConfigModel):
+    optimizer: OptimizerConfig
+    learning_rate: float = Field(
+        0.001,
+        deprecated=True,
+        new_param="optimizer.lr"  # 指向嵌套配置中的字段
+    )
+
+# 使用示例
+config = TrainingConfig(
+    learning_rate=0.01  # 旧字段
+)
+# 会自动将 0.01 设置到 config.optimizer.lr
+```
+
+在实现`Config`类的时候可以顺便实现一些check方法，用于确保配置的正确性。另外还需要一些序列化方法，例如在deepspeed之中，类也会继承
+
+```python
+class ScientificNotationEncoder(json.JSONEncoder):
+    """
+    This class overrides ``json.dumps`` default formatter.
+
+    This version keeps everything as normal except formats numbers bigger than 1e3 using scientific notation.
+
+    Just pass ``cls=ScientificNotationEncoder`` to ``json.dumps`` to activate it
+
+    """
+
+    def iterencode(self, o, _one_shot=False, level=0):
+        indent = self.indent if self.indent is not None else 4
+        prefix_close = " " * level * indent
+        level += 1
+        prefix = " " * level * indent
+        if isinstance(o, bool):
+            return "true" if o else "false"
+        elif isinstance(o, float) or isinstance(o, int):
+            if o > 1e3:
+                return f"{o:e}"
+            else:
+                return f"{o}"
+        elif isinstance(o, collections.abc.Mapping):
+            x = [f'\n{prefix}"{k}": {self.iterencode(v, level=level)}' for k, v in o.items()]
+            return "{" + ", ".join(x) + f"\n{prefix_close}" + "}"
+        elif isinstance(o, collections.abc.Sequence) and not isinstance(o, str):
+            return f"[{ f', '.join(map(self.iterencode, o)) }]"
+        return "\n, ".join(super().iterencode(o, _one_shot))
+
+class DeepSpeedConfigObject(object):
+    """
+    For json serialization
+    """
+
+    def repr(self):
+        return self.__dict__
+
+    def __repr__(self):
+        return json.dumps(
+            self.__dict__,
+            sort_keys=True,
+            indent=4,
+            cls=ScientificNotationEncoder,
+        )
+```
+
+但是总体来说config也是写的比较乱，不过这也是比较大的项目的痛点了，迭代过程是一个熵增的过程，变得杂乱是不可避免的。
+
+接下来回到Bert的预训练脚本中，上述的Init对应Bert之中的这一段代码
+
+```python
+ model.network, optimizer, _, _ = deepspeed.initialize(
+        args=args,
+        model=model.network,
+        model_parameters=optimizer_grouped_parameters)
+```
+
+回到main函数，里面会有load checkpoint的操作，如果我想checkpoint load weight，会使用load_checkpoint，这是deepspeed源码中`engine`的函数，虽然计划将`engine`放到下一章来讲，但是我们可以先看一下`load_checkpoint`的源码中是如何设计的。首先这里就不对checkpoint技术做过多赘述，一句话概括，其实就是将还没训练完的各种状态保存一下，之后有空再load进来继续训练的技术。
+
+因为训练过程中各种weight或者其他状态都是在显存中的，而保存是保存在磁盘之中的，所以这里就涉及到一些高效save的技术，但是这里就只介绍pytorch自带的原生保存，是`torch.save`.
+
+`torch.save`就是将tensor或者model保存到磁盘中，`torch.load`就是将tensor或者model load到显存中. 一般model保存的是state_dict, 所以这里我首先使用
+
+```python
+
+
+```
