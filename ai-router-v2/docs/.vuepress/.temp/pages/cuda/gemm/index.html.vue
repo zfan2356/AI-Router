@@ -59,5 +59,3 @@
 <p>首先我们来实现一下scheduler, 这是对应L2 cache re-order的部分, 帮助我们调度需要计算的block.</p>
 <div class="language-cpp" data-highlighter="shiki" data-ext="cpp" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"></span></code></pre>
 </div></div></template>
-
-

@@ -1,0 +1,3 @@
+import comp from "/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/docs/.vuepress/.temp/pages/cpp/projects/tiny_cpp_projects/index.html.vue"
+const data = JSON.parse("{\"path\":\"/cpp/projects/tiny_cpp_projects/\",\"title\":\"tiny cpp projects\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"tiny cpp projects\",\"author\":\"zfan\",\"createTime\":\"2025/04/11 22:07:39\",\"permalink\":\"/cpp/projects/tiny_cpp_projects/\",\"tags\":[\"cpp\"]},\"headers\":[],\"readingTime\":{\"minutes\":0.14,\"words\":41},\"git\":{\"updatedTime\":1749128571000},\"filePathRelative\":\"notes/cpp/projects/tiny_cpp_projects.md\",\"bulletin\":false}")
+export { comp, data }

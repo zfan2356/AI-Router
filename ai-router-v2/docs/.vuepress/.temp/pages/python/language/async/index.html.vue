@@ -48,5 +48,3 @@
 </ol>
 <p>具体来讲：wsgi的master进程先通过unix socket转发请求到其他wsgi worker进程，wsgi worker进程在启动的时候调了run函数，在自己的进程里植入了应用框架的代码，wsgi worker接受到unix socket的请求后会调python函数handler，这样就实现了一个web框架的高效运转</p>
 </div></template>
-
-

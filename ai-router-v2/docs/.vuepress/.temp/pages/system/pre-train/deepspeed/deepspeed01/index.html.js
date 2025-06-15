@@ -1,0 +1,3 @@
+import comp from "/Users/zhangfan/zfan2356/github/AI-Router/ai-router-v2/docs/.vuepress/.temp/pages/system/pre-train/deepspeed/deepspeed01/index.html.vue"
+const data = JSON.parse("{\"path\":\"/system/pre-train/deepspeed/deepspeed01/\",\"title\":\"DeepSpeed 源码解读01\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"DeepSpeed 源码解读01\",\"author\":\"zfan\",\"createTime\":\"2025/06/10\",\"permalink\":\"/system/pre-train/deepspeed/deepspeed01/\",\"tags\":[\"system\",\"pre-train\"]},\"headers\":[],\"readingTime\":{\"minutes\":8.52,\"words\":2557},\"git\":{},\"filePathRelative\":\"notes/system/pre-train/deepspeed/deepspeed01.md\",\"bulletin\":false}")
+export { comp, data }

@@ -49,5 +49,3 @@
 </li>
 </ol>
 </div></template>
-
-

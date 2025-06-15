@@ -623,5 +623,3 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
 </ol>
 </section>
 </div></template>
-
-

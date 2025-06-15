@@ -151,5 +151,3 @@
 <span class="line"><span style="--shiki-light:#999999;--shiki-dark:#666666">}</span></span></code></pre>
 </div><p>显然<code v-pre>f2</code>会导致悬垂引用，引来ub</p>
 </div></template>
-
-

@@ -1,5 +1,5 @@
 ---
-title: Large Model Distributed Parallelism Strategies
+title: LLM Parallel Strategy
 author: zfan
 createTime: 2025/04/11 22:07:39
 permalink: /system/pre-train/model-parallel/

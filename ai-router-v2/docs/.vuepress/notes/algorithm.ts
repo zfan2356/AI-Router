@@ -23,6 +23,7 @@ export const algorithm = defineNoteConfig({
       collapsed: false,
       prefix: 'llm',
       items: [
+        'optimizer',
         'mla',
         'mtp',
         'moe',

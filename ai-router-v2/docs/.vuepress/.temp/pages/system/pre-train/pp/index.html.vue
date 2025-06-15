@@ -44,5 +44,3 @@
 <p>这里其实有一个点要注意一下, 有的时候我们bwd的时候, 需要input_tensor, output_tensor等的<code v-pre>data</code>信息来计算梯度, 但是这种数据的保存, 一般放到<code v-pre>torch.autograd.Function</code>的<code v-pre>ctx.save_for_backward</code>这一&quot;维度&quot;中考虑, 而在pp维度其实care的是更加上层的调度, 所以我们考虑的是grad的传递问题, 以及计算图的保存问题, 对于data来说, 其实能释放就都得释放掉, 不管是<code v-pre>input_tensor</code> 还是 <code v-pre>output_tensor</code>的<code v-pre>data</code>.</p>
 <p>但是对于<code v-pre>ctx.save_for_backward()</code>来说, 保存的tensor一般是一份引用, 所以我们input_tensor的data一般不会释放.</p>
 </div></template>
-
-

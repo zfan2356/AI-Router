@@ -39,5 +39,3 @@
 <div class="language-html" data-highlighter="shiki" data-ext="html" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code><span class="line"><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">4 </span><span style="--shiki-light:#999999;--shiki-dark:#666666">&#x26;</span><span style="--shiki-light:#A65E2B;--shiki-dark:#C99076">lt</span><span style="--shiki-light:#999999;--shiki-dark:#666666">;</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE"> 5</span></span></code></pre>
 </div><p>不过需要注意的是，code 范围内，不论是行内还是块， <code v-pre>&lt;</code> 和 <code v-pre>&amp;</code> 两个符号都<em>一定</em>会被转换成 HTML 实体，这项特性让你可以很容易地用 Markdown 写 HTML code (和 HTML 相对而言， HTML 语法中，你要把所有的 <code v-pre>&lt;</code> 和 <code v-pre>&amp;</code> 都转换为 HTML 实体，才能在 HTML 文件里面写出 HTML code。)</p>
 </div></template>
-
-

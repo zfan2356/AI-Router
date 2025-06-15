@@ -41,5 +41,3 @@
 </ul>
 <p>接下来回到CUDA中的内存一致性模型，具体讲解可以看<a href="https://docs.nvidia.com/cuda/pdf/ptx_isa_8.7.pdf" target="_blank" rel="noopener noreferrer">PTX文档</a>的第八节</p>
 </div></template>
-
-

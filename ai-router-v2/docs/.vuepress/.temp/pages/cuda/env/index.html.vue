@@ -46,5 +46,3 @@
 <p><code v-pre>-lcudart</code>是cuda运行时编译选项? <code v-pre>-D__CUDACC__</code>..... 其实很多选项我这里也没有很清楚, 当做挖个坑吧</p>
 <p>上述配置在我自己的<code v-pre>CentOS</code> GPU环境机器上可以run起来, 正确地运行错误提示以及代码补全. 当然你如果有第三方库或者项目内头文件目录的依赖, 也需要在<code v-pre>.clangd</code>中加上你的-I, link起来, 当然这里只讨论补全和check, 编译是另外一回事, cuda库的编译一般是使用<code v-pre>setup.py</code></p>
 </div></template>
-
-

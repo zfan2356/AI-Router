@@ -18,11 +18,20 @@ export const system = defineNoteConfig({
     },
     {
       text: 'Pre-Train',
-      prefix: 'pre-train',
+      prefix: 'pre-train/',
       collapsed: false,
       items: [
         'model_parallel',
         'pp_communication',
+        'zero',
+        {
+          text: 'DeepSpeed',
+          prefix: 'deepspeed/',
+          collapsed: true,
+          items: [
+            'deepspeed01',
+          ],
+        },
       ],
     },
     {

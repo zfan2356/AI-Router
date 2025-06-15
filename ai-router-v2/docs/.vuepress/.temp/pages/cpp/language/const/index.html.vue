@@ -53,5 +53,3 @@
 <span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">// 输出 10</span></span>
 <span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">std</span><span style="--shiki-light:#999999;--shiki-dark:#666666">::</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">cout </span><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676">&#x3C;&#x3C;</span><span style="--shiki-light:#B07D48;--shiki-dark:#BD976A"> t2</span><span style="--shiki-light:#999999;--shiki-dark:#666666">.</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665">getValue</span><span style="--shiki-light:#999999;--shiki-dark:#666666">()</span><span style="--shiki-light:#AB5959;--shiki-dark:#CB7676"> &#x3C;&#x3C;</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> '</span><span style="--shiki-light:#A65E2B;--shiki-dark:#C99076">\n</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">'</span><span style="--shiki-light:#999999;--shiki-dark:#666666">;</span></span></code></pre>
 </div></div></template>
-
-
