@@ -1,6 +1,5 @@
 <template><div><h2 id="一-optimizer" tabindex="-1"><a class="header-anchor" href="#一-optimizer"><span>一. Optimizer</span></a></h2>
-<p>在训练的一次step之中，loss的一次反向传播，会在每个参数的grad字段累积梯度，用于更新该参数，这就是Optimizer干的事情。
-Optimizer会维护每个参数的一些状态，在反向传播结束之后，使用梯度更新该参数，然后开始下一次step</p>
+<p>在训练的一次step之中，loss的一次反向传播，会在每个参数的grad字段累积梯度，用于更新该参数，这就是Optimizer干的事情。Optimizer会维护每个参数的一些状态，在反向传播结束之后，使用梯度更新该参数，然后开始下一次step</p>
 <p>这里以Adam Optimizer为例，讲解一下该优化器的细节，之后引出ZeRO</p>
 <p>Adam优化器包含三个部分，<strong>Parameters</strong>, <strong>Momentum</strong>, <strong>Variance</strong>, Parameters就是模型的可学习权重，Momentum是记录梯度的指数加权平均值，加速收敛并减少震荡，Variance记录梯度平方的指数加权平均值，自适应调整学习率。</p>
 <p>可以看出，Adam优化器，会维护多出两倍的参数占用内存。Adam的公式如下</p>
